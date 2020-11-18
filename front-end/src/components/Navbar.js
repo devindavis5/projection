@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ProjectContacts = () => {
+const Navbar = () => {
     
     return (
         <div>
@@ -10,4 +10,4 @@ const ProjectContacts = () => {
     
 }
 
-export default ProjectContacts
+export default Navbar

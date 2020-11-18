@@ -1,13 +1,13 @@
 import React from 'react';
 
-const TeamMembers = () => {
+const InnerNavbar = () => {
     
     return (
         <div>
-            <h1>TeamMembers</h1>
+            <h1>InnerNavbar</h1>
         </div>
     )
     
 }
 
-export default TeamMembers
+export default InnerNavbar
