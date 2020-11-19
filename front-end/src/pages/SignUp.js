@@ -12,7 +12,7 @@ class SignUp extends Component {
             email: "",
             name: "",
             password: "",
-            img_url: 'F'
+            image: ''
         }
     }
 
@@ -22,31 +22,30 @@ class SignUp extends Component {
     }
 
     onSubmit = (e) => {
-    //     e.preventDefault()
-    //     fetch('http://localhost:3000/users', {
-    //         method: 'POST',
-    //         headers: {
-    //             "Content-Type":"application/json",
-    //             "Accept":"application/json"
-    //         },
-    //         body: JSON.stringify({
-    //             user: {
-    //                 name: this.state.name,
-    //                 email: this.state.email,
-    //                 password: this.state.password,
-    //                 img_url: this.state.img_url
-    //             }
-    //         })
-    //     })
-    //     .then(res => res.json())
-    //     .then(res => {
-    //         if (res.user !== undefined) {
-                const { history } = this.props
-                history.push('/login')
-    //         } else {
-    //             alert("This name or email is already associated with an account. Please sign in instead.")
-    //         }
-    //     })
+        e.preventDefault()
+        fetch('http://localhost:3000/users', {
+          method: 'POST',
+          headers: {
+            "Content-Type":"application/json",
+            "Accept":"application/json"
+          },
+          body: JSON.stringify({
+            user: {
+              name: this.state.name,
+              email: this.state.email,
+              password: this.state.password,
+              image: this.state.image
+            }
+          })
+        })
+        .then(res => res.json())
+        .then(res => {
+          if (res.user !== undefined) {
+            this.props.history.push('/login')
+          } else {
+            alert("This name or email is already associated with an account. Please sign in instead.")
+          }
+        })
     }
 
     signIn = () => {

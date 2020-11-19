@@ -1,34 +1,36 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Button } from 'react-bootstrap'
 // import Footer from '../components/Footer.js'
 
-const HomePage = () => {
+class HomePage extends Component {
 
-    const signInClick = (e) => {
+    logInClick = (e) => {
         e.preventDefault()
         const { history } = this.props
         history.push('/login')
     }
     
-    const signUpClick = (e) => {
+    signUpClick = (e) => {
         e.preventDefault()
         const { history } = this.props
         history.push('/signup')
     }
 
 
-    return (
+    render() {
+        return (
         <div className="homepage" >
             <div className="title">
             <h1>Projection</h1>
             </div>
             <div className="login-button">
-            <Button onClick={signInClick} variant="primary" >Sign In</Button>
+            <Button onClick={this.logInClick} variant="primary" >Log in</Button>
             <div className="divider"/>
-            <Button onClick={signUpClick} variant="primary" >Sign Up</Button>  
+            <Button onClick={this.signUpClick} variant="primary" >Sign Up</Button>  
             </div>
         </div>
-    )
+        )
+    }
 
 }
 

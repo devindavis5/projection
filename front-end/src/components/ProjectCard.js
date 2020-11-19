@@ -3,11 +3,11 @@ import ProjectTasks from './ProjectTasks'
 import ProjectContacts from './ProjectContacts'
 import ProjectTeamMembers from './ProjectTeamMembers'
 
-const ProjectCard = () => {
+const ProjectCard = ({project}) => {
 
     return (
         <div>
-            <h1>ProjectCard</h1>
+            <h1>{project.name}</h1>
             <ProjectTasks />
             <ProjectContacts />
             <ProjectTeamMembers />

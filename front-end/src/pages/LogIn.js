@@ -20,27 +20,27 @@ class LogIn extends Component {
     }
 
     onSubmit = (e) => {
-    //     e.preventDefault()
-
-    //     fetch('http://localhost:3000/auth', {
-    //         method: 'POST',
-    //         headers: {
-    //           'Content-Type':'application/json',
-    //           'Accepts':'application/json'
-    //         },
-    //         body: JSON.stringify({user: this.state})
-    //     })
-    //     .then(res => res.json())
-    //     .then(res => {
-    //         if (!res.message) {
-    //             const token = res.jwt;
-    //             localStorage.setItem('token', token);
+        e.preventDefault()
+        fetch('http://localhost:3000/auth', {
+            method: 'POST',
+            headers: {
+              'Content-Type':'application/json',
+              'Accepts':'application/json'
+            },
+            body: JSON.stringify({user: this.state})
+        })
+        .then(res => res.json())
+        .then(res => {
+            if (!res.message) {
+                const token = res.jwt;
+                localStorage.setItem('token', token);
                 const { history } = this.props
+                this.props.setUser(res.user)
                 history.push('/projects')
-    //         } else {
-    //             alert("Please enter a valid name and password.")
-    //         }
-    //     })  
+            } else {
+                alert("Please enter a valid name and password.")
+            }
+        })  
     }
 
     signUp = () => {
