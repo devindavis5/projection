@@ -1,0 +1,2 @@
+class TeamMemberProjectTasksController < ApplicationController
+end
