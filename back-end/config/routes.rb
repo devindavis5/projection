@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get '/user', to: 'users#show'
   resources :daily_tasks
   resources :team_members
   resources :team_member_project_tasks
