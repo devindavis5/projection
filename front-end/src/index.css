@@ -1,4 +1,4 @@
-body {
+/* body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -10,7 +10,7 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
-}
+} */
 
 .login-form {
   position: absolute;
@@ -44,35 +44,53 @@ code {
   border-radius: .5rem;
 } */
 
-.div.list-group {
+/* .div.list-group {
   border: 1px solid blue;;
-}
+} */
 
 .projects-div {
+  padding-top: 4px;
   float: left;
   padding-left: 10%;
-  width: 70%;
+  width: 60%;
+  height: 82vh;
+  overflow-y:auto;
+  float:left;
+  position:relative;
+  border-right: .05px solid #158cba
+}
+
+.projects-div.card-columns {
+  float: left;
+  padding-left: 10%;
+  width: 60%;
+  height: 100%;
+  overflow-y:auto;
+  float:left;
+  position:relative;
+  /* border-right: 1px solid #158cba */
+}
+
+.daily-tasks-div {
+  padding-top: 4px;
+  float: right;
+  padding-right: 10%;
+  width: 30%;
   height: 82vh;
   overflow-y:auto;
   float:left;
   position:relative;
 }
 
-.projects-div.card-columns {
-  width: 70%;
-  height: 20%;
-  overflow-y:auto
-}
-
-.daily-tasks-dov {
-  float: right;
-  padding-right: 10%;
-}
-
 .team-members-div {
   position: fixed;
   bottom: 0;
-  height: 130px;
+  height: 112px;
   width: 100%;
   justify-content: center;
+  border-top: .05px solid #158cba
 }
+
+/* .projects-page {
+  background-color: blue;
+} */

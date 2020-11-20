@@ -13,9 +13,9 @@ const ProjectCard = ({project}) => {
                 <Card.Title >{project.name}</Card.Title>
                     <Card.Text>
                         <ListGroup>
-                            <ListGroupItem>Tasks</ListGroupItem>
-                            <ListGroupItem>Contacts</ListGroupItem>
-                            <ListGroupItem>Team</ListGroupItem>
+                            <ListGroupItem action>Tasks</ListGroupItem>
+                            <ListGroupItem action>Contacts</ListGroupItem>
+                            <ListGroupItem action>Team</ListGroupItem>
                         </ListGroup>
                     </Card.Text>
                 </Card.Body>

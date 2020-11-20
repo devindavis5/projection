@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ProjectCard from '../components/ProjectCard.js'
-import Navbar from '../components/Navbar.js'
+import NavBar from '../components/NavBar.js'
 import DailyTasks from '../components/DailyTasks.js'
 import TeamMembers from '../components/TeamMembers.js'
 import { Button, Container, Row, Col, ListGroup, ListGroupItem, CardColumns } from 'react-bootstrap'
@@ -10,11 +10,6 @@ class LandingPage extends Component {
         projects: [],
         dailyTasks: []
     }
-
-   logout = () => {
-    localStorage.clear()
-    this.props.history.push('/')
-   }
 
     componentDidMount() {
         if (!localStorage.token) {
@@ -43,8 +38,8 @@ class LandingPage extends Component {
 
     render() {
         return (
-            <div>
-                <Navbar /> 
+            <div className='projects-page'>
+                <NavBar /> 
                 <div className='projects-div'>
                     <CardColumns>
                         {this.state.projects.map(project => {
@@ -58,7 +53,6 @@ class LandingPage extends Component {
                 </div>
                 <div className='team-members-div'>
                     <TeamMembers />
-                    <Button onClick={this.logout} variant="primary" >Logout</Button>
                 </div>    
             </div>
         )
