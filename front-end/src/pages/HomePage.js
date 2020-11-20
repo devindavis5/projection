@@ -16,6 +16,12 @@ class HomePage extends Component {
         history.push('/signup')
     }
 
+    componentDidMount() {
+        if (localStorage.token) {
+        const { history } = this.props
+        history.push('/projects')
+        }
+    }
 
     render() {
         return (

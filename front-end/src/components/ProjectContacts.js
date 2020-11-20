@@ -4,7 +4,7 @@ const ProjectContacts = () => {
     
     return (
         <div>
-            <h1>DailyTasks</h1>
+            <h1>ProjectContacts</h1>
         </div>
     )
     

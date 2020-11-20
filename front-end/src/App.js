@@ -9,37 +9,40 @@ import SignUp from './pages/SignUp'
 
 class App extends Component  {
 
-  constructor() {
-    super()
-    this.state = {
-      user: {},
-      projects: []
-    }
-  }
+  // constructor() {
+  //   super()
+  //   this.state = {
+  //     projects: [],
+  //     dailyTasks: []
+  //   }
+  // }
 
-  setUser = (user) => {
-    this.setState({user})
-
-    fetch("http://localhost:3000/projects", {
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${localStorage.token}`
-      }
-    })
-    .then(res => res.json())
-    .then(projects => this.setState({projects}))
-  }
+  // componentDidMount = () => {
+  //   if (localStorage.token) {
+  //     fetch("http://localhost:3000/user", {
+  //       method: 'GET',
+  //       headers: {
+  //         Authorization: `Bearer ${localStorage.token}`
+  //       }
+  //     })
+  //     .then(res => res.json())
+  //     .then(user => {
+  //       this.setState({projects: user.projects})
+  //       this.setState({dailyTasks: user.dailyTasks})
+  //       console.log('mounted!')
+  //     })
+  //   }
+  // }
 
   render() {
-    const projects = this.state.projects.filter(p => p.user_id === this.state.user.id ? p : null)
     return (
       <div>
         <Router>
           <Switch>
               <Route exact path='/signup' render={routeProps => <SignUp {...routeProps}/>}/>
-              <Route exact path='/login' render={routeProps => <LogIn {...routeProps} setUser={this.setUser}/>}/>
-              <Route exact path='/projects' render={routeProps => <LandingPage {...routeProps} projects={projects} user={this.state.user}/>}/>
-              <Route exact path='/projects/:id' render={routeProps => <ProjectPage {...routeProps} user={this.state.user}/>}/>
+              <Route exact path='/login' render={routeProps => <LogIn {...routeProps}/>}/>
+              <Route exact path='/projects' render={routeProps => <LandingPage {...routeProps}/>}/>
+              <Route exact path='/projects/:id' render={routeProps => <ProjectPage {...routeProps}/>}/>
               <Route path='/' render={routeProps => <HomePage {...routeProps}/>}/>
           </Switch>
         </Router>

@@ -6,8 +6,7 @@ const DailyTasks = () => {
         <div>
             <h1>DailyTasks</h1>
         </div>
-    )
-    
+    )   
 }
 
 export default DailyTasks

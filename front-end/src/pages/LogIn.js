@@ -35,8 +35,7 @@ class LogIn extends Component {
                 const token = res.jwt;
                 localStorage.setItem('token', token);
                 const { history } = this.props
-                this.props.setUser(res.user)
-                history.push('/projects')
+                history.push('/')
             } else {
                 alert("Please enter a valid name and password.")
             }
