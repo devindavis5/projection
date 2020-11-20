@@ -19,3 +19,60 @@ code {
   margin: 0 -150px;
   box-shadow: 1px 1px 3px 1px gray;
 }
+
+/* .projects {
+  height: 70vh;
+} */
+
+.tasks {
+  height: 70vh;
+}
+
+.project-card {
+  display: inline-block;
+  width: 15rem;
+  height: 15rem;
+  border: 0 none;
+  
+  /* -webkit-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.5);
+  -moz-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.5);
+  box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.5); */
+}
+
+/* .project-card.card {
+  border-color: blue;
+  border-radius: .5rem;
+} */
+
+.div.list-group {
+  border: 1px solid blue;;
+}
+
+.projects-div {
+  float: left;
+  padding-left: 10%;
+  width: 70%;
+  height: 82vh;
+  overflow-y:auto;
+  float:left;
+  position:relative;
+}
+
+.projects-div.card-columns {
+  width: 70%;
+  height: 20%;
+  overflow-y:auto
+}
+
+.daily-tasks-dov {
+  float: right;
+  padding-right: 10%;
+}
+
+.team-members-div {
+  position: fixed;
+  bottom: 0;
+  height: 130px;
+  width: 100%;
+  justify-content: center;
+}

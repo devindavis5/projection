@@ -1,11 +1,10 @@
 import React from 'react';
+import { ListGroupItem } from 'react-bootstrap';
 
 const ProjectContacts = () => {
     
     return (
-        <div>
-            <h1>ProjectContacts</h1>
-        </div>
+        <ListGroupItem>ProjectContacts</ListGroupItem>
     )
     
 }

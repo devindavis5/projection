@@ -1,11 +1,10 @@
 import React from 'react';
+import { Card, ListGroupItem } from 'react-bootstrap';
 
 const ProjectTasks = () => {
     
     return (
-        <div>
-            <h1>ProjectTasks</h1>
-        </div>
+        <Card.Text><ListGroupItem action >ProjectTasks</ListGroupItem></Card.Text>
     )
     
 }
