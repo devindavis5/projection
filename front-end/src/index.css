@@ -63,7 +63,7 @@ code {
   float: left;
   padding-left: 3%;
   width: 60%;
-  height: 85vh;
+  height: 86vh;
   overflow-y:auto;
   float:left;
   position:relative;
@@ -104,7 +104,7 @@ code {
 .team-members-div {
   position: fixed;
   bottom: 0;
-  height: 90px;
+  height: 9vh;
   width: 100%;
   display: flex;
   justify-content: center;
