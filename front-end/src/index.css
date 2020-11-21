@@ -32,37 +32,47 @@ code {
   display: inline-block;
   width: 15rem;
   height: 15rem;
-  border: 0 none;
+  
+  /* border: 0 none; */
   
   /* -webkit-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.5);
   -moz-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.5);
   box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.5); */
 }
 
-/* .project-card.card {
-  border-color: blue;
-  border-radius: .5rem;
-} */
+.project-card.card {
+  border-color: rgba(21, 140, 186, 1);
+}
 
-/* .div.list-group {
-  border: 1px solid blue;;
-} */
+.project-card .card-header {
+  background-color: rgba(21, 140, 186, 1); 
+  border-color: transparent;
+}
+
+.project-card .card-body {
+  background-color: rgb(240, 240, 240); 
+}
+
+
+.project-card .list-group-item {
+  background-color: white; 
+}
 
 .projects-div {
   padding-top: 4px;
   float: left;
-  padding-left: 10%;
+  padding-left: 3%;
   width: 60%;
-  height: 82vh;
+  height: 85vh;
   overflow-y:auto;
   float:left;
   position:relative;
-  border-right: .05px solid #158cba
+  border-right: .05px solid rgba(21, 140, 186, .4);
 }
 
 .projects-div.card-columns {
   float: left;
-  padding-left: 10%;
+  padding-left: 3%;
   width: 60%;
   height: 100%;
   overflow-y:auto;
@@ -74,21 +84,41 @@ code {
 .daily-tasks-div {
   padding-top: 4px;
   float: right;
-  padding-right: 10%;
-  width: 30%;
-  height: 82vh;
+  /* padding-right: 3%; */
+  width: 40%;
+  height: 85vh;
   overflow-y:auto;
   float:left;
-  position:relative;
+  position: relative;
+  display: flex;
+  justify-content: center;
+}
+
+.daily-tasks-div .card {
+  height: 55vh;
+  width: 65%;
+  overflow-y: auto;
+  position: relative;
 }
 
 .team-members-div {
   position: fixed;
   bottom: 0;
-  height: 112px;
+  height: 90px;
   width: 100%;
+  display: flex;
   justify-content: center;
-  border-top: .05px solid #158cba
+  border-top: 3px solid rgba(21, 140, 186, 1);
+  /* background-color: rgba(21, 140, 186, 1); */
+  background-color: white;
+  
+}
+
+.avatars {
+  position: relative;
+  /* top: 1%; */
+  /* left: 40%; */
+  /* margin: 0 -150px; */
 }
 
 /* .projects-page {

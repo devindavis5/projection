@@ -8,16 +8,14 @@ const ProjectCard = ({project}) => {
 
     return (
         <div className='project-card'>
-            <Card className='text-center'>
+            <Card className='text-center' border="primary" text="white">
+                <Card.Header>{project.name}</Card.Header>
                 <Card.Body>
-                <Card.Title >{project.name}</Card.Title>
-                    <Card.Text>
-                        <ListGroup>
-                            <ListGroupItem action>Tasks</ListGroupItem>
-                            <ListGroupItem action>Contacts</ListGroupItem>
-                            <ListGroupItem action>Team</ListGroupItem>
+                        <ListGroup >
+                            <ListGroupItem action variant="info">Tasks</ListGroupItem>
+                            <ListGroupItem action variant="info">Contacts</ListGroupItem>
+                            <ListGroupItem action variant="info">Team</ListGroupItem>
                         </ListGroup>
-                    </Card.Text>
                 </Card.Body>
             </Card>
         </div>

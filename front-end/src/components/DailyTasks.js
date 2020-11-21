@@ -1,11 +1,10 @@
 import React from 'react';
+import { ListGroupItem } from 'react-bootstrap';
 
-const DailyTasks = () => {
+const DailyTasks = ({task}) => {
     
     return (
-        <div>
-            <h1>DailyTasks</h1>
-        </div>
+        <ListGroupItem>{task.description}</ListGroupItem>
     )   
 }
 

@@ -3,12 +3,13 @@ import ProjectCard from '../components/ProjectCard.js'
 import NavBar from '../components/NavBar.js'
 import DailyTasks from '../components/DailyTasks.js'
 import TeamMembers from '../components/TeamMembers.js'
-import { Button, Container, Row, Col, ListGroup, ListGroupItem, CardColumns } from 'react-bootstrap'
+import { Button, Container, Row, Col, ListGroup, ListGroupItem, CardColumns, Card } from 'react-bootstrap'
 
 class LandingPage extends Component {
     state = {
         projects: [],
-        dailyTasks: []
+        dailyTasks: [],
+        teamMembers: [],
     }
 
     componentDidMount() {
@@ -29,7 +30,8 @@ class LandingPage extends Component {
                     this.props.history.push('/login')
                 } else {
                     this.setState({projects: user.projects})
-                    this.setState({dailyTasks: user.dailyTasks})
+                    this.setState({dailyTasks: user.daily_tasks})
+                    this.setState({teamMembers: user.team_members})
                 }
             })    
         }
@@ -49,10 +51,23 @@ class LandingPage extends Component {
                     </CardColumns>
                 </div>
                 <div className='daily-tasks-div'>
-                    <DailyTasks /> 
+                    <Card >
+                        <Card.Header className='text-center'>Today's Tasks</Card.Header>
+                        <ListGroup variant="flush">
+                        {this.state.dailyTasks.map(t => {
+                            return (
+                            <DailyTasks task={t} key={t.id}/>) 
+                        })}
+                        </ListGroup>
+                    </Card>
                 </div>
                 <div className='team-members-div'>
-                    <TeamMembers />
+                    <Row>
+                    {this.state.teamMembers.map(tm => {
+                        return (
+                        <TeamMembers teamMember={tm} key={tm.id}/>) 
+                    })}
+                    </Row>
                 </div>    
             </div>
         )
