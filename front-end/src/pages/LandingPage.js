@@ -3,7 +3,7 @@ import ProjectCard from '../components/ProjectCard.js'
 import NavBar from '../components/NavBar.js'
 import DailyTasks from '../components/DailyTasks.js'
 import TeamMembers from '../components/TeamMembers.js'
-import { Button, Container, Row, Col, ListGroup, ListGroupItem, CardColumns, Card } from 'react-bootstrap'
+import { Button, Container, Row, Col, ListGroup, ListGroupItem, CardColumns, Card, CardGroup } from 'react-bootstrap'
 
 class LandingPage extends Component {
     state = {
@@ -43,12 +43,21 @@ class LandingPage extends Component {
             <div className='projects-page'>
                 <NavBar /> 
                 <div className='projects-div'>
-                    <CardColumns>
+                    <Container>
+                    <CardGroup>
+                        <Col className="container-fluid mt-4">
                         {this.state.projects.map(project => {
                         return (
-                        <ProjectCard project={project} key={project.id}/>) 
+                        <ProjectCard project={project} key={project.id}/>)
                         })}
-                    </CardColumns>
+                        {/* {this.state.projects.length > 0 ? 
+                        <ProjectCard project={this.state.projects[0]} key={this.state.projects[0].id} />
+                        :
+                        null
+                        } */}
+                        </Col>
+                    </CardGroup>
+                    </Container>
                 </div>
                 <div className='daily-tasks-div'>
                     <Card >
