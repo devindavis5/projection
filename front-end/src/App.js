@@ -9,17 +9,17 @@ import SignUp from './pages/SignUp'
 
 class App extends Component  {
 
-  constructor() {
-    super()
-    this.state = {
-      projectId: 0
-    }
-  }
+  // constructor() {
+  //   super()
+  //   this.state = {
+  //     projectId: 0
+  //   }
+  // }
 
-  setProject = (projectId) => {
-    this.setState({projectId})
-    history.push(`/projects/${projectId}`)
-  }
+  // setProject = (projectId) => {
+  //   this.setState({projectId})
+  //   history.push(`/projects/${projectId}`)
+  // }
 
   // componentDidMount = () => {
   //   if (localStorage.token) {

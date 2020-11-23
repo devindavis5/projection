@@ -64,7 +64,8 @@ code {
   padding-left: 3%;
   width: 60%;
   height: 86vh;
-  overflow-y:auto;
+  overflow-x: hidden;
+  overflow-y: auto;
   float:left;
   position:relative;
   border-right: .05px solid rgba(21, 140, 186, .4);
