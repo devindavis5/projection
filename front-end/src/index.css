@@ -6,7 +6,6 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -28,23 +27,26 @@ code {
   height: 70vh;
 }
 
-/* .project-card {
-  display: inline-block;
-  width: 15rem;
-  height: 15rem;
-} */
+/* .project-card { */
+  /* display: inline-block; */
+  /* width: 22rem;
+  height: 22rem; */
+  
   /* border: 0 none; */
+  
   /* -webkit-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.5);
   -moz-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.5);
   box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.5); */
+/* } */
+
 .project-card.card {
   border-color: rgba(21, 140, 186, 1);
-
 }
 
 .project-card .card-header {
   background-color: rgba(21, 140, 186, 1); 
-  border-color: transparent;
+  /* border-color: transparent; */
+
 }
 
 .project-card .card-body {
@@ -57,7 +59,7 @@ code {
 }
 
 .projects-div {
-  padding-top: 4px;
+  padding-top: 24px;
   float: left;
   padding-left: 3%;
   width: 60%;
@@ -67,7 +69,7 @@ code {
   position:relative;
   border-right: .05px solid rgba(21, 140, 186, .4);
 }
-
+/* 
 .projects-div.card-columns {
   float: left;
   padding-left: 3%;
@@ -76,10 +78,10 @@ code {
   overflow-y:auto;
   float:left;
   position:relative;
-}
+} */
 
 .daily-tasks-div {
-  padding-top: 4px;
+  padding-top: 24px;
   float: right;
   /* padding-right: 3%; */
   width: 40%;
