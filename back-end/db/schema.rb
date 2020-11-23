@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 2020_11_19_152146) do
 
   create_table "daily_tasks", force: :cascade do |t|
     t.string "description"
-    t.string "deadline"
+    t.date "deadline"
     t.string "status"
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 2020_11_19_152146) do
   create_table "project_tasks", force: :cascade do |t|
     t.string "name"
     t.string "importance"
-    t.string "deadline"
+    t.date "deadline"
     t.string "description"
     t.string "status"
     t.integer "project_id"
@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 2020_11_19_152146) do
 
   create_table "projects", force: :cascade do |t|
     t.string "name"
-    t.string "deadline"
+    t.date "deadline"
     t.string "notes"
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false

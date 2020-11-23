@@ -4,7 +4,7 @@ import { Card, ListGroupItem, Table } from 'react-bootstrap';
 const ProjectTask = ({task}) => {
     
     return (
-   
+        
         <tr>
         <td><strong>{task.deadline}</strong></td>
         <td>{task.description}</td>

@@ -5,8 +5,22 @@ import ProjectTeamMember from './ProjectTeamMember'
 import { Card, ListGroup, ListGroupItem, Col, Row, Modal, Table } from 'react-bootstrap'
 
 const ProjectCard = ({project}) => {
-    const [tasksShow, setTasksShow] = useState(false);
-    console.log(project)
+    const [tasksShow, setTasksShow] = useState(false)
+
+    const sort = project.project_tasks.sort(function(a,b){
+        let c = new Date(a.deadline)
+        let d = new Date(b.deadline)
+        return c-d
+    })
+
+    const tasks = sort.map(t => {
+        let d = new Date (t.deadline)
+        t.deadline = (d.getMonth() + 1) + '/' + d.getDate() + '/' +  d.getFullYear()
+        return t
+    })
+    
+    console.log(tasks)
+
     return (
        
         <div className="project-card">
@@ -40,7 +54,7 @@ const ProjectCard = ({project}) => {
         </Modal.Header>
         <Modal.Body>
           <Table responsive>
-              {project.project_tasks.map(pt => {
+              {tasks.map(pt => {
                             return (
                             <ProjectTask task={pt} key={pt.id}/>) 
                         })}
