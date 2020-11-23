@@ -9,13 +9,17 @@ import SignUp from './pages/SignUp'
 
 class App extends Component  {
 
-  // constructor() {
-  //   super()
-  //   this.state = {
-  //     projects: [],
-  //     dailyTasks: []
-  //   }
-  // }
+  constructor() {
+    super()
+    this.state = {
+      projectId: 0
+    }
+  }
+
+  setProject = (projectId) => {
+    this.setState({projectId})
+    history.push(`/projects/${projectId}`)
+  }
 
   // componentDidMount = () => {
   //   if (localStorage.token) {
@@ -42,7 +46,7 @@ class App extends Component  {
               <Route exact path='/signup' render={routeProps => <SignUp {...routeProps}/>}/>
               <Route exact path='/login' render={routeProps => <LogIn {...routeProps}/>}/>
               <Route exact path='/projects' render={routeProps => <LandingPage {...routeProps}/>}/>
-              <Route exact path='/projects/:id' render={routeProps => <ProjectPage {...routeProps}/>}/>
+              <Route exact path='/projects/:id' render={routeProps => <ProjectPage {...routeProps} projectId={this.state.projectId} />}/>
               <Route path='/' render={routeProps => <HomePage {...routeProps}/>}/>
           </Switch>
         </Router>
