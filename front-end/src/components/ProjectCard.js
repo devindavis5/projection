@@ -36,6 +36,7 @@ const ProjectCard = ({project}) => {
     // const filteredArray = teamMembers.filter(function(item, pos){
     //     return teamMembers.indexOf(item)== pos; 
     // });
+    
     let team = teamMembers.unique()
     console.log(team)
     return (
@@ -113,7 +114,7 @@ const ProjectCard = ({project}) => {
                 <Modal.Body> 
                     <Row>
                         <Col xs={11} >{project.notes}</Col>
-                        <Col className="text-right">Edit</Col>
+                        <Col className="text-right align-self-center"><button type="button" class="btn btn-primary">✎</button></Col>
                     </Row>
                 </Modal.Body>
             </Modal>
@@ -126,7 +127,7 @@ const ProjectCard = ({project}) => {
                 >
                 <Modal.Header closeButton>
                 <Modal.Title id="example-custom-modal-styling-title">
-                    {project.name} Tasks
+                    {project.name} Tasks 
                 </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>

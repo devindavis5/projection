@@ -10,7 +10,7 @@ const ProjectContact = ({contact}) => {
         <td class="align-middle">{contact.email}</td>
         <td class="align-middle" id="phone" >{contact.phone}</td>
         <td class="align-middle">{contact.notes}</td>
-        <td class="align-middle"size="sm" style={{ textAlign:"right" }}>EditDel</td>
+        <td class="align-middle"size="sm" style={{ textAlign:"right" }}><button type="button" class="btn btn-primary">X</button></td>
         </tr>
         </>
     )
