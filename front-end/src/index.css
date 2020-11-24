@@ -64,7 +64,8 @@ code {
   padding-left: 3%;
   width: 60%;
   height: 86vh;
-  overflow-y:auto;
+  overflow-x: hidden;
+  overflow-y: auto;
   float:left;
   position:relative;
   border-right: .05px solid rgba(21, 140, 186, .4);
@@ -123,3 +124,29 @@ code {
 /* .projects-page {
   background-color: blue;
 } */
+
+#phone {
+  white-space: nowrap;
+}
+
+#contact {
+  white-space: nowrap;
+}
+
+#create-ptask {
+  position: absolute;
+  right: 4%;
+  top: 3%;
+}
+
+#create-contact {
+  position: absolute;
+  right: 4%;
+  top: 6%;
+}
+
+#edit-note {
+  position: absolute;
+  right: 4%;
+  top: 15%;
+}

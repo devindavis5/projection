@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    skip_before_action :authorized, only: [:create, :show, :index]
+    skip_before_action :authorized, only: [:create, :index, :show]
 
     def index
         users = User.all
@@ -7,14 +7,15 @@ class UsersController < ApplicationController
     end
     
     def show
+        # user = User.find(params[:id])
         user = current_user
         render json: user, only: [:name, :email, :password, :image], :include => [
           projects: { only: [:name, :deadline, :notes, :user_id], :include => [
-            project_tasks: { only: [:name, :importance, :deadline, :description, :status], include: { team_members: { only: [:name, :image]} } },
+            project_tasks: { only: [:name, :importance, :deadline, :description, :status], include: { team_members: { only: [:id, :name, :image]} } },
             contacts: { only: [:name, :email, :phone, :notes] } 
           ]},
           daily_tasks: { only: [:description, :deadline, :status] },
-          team_members: { only: [:name, :image] }
+          team_members: { only: [:id, :name, :image] }
         ]
     end
 
