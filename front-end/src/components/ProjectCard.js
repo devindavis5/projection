@@ -5,6 +5,8 @@ import ProjectTeamMember from './ProjectTeamMember'
 import { Card, ListGroup, ListGroupItem, Col, Row, Modal, Table, Container } from 'react-bootstrap'
 import moment from 'react-moment';
 import 'moment-timezone';
+import New from '../assets/new1.png'
+import New2 from '../assets/new2.png'
 
 Array.prototype.unique = function() {
     return this.filter(function (value, index, self) { 
@@ -49,7 +51,7 @@ const ProjectCard = ({project}) => {
                         <ListGroup >
                             <ListGroupItem onClick={() => setTasksShow(!tasksShow)} action variant="info">Tasks</ListGroupItem>
                             <ListGroupItem onClick={() => setContactsShow(!contactsShow)} action variant="info">Contacts</ListGroupItem>
-                            <ListGroupItem onClick={() => setTeamShow(!teamShow)} action variant="info">Team</ListGroupItem>
+                            {/* <ListGroupItem onClick={() => setTeamShow(!teamShow)} action variant="info">Team</ListGroupItem> */}
                             <ListGroupItem onClick={() => setNotesShow(!notesShow)} action variant="info">Notes</ListGroupItem>
                         </ListGroup>
                     </Card.Text>
@@ -64,7 +66,7 @@ const ProjectCard = ({project}) => {
                 >
                 <Modal.Header closeButton>
                 <Modal.Title id="example-custom-modal-styling-title">
-                    {project.name} Team
+                    <h1>{project.name} Team</h1>
                 </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
@@ -86,9 +88,8 @@ const ProjectCard = ({project}) => {
                 size="xl"
                 >
                 <Modal.Header closeButton>
-                <Modal.Title id="example-custom-modal-styling-title">
-                    {project.name} Contacts
-                </Modal.Title>
+                    <h1>{project.name} Contacts</h1>
+                    <img width="34" height="34" id="create-contact" alt="back" src={New}/>
                 </Modal.Header>
                 <Modal.Body>
                 <Table responsive>
@@ -107,14 +108,14 @@ const ProjectCard = ({project}) => {
                 size="xl"
                 >
                 <Modal.Header closeButton>
-                <Modal.Title id="example-custom-modal-styling-title">
-                    {project.name} Notes
-                </Modal.Title>
+                <h1>{project.name} Notes</h1>
+                <img width="34" height="34" id="edit-note" alt="back" src={New2}/>
                 </Modal.Header>
                 <Modal.Body> 
                     <Row>
                         <Col xs={11} >{project.notes}</Col>
-                        <Col className="text-right align-self-center"><button type="button" class="btn btn-primary">✎</button></Col>
+                        <Col className="text-right align-self-center"></Col>
+                        {/* <button type="button" class="btn btn-primary">✎</button> */}
                     </Row>
                 </Modal.Body>
             </Modal>
@@ -126,9 +127,8 @@ const ProjectCard = ({project}) => {
                 size="xl"
                 >
                 <Modal.Header closeButton>
-                <Modal.Title id="example-custom-modal-styling-title">
-                    {project.name} Tasks 
-                </Modal.Title>
+                <h1>{project.name} Tasks</h1>
+                <img width="34" height="34" id="create-ptask" alt="back" src={New}/>
                 </Modal.Header>
                 <Modal.Body>
                 <Table responsive>
