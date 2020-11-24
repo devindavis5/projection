@@ -4,6 +4,7 @@ import { ListGroupItem } from 'react-bootstrap';
 const DailyTasks = ({task}) => {
     
     return (
+        
         <ListGroupItem>{task.description}</ListGroupItem>
     )   
 }

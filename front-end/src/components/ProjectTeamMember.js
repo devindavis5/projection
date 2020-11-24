@@ -1,10 +1,12 @@
 import React from 'react';
-import { ListGroupItem } from 'react-bootstrap';
+import { ListGroupItem, Row, Col } from 'react-bootstrap';
 
-const ProjectTeamMember = () => {
+const ProjectTeamMember = ({team}) => {
     
     return (
-        <ListGroupItem action>ProjectTeamMember</ListGroupItem>
+        <Col>
+        {team.name}
+        </Col>
     )
     
 }

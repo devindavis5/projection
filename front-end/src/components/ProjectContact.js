@@ -1,10 +1,18 @@
 import React from 'react';
 import { ListGroupItem } from 'react-bootstrap';
 
-const ProjectContact = () => {
+const ProjectContact = ({contact}) => {
     
     return (
-        <ListGroupItem action>ProjectContact</ListGroupItem>
+        <>
+        <tr>
+        <td class="align-middle" id="contact"><strong>{contact.name}</strong></td>
+        <td class="align-middle">{contact.email}</td>
+        <td class="align-middle" id="phone" >{contact.phone}</td>
+        <td class="align-middle">{contact.notes}</td>
+        <td class="align-middle"size="sm" style={{ textAlign:"right" }}>EditDel</td>
+        </tr>
+        </>
     )
     
 }
