@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-    skip_before_action :authorized, only: [:index, :show]
+    skip_before_action :authorized, only: [:index, :show, :create]
 
     def index
         projects = Project.all
@@ -14,6 +14,14 @@ class ProjectsController < ApplicationController
         render json: project, only: [:id, :name, :deadline, :notes, :user_id], :include => [
             project_tasks: { only: [:id, :name, :importance, :deadline, :description, :status], include: { team_members: { only: [:id, :name, :image]} } },
             contacts: { only: [:id, :name, :email, :phone, :notes] }
+        ]
+    end
+
+    def create
+        project = Project.create(name: params[:name], deadline: '', notes: '', user_id: params[:user_id])
+        render json: project, only: [:id, :name, :deadline, :notes, :user_id], :include => [
+            project_tasks: { only: [:id, :name, :importance, :deadline, :description, :status], include: { team_members: { only: [:id, :name, :image]} } },
+            contacts: { only: [:id, :name, :email, :phone, :notes] } 
         ]
     end
 

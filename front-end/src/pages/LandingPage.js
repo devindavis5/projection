@@ -3,15 +3,20 @@ import ProjectCard from '../components/ProjectCard.js'
 import NavBar from '../components/NavBar.js'
 import DailyTasks from '../components/DailyTasks.js'
 import TeamMembers from '../components/TeamMembers.js'
-import { Button, Container, Row, Col, ListGroup, ListGroupItem, CardColumns, Card, CardDeck, Table } from 'react-bootstrap'
+import { Button, Container, Row, Col, ListGroup, ListGroupItem, CardColumns, Card, CardDeck, Table, Modal, Form } from 'react-bootstrap'
 import Archive from '../assets/archive.png'
+import Plus from '../assets/plus.png'
+import X from '../assets/x.png'
+import Check from '../assets/check.png'
 
 class LandingPage extends Component {
     state = {
         projects: [],
         dailyTasks: [],
         teamMembers: [],
-        deletedProjectTasks: []
+        formShow: false,
+        newProjectName: '',
+        userId: ''   
     }
 
     componentDidMount() {
@@ -34,6 +39,7 @@ class LandingPage extends Component {
                     this.setState({projects: user.projects})
                     this.setState({dailyTasks: user.daily_tasks})
                     this.setState({teamMembers: user.team_members})
+                    this.setState({userId: user.id})
                 }
             })    
         }  
@@ -77,16 +83,69 @@ class LandingPage extends Component {
         .then(project => this.setState({projects: this.state.projects.map(p => p.id === project[0].id ? project[0] : p)}))
     }
 
+    formClick = () => {
+        this.setState({formShow: !this.state.formShow})
+    }
+
+    onProjectNameChange = (e) => {
+        this.setState({newProjectName: e.target.value})
+    }
+
+    addProject = () => {
+        fetch('http://localhost:3000/projects' , {
+          method: 'POST',
+          headers: {
+            'Content-Type':'application/json',
+            'Accepts':'application/json'
+          },
+          body: JSON.stringify({
+              name: this.state.newProjectName,
+              user_id: this.state.userId
+          })
+        })
+        .then(res => res.json())
+        .then(project => {
+            this.setState({projects: [...this.state.projects, project]})
+            this.setState({formShow: false})
+        })
+    }
+
     render() {
         return (
             <div className='projects-page'>
                 <NavBar /> 
                 <div className='projects-div'>
-                    <CardDeck>
+                    <CardDeck id="card-deck">
                         {this.state.projects.map(project => {
                             return (
                             <ProjectCard createTask={this.createTask} deleteTask={this.deleteTask} updateTask={this.updateTask} project={project} key={project.id}/>)
                         })}
+                        <div>
+                            {!this.state.formShow ? 
+                            <Card onClick={this.formClick} id="add-project-card">
+                                <Card.Body>
+                                <img id="add-project-icon" src={Plus}/>
+                                </Card.Body>
+                            </Card>
+                            :
+                            <Card id="add-project-card">
+                                <Card.Title><img width="15" onClick={this.formClick} height="20" alt="archive" id="new-project-x" src={X}/></Card.Title>
+                                <Card.Body>
+                                <Form>
+                                    <Form.Group controlId="formBasicUsername">
+                                        {/* <Form.Label>Project Name</Form.Label> */}
+                                        <Form.Control type="text" name="name" placeholder="Project Name" onChange={this.onProjectNameChange} />
+                                    </Form.Group>
+                                    {/* <Button to="/maincontainer" onClick={onProjectSubmit} variant="primary" type="submit">Sign in</Button> */}
+                                     <img width="25" height="25" alt="checkmark" id="new-project-check" onClick={this.addProject} src={Check}/>
+                                </Form>
+                                </Card.Body>
+                            </Card>      
+                            }
+
+
+
+                        </div>
                     </CardDeck>
                 </div>
                 <div className='daily-tasks-div'>

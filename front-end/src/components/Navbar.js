@@ -22,11 +22,12 @@ class NavBar extends Component {
         return (
             <div>
             <Navbar className="nav-bar2" collapseOnSelect expand="lg" bg="primary" variant="dark" sticky="top" >
-                <Navbar.Brand href="/home"><img width="23" height="23" className="d-inline-block align-center" id="logo" alt="back" src={Logo}/>Projection</Navbar.Brand>
+                <Navbar.Brand href="/home">Projection</Navbar.Brand>
+                {/* <img width="23" height="23" className="d-inline-block align-center" id="logo" alt="back" src={Logo}/> */}
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Nav className="mr-auto" >
-                        <Nav.Link onClick={this.profile} >My Account</Nav.Link>
+                        {/* <Nav.Link onClick={this.profile} >My Account</Nav.Link> */}
                         <Nav.Link onClick={this.logout} >Logout</Nav.Link>
                     </Nav>
                 </Navbar.Collapse>

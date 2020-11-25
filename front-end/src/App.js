@@ -6,37 +6,10 @@ import LandingPage from './pages/LandingPage'
 import ProjectPage from './pages/ProjectPage'
 import LogIn from './pages/LogIn'
 import SignUp from './pages/SignUp'
+import { Provider } from 'react-redux'
+import { store } from './store'
 
 class App extends Component  {
-
-  // constructor() {
-  //   super()
-  //   this.state = {
-  //     projectId: 0
-  //   }
-  // }
-
-  // setProject = (projectId) => {
-  //   this.setState({projectId})
-  //   history.push(`/projects/${projectId}`)
-  // }
-
-  // componentDidMount = () => {
-  //   if (localStorage.token) {
-  //     fetch("http://localhost:3000/user", {
-  //       method: 'GET',
-  //       headers: {
-  //         Authorization: `Bearer ${localStorage.token}`
-  //       }
-  //     })
-  //     .then(res => res.json())
-  //     .then(user => {
-  //       this.setState({projects: user.projects})
-  //       this.setState({dailyTasks: user.dailyTasks})
-  //       console.log('mounted!')
-  //     })
-  //   }
-  // }
 
   render() {
     return (
@@ -54,5 +27,10 @@ class App extends Component  {
     )
   }
 }
-export default App;
+
+export default () => (
+  <Provider store={store} >
+    <App />
+  </Provider>
+)
 
