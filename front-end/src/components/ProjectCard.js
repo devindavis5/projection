@@ -2,23 +2,26 @@ import React, { useState } from 'react';
 import ProjectTask from './ProjectTask'
 import ProjectContact from './ProjectContact'
 import ProjectTeamMember from './ProjectTeamMember'
-import { Card, ListGroup, ListGroupItem, Col, Row, Modal, Table, Container } from 'react-bootstrap'
+import { Card, ListGroup, ListGroupItem, Col, Row, Modal, Table, Container, Form, Button } from 'react-bootstrap'
 import moment from 'react-moment';
 import 'moment-timezone';
 import New from '../assets/new1.png'
 import New2 from '../assets/new2.png'
 
-Array.prototype.unique = function() {
-    return this.filter(function (value, index, self) { 
-      return self.indexOf(value) === index;
-    });
-}
-
-const ProjectCard = ({project}) => {
+const ProjectCard = ({project, createTask, deleteTask, updateTask}) => {
     const [tasksShow, setTasksShow] = useState(false)
     const [notesShow, setNotesShow] = useState(false)
     const [contactsShow, setContactsShow] = useState(false)
     const [teamShow, setTeamShow] = useState(false)
+    const [newTaskShow, setNewTaskShow] = useState(false)
+    const [deadline, setDeadline] = useState('')
+    const [description, setDescription] = useState('')
+    const projectId = project.id
+
+    // const tasksShowEvent = (pkey) => {
+    //     setTasksShow(!tasksShow)
+    //     setProjectId(pkey)
+    // }
 
     //sort project tasks by deadline
     const sortedTasks = project.project_tasks.sort(function(a,b){
@@ -32,15 +35,18 @@ const ProjectCard = ({project}) => {
     let teamMembers = []
     project.project_tasks.map(pt => allTeamMembers.push(pt.team_members))
     allTeamMembers.flat().map(tm => teamMembers.includes(tm) ? null : teamMembers.push(tm))
-    // let team = uniqueArray(teamMembers)
+    // new task submit
+    const taskSubmit = (e) => {
+        e.preventDefault()
+        const task = {
+            deadline: deadline,
+            description: description,
+            projectId: projectId
+        }
+        createTask(task)
+        setNewTaskShow(false)
+    }
     
-
-    // const filteredArray = teamMembers.filter(function(item, pos){
-    //     return teamMembers.indexOf(item)== pos; 
-    // });
-    
-    let team = teamMembers.unique()
-    console.log(team)
     return (
        
         <div className="project-card">
@@ -128,13 +134,30 @@ const ProjectCard = ({project}) => {
                 >
                 <Modal.Header closeButton>
                 <h1>{project.name} Tasks</h1>
-                <img width="34" height="34" id="create-ptask" alt="back" src={New}/>
+                <img width="34" height="34" id="create-ptask" alt="new" onClick={() => setNewTaskShow(!newTaskShow)} src={New}/>
                 </Modal.Header>
+                    {newTaskShow ? 
+                    <Form id="create-ptask-form">
+                <Row>
+                    <Col xs={2}>
+                    <Form.Control id="task-deadline" type="date" onChange={e => setDeadline(e.target.value)} placeholder="Deadline" />
+                    </Col>
+                    <Col xs={9}>
+                    <Form.Control placeholder="Description" onChange={e => setDescription(e.target.value)}/>
+                    </Col>
+                    <Col xs={1}>
+                    <Button id="task-submit" onClick={e => taskSubmit(e)} variant="primary float-right" type="submit">
+                        Create
+                    </Button>
+                    </Col>
+                </Row>
+                </Form>
+                : null }
                 <Modal.Body>
                 <Table responsive>
                     {sortedTasks.map(pt => {
                         return (
-                        <ProjectTask task={pt} key={pt.id}/>) 
+                        <ProjectTask task={pt} deleteTask={deleteTask} updateTask={updateTask} projectId={projectId} key={pt.id}/>) 
                     })}
                 </Table>
                 </Modal.Body>

@@ -88,6 +88,7 @@ code {
   width: 40%;
   height: 85vh;
   overflow-y:auto;
+  /* margin-right: 20%; */
   float:left;
   position: relative;
   display: flex;
@@ -136,17 +137,48 @@ code {
 #create-ptask {
   position: absolute;
   right: 4%;
-  top: 3%;
+  top: 3vh;
 }
 
 #create-contact {
   position: absolute;
   right: 4%;
-  top: 6%;
+  top: 3vh;
 }
 
 #edit-note {
   position: absolute;
   right: 4%;
-  top: 15%;
+  top: 3vh;
+}
+
+#archive {
+  /* padding-top: 24px; */
+  /* float: right; */
+  /* padding-left: 10%; */
+  height: 13vh;
+  /* float:left; */
+  /* position: relativ; */
+  /* display: block; */
+  /* white-space: pre-wrap; */
+  /* positions: sticky-top */
+  /* justify-content: center; */
+}
+
+.archive-div {
+  position: absolute;
+  right: 17%;
+  bottom: 14%;
+}
+
+#task-submit {
+  margin-right: 25%;
+}
+
+#task-deadline {
+  margin-left: 10%;
+}
+
+#create-ptask-form {
+  margin-top: 1.2%;
 }
