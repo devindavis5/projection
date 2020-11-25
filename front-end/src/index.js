@@ -4,8 +4,6 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './bootstrap.min.css';
-import { createStore } from 'redux';
-import rootReducer from './reducers';
 
 ReactDOM.render(
   <React.StrictMode>

@@ -34,16 +34,16 @@ const ProjectTask = ({task, deleteTask, projectId, updateTask}) => {
         <>
         <tr >
         {!formShow ?    
-        <td onClick={() => setFormShow(true)} class="align-middle"><strong>{deadline}</strong></td>  
+        <td style={{width: "10%"}} onClick={() => setFormShow(true)} class="align-middle"><strong>{deadline}</strong></td>  
         : 
-        <td class="align-middle">
+        <td style={{width: "6%"}} class="align-middle">
         <Form.Control type="date" onChange={e => setEditDeadline(e.target.value)} value={editDeadline} />
         </td>
         } 
         {!formShow ? 
-        <td onClick={() => setFormShow(true)} class="align-middle">{task.description}</td>
+        <td style={{width: "76%"}} onClick={() => setFormShow(true)} class="align-left">{task.description}</td>
         :
-        <td class="align-middle">
+        <td style={{width: "80%"}} class="align-middle">
         <Form.Control value={description} onChange={e => setDescription(e.target.value)}/> 
         </td>
         }

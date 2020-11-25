@@ -79,7 +79,7 @@ code {
 }
 
 .project-card .card-body {
-  background-color: rgb(240, 240, 240); 
+  background-color: rgb(214, 225, 235); 
 }
 
 
@@ -210,4 +210,32 @@ code {
 
 #create-ptask-form {
   margin-top: 1.2%;
+}
+
+#add-project-card {
+  height: 225px;
+  width: 322.8px;
+  background-color: rgb(214, 225, 235);
+  align-items:center;
+}
+
+#add-project-icon {
+  height: 125px;
+  width: 125px;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: .4;
+}
+
+#new-project-x {
+  position: absolute;
+  right: 1vh;
+  top: .65vh;
+}
+
+#new-project-check {
+  position: absolute;
+  right: 1vh;
+  bottom: .65vh;
 }

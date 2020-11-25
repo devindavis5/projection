@@ -3,14 +3,18 @@ import ProjectCard from '../components/ProjectCard.js'
 import NavBar from '../components/NavBar.js'
 import DailyTasks from '../components/DailyTasks.js'
 import TeamMembers from '../components/TeamMembers.js'
-import { Button, Container, Row, Col, ListGroup, ListGroupItem, CardColumns, Card, CardDeck, Table } from 'react-bootstrap'
+import { Button, Container, Row, Col, ListGroup, ListGroupItem, CardColumns, Card, CardDeck, Table, Modal } from 'react-bootstrap'
 import Archive from '../assets/archive.png'
+import Plus from '../assets/plus.png'
+import X from '../assets/x.png'
+import Check from '../assets/check.png'
 
 class LandingPage extends Component {
     state = {
         projects: [],
         dailyTasks: [],
-        teamMembers: []
+        teamMembers: [],
+        formShow: false   
     }
 
     componentDidMount() {
@@ -76,6 +80,10 @@ class LandingPage extends Component {
         .then(project => this.setState({projects: this.state.projects.map(p => p.id === project[0].id ? project[0] : p)}))
     }
 
+    formClick = () => {
+        this.setState({formShow: !this.state.formShow})
+    }
+
     render() {
         return (
             <div className='projects-page'>
@@ -86,6 +94,28 @@ class LandingPage extends Component {
                             return (
                             <ProjectCard createTask={this.createTask} deleteTask={this.deleteTask} updateTask={this.updateTask} project={project} key={project.id}/>)
                         })}
+                        <div>
+                            {!this.state.formShow ? 
+                            <Card onClick={this.formClick} id="add-project-card">
+                                <Card.Body>
+                                <img id="add-project-icon" src={Plus}/>
+                                </Card.Body>
+                            </Card>
+                            :
+                            <Card id="add-project-card">
+                                <Card.Title><img width="15" onClick={this.formClick} height="20" alt="archive" id="new-project-x" src={X}/></Card.Title>
+                                <Card.Body>
+                                Hljfad;lkja ;dklfjas;fkd
+                                fds
+                                f
+                                <img width="25" height="25" alt="archive" id="new-project-check" src={Check}/>
+                                </Card.Body>
+                            </Card>      
+                            }
+
+
+
+                        </div>
                     </CardDeck>
                 </div>
                 <div className='daily-tasks-div'>
@@ -110,6 +140,27 @@ class LandingPage extends Component {
                     })}
                     </Row>
                 </div>
+
+                {/* <Modal
+                    show={this.state.formShow}
+                    onHide={this.formClick}
+                    // dialogClassName="modal-90w"
+                    // aria-labelledby="example-custom-modal-styling-title"
+                    size="sm"
+                    >
+                    <Modal.Header closeButton>
+                    <Modal.Title id="example-custom-modal-styling-title">
+                        <h1>New Project</h1>
+                    </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Container>
+                        <Row className="justify-content-md-center">
+                            <ProjectForm/> 
+                        </Row>
+                        </Container>
+                    </Modal.Body>
+                </Modal> */}
             </div>
         )
     }
