@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button } from 'react-bootstrap'
 // import Footer from '../components/Footer.js'
+import Logo from '../assets/logo.png'
 
 class HomePage extends Component {
 
@@ -25,14 +26,14 @@ class HomePage extends Component {
 
     render() {
         return (
-        <div className="homepage" >
+        <div className="background" >
             <div className="title">
-            <h1>Projection</h1>
+            <img className="align-center" id='home-logo' src={Logo}/>
             </div>
             <div className="login-button">
-            <Button onClick={this.logInClick} variant="primary" >Log in</Button>
+            <Button onClick={this.logInClick} variant="outline-secondary" size="lg" >Log in</Button>
             <div className="divider"/>
-            <Button onClick={this.signUpClick} variant="primary" >Sign Up</Button>  
+            <Button onClick={this.signUpClick} variant="outline-secondary" size="lg" >Sign Up</Button>  
             </div>
         </div>
         )

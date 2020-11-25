@@ -19,6 +19,35 @@ code {
   box-shadow: 1px 1px 3px 1px gray;
 }
 
+.title {
+  /* padding-top: 15%; */
+  text-align: center;
+}
+
+#home-logo {
+  height: 65vh;
+}
+
+.divider{
+  width:5px;
+  height:auto;
+  display:inline-block;
+}
+
+.login-button {
+  /* margin-top: 3%; */
+  text-align: center;
+}
+
+.background {
+  background-image: url(./assets/gem.jpg);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  height: 100vh;
+}
+
 /* .projects {
   height: 70vh;
 } */

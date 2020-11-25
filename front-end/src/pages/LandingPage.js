@@ -10,8 +10,7 @@ class LandingPage extends Component {
     state = {
         projects: [],
         dailyTasks: [],
-        teamMembers: [],
-        deletedProjectTasks: []
+        teamMembers: []
     }
 
     componentDidMount() {
