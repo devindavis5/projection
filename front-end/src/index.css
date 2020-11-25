@@ -92,7 +92,7 @@ code {
   float: left;
   padding-left: 3%;
   width: 60%;
-  height: 86vh;
+  height: 88vh;
   overflow-x: hidden;
   overflow-y: auto;
   float:left;
@@ -238,4 +238,8 @@ code {
   position: absolute;
   right: 1vh;
   bottom: .65vh;
+}
+
+#card-deck {
+  margin-bottom: 30px;
 }

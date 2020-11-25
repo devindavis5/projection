@@ -3,7 +3,7 @@ import ProjectCard from '../components/ProjectCard.js'
 import NavBar from '../components/NavBar.js'
 import DailyTasks from '../components/DailyTasks.js'
 import TeamMembers from '../components/TeamMembers.js'
-import { Button, Container, Row, Col, ListGroup, ListGroupItem, CardColumns, Card, CardDeck, Table, Modal } from 'react-bootstrap'
+import { Button, Container, Row, Col, ListGroup, ListGroupItem, CardColumns, Card, CardDeck, Table, Modal, Form } from 'react-bootstrap'
 import Archive from '../assets/archive.png'
 import Plus from '../assets/plus.png'
 import X from '../assets/x.png'
@@ -14,7 +14,9 @@ class LandingPage extends Component {
         projects: [],
         dailyTasks: [],
         teamMembers: [],
-        formShow: false   
+        formShow: false,
+        newProjectName: '',
+        userId: ''   
     }
 
     componentDidMount() {
@@ -37,6 +39,7 @@ class LandingPage extends Component {
                     this.setState({projects: user.projects})
                     this.setState({dailyTasks: user.daily_tasks})
                     this.setState({teamMembers: user.team_members})
+                    this.setState({userId: user.id})
                 }
             })    
         }  
@@ -84,12 +87,35 @@ class LandingPage extends Component {
         this.setState({formShow: !this.state.formShow})
     }
 
+    onProjectNameChange = (e) => {
+        this.setState({newProjectName: e.target.value})
+    }
+
+    addProject = () => {
+        fetch('http://localhost:3000/projects' , {
+          method: 'POST',
+          headers: {
+            'Content-Type':'application/json',
+            'Accepts':'application/json'
+          },
+          body: JSON.stringify({
+              name: this.state.newProjectName,
+              user_id: this.state.userId
+          })
+        })
+        .then(res => res.json())
+        .then(project => {
+            this.setState({projects: [...this.state.projects, project]})
+            this.setState({formShow: false})
+        })
+    }
+
     render() {
         return (
             <div className='projects-page'>
                 <NavBar /> 
                 <div className='projects-div'>
-                    <CardDeck>
+                    <CardDeck id="card-deck">
                         {this.state.projects.map(project => {
                             return (
                             <ProjectCard createTask={this.createTask} deleteTask={this.deleteTask} updateTask={this.updateTask} project={project} key={project.id}/>)
@@ -105,10 +131,14 @@ class LandingPage extends Component {
                             <Card id="add-project-card">
                                 <Card.Title><img width="15" onClick={this.formClick} height="20" alt="archive" id="new-project-x" src={X}/></Card.Title>
                                 <Card.Body>
-                                Hljfad;lkja ;dklfjas;fkd
-                                fds
-                                f
-                                <img width="25" height="25" alt="archive" id="new-project-check" src={Check}/>
+                                <Form>
+                                    <Form.Group controlId="formBasicUsername">
+                                        {/* <Form.Label>Project Name</Form.Label> */}
+                                        <Form.Control type="text" name="name" placeholder="Project Name" onChange={this.onProjectNameChange} />
+                                    </Form.Group>
+                                    {/* <Button to="/maincontainer" onClick={onProjectSubmit} variant="primary" type="submit">Sign in</Button> */}
+                                     <img width="25" height="25" alt="checkmark" id="new-project-check" onClick={this.addProject} src={Check}/>
+                                </Form>
                                 </Card.Body>
                             </Card>      
                             }
@@ -140,27 +170,6 @@ class LandingPage extends Component {
                     })}
                     </Row>
                 </div>
-
-                {/* <Modal
-                    show={this.state.formShow}
-                    onHide={this.formClick}
-                    // dialogClassName="modal-90w"
-                    // aria-labelledby="example-custom-modal-styling-title"
-                    size="sm"
-                    >
-                    <Modal.Header closeButton>
-                    <Modal.Title id="example-custom-modal-styling-title">
-                        <h1>New Project</h1>
-                    </Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <Container>
-                        <Row className="justify-content-md-center">
-                            <ProjectForm/> 
-                        </Row>
-                        </Container>
-                    </Modal.Body>
-                </Modal> */}
             </div>
         )
     }
