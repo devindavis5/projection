@@ -55,11 +55,25 @@ class LandingPage extends Component {
           body: JSON.stringify(task)
         })
         .then(res => res.json())
-        .then(project => this.setState({projects: this.state.projects.map(p => p.id === project.id ? project : p)}))
+        .then(project =>  {
+            if (!project.error) {
+                this.setState({projects: this.state.projects.map(p => p.id === project.id ? project : p)})
+            } else {
+                alert("Tasks must have a deadline and description.")
+            }
+        })
     }
 
     deleteTask = (task) => {
         fetch(`http://localhost:3000/project_tasks/${task.id}`, {
+          method: 'DELETE',
+        })
+        .then(res => res.json())
+        .then(project => this.setState({projects: this.state.projects.map(p => p.id === project[0].id ? project[0] : p)}))
+    }
+    
+    deleteContact = (contact) => {
+        fetch(`http://localhost:3000/contacts/${contact.id}`, {
           method: 'DELETE',
         })
         .then(res => res.json())
@@ -80,7 +94,37 @@ class LandingPage extends Component {
           })
         })
         .then(res => res.json())
-        .then(project => this.setState({projects: this.state.projects.map(p => p.id === project[0].id ? project[0] : p)}))
+        .then(project => {
+            if (!project.error) {
+                this.setState({projects: this.state.projects.map(p => p.id === project[0].id ? project[0] : p)})
+            } else {
+                alert("Tasks must have a deadline and description.")
+            }
+        })
+    }
+
+    updateContact = (id, contact) => {
+        fetch(`http://localhost:3000/contacts/${id}` , {
+          method: 'PATCH',
+          headers: {
+            'Content-Type':'application/json',
+            'Accepts':'application/json'
+          },
+          body: JSON.stringify({
+              name: contact.name,
+              email: contact.email,
+              phone: contact.phone,
+              notes: contact.notes
+          })
+        })
+        .then(res => res.json())
+        .then(project => {
+            if (!project.error) {
+                this.setState({projects: this.state.projects.map(p => p.id === project[0].id ? project[0] : p)})
+            } else {
+                alert("Contacts must have a name.")
+            }
+        })
     }
 
     formClick = () => {
@@ -105,8 +149,12 @@ class LandingPage extends Component {
         })
         .then(res => res.json())
         .then(project => {
-            this.setState({projects: [...this.state.projects, project]})
-            this.setState({formShow: false})
+            if (!project.error) {
+                this.setState({projects: [...this.state.projects, project]})
+                this.setState({formShow: false})
+            } else {
+                alert("Please enter a project name.")
+            }
         })
     }
 
@@ -118,7 +166,7 @@ class LandingPage extends Component {
                     <CardDeck id="card-deck">
                         {this.state.projects.map(project => {
                             return (
-                            <ProjectCard createTask={this.createTask} deleteTask={this.deleteTask} updateTask={this.updateTask} project={project} key={project.id}/>)
+                            <ProjectCard createTask={this.createTask} deleteTask={this.deleteTask} updateTask={this.updateTask} deleteContact={this.deleteContact} updateContact={this.updateContact} project={project} key={project.id}/>)
                         })}
                         <div>
                             {!this.state.formShow ? 

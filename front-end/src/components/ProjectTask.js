@@ -3,6 +3,8 @@ import { Card, ListGroupItem, Table, Form, Row, Col, Button } from 'react-bootst
 import Moment from 'react-moment';
 import 'moment-timezone';
 import X from '../assets/x.png'
+import X2 from '../assets/x2.png'
+import Check from '../assets/check.png'
 
 const ProjectTask = ({task, deleteTask, projectId, updateTask}) => {
     const [formShow, setFormShow] = useState(false)
@@ -16,7 +18,7 @@ const ProjectTask = ({task, deleteTask, projectId, updateTask}) => {
     let deadline = mm + '/' + dd + '/' + yyyy
 
     const deleteProjectTask = () => {
-        deleteTask(task, projectId)
+        deleteTask(task)
     }
 
     const taskSubmit = (e) => {
@@ -27,7 +29,13 @@ const ProjectTask = ({task, deleteTask, projectId, updateTask}) => {
             status: 'incomplete'
         }
         updateTask(taskId, taskData)
+        formReset()  
+    }
+
+    const formReset = () => {
         setFormShow(false)
+        setEditDeadline(task.deadline)
+        setDescription(task.description) 
     }
 
     return (
@@ -41,9 +49,9 @@ const ProjectTask = ({task, deleteTask, projectId, updateTask}) => {
         </td>
         } 
         {!formShow ? 
-        <td style={{width: "76%"}} onClick={() => setFormShow(true)} class="align-left">{task.description}</td>
+        <td style={{width: "90%"}} onClick={() => setFormShow(true)} class="align-middle">{task.description}</td>
         :
-        <td style={{width: "80%"}} class="align-middle">
+        <td style={{width: "85%"}} class="align-middle">
         <Form.Control value={description} onChange={e => setDescription(e.target.value)}/> 
         </td>
         }
@@ -51,7 +59,8 @@ const ProjectTask = ({task, deleteTask, projectId, updateTask}) => {
         <td class="align-middle"size="sm" style={{ textAlign:"right" }}><img width="15" onClick={() => deleteProjectTask()} height="20" alt="archive" src={X}/></td>
         :
         <td class="align-middle"size="sm" style={{ textAlign:"right" }}>
-        <Button onClick={e => taskSubmit(e)} variant="primary float-right" type="submit">Update</Button>    
+         <img width="15" onClick={e => taskSubmit(e)} height="20" alt="archive" src={Check}/>
+         <img width="15" onClick={() => formReset()} height="20" alt="archive" src={X2}/>
         </td>
         }
         </tr> 

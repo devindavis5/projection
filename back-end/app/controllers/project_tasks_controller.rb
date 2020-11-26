@@ -7,22 +7,32 @@ class ProjectTasksController < ApplicationController
     end
     
     def create
-        ProjectTask.create(name: '', importance: '', deadline: params[:deadline], description: params[:description], status: 'incomplete', project_id: params[:projectId])
-        project = Project.find(params[:projectId])
-        render json: project, only: [:id, :name, :deadline, :notes, :user_id], :include => [
-            project_tasks: { only: [:id, :name, :importance, :deadline, :description, :status], include: { team_members: { only: [:id, :name, :image]} } },
-            contacts: { only: [:id, :name, :email, :phone, :notes] } 
-        ]
+        pt = ProjectTask.create(name: '', importance: '', deadline: params[:deadline], description: params[:description], status: 'incomplete', project_id: params[:projectId])
+        if pt.valid?
+            project = Project.find(params[:projectId])
+            render json: project, only: [:id, :name, :deadline, :notes, :user_id], :include => [
+                project_tasks: { only: [:id, :name, :importance, :deadline, :description, :status], include: { team_members: { only: [:id, :name, :image]} } },
+                contacts: { only: [:id, :name, :email, :phone, :notes] } 
+            ]
+        else
+            flash[:errors] = pt.errors.full_messages 
+        end
+      
     end
 
     def update
         task = ProjectTask.find(params[:id])
         task.update(deadline: params[:deadline], description: params[:description], status: params[:status])
-        project = task.find_project
-        render json: project, only: [:id, :name, :deadline, :notes, :user_id], :include => [
-            project_tasks: { only: [:id, :name, :importance, :deadline, :description, :status], include: { team_members: { only: [:id, :name, :image]} } },
-            contacts: { only: [:id, :name, :email, :phone, :notes] } 
-        ]
+        if task.valid?
+            project = task.find_project
+            render json: project, only: [:id, :name, :deadline, :notes, :user_id], :include => [
+                project_tasks: { only: [:id, :name, :importance, :deadline, :description, :status], include: { team_members: { only: [:id, :name, :image]} } },
+                contacts: { only: [:id, :name, :email, :phone, :notes] } 
+            ] 
+        else
+            flash[:errors] = task.errors.full_messages  
+        end
+       
     end
 
     def destroy

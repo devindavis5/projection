@@ -8,7 +8,7 @@ import 'moment-timezone';
 import New from '../assets/new1.png'
 import New2 from '../assets/new2.png'
 
-const ProjectCard = ({project, createTask, deleteTask, updateTask}) => {
+const ProjectCard = ({project, createTask, deleteTask, updateTask, deleteContact, updateContact}) => {
     const [tasksShow, setTasksShow] = useState(false)
     const [notesShow, setNotesShow] = useState(false)
     const [contactsShow, setContactsShow] = useState(false)
@@ -45,6 +45,8 @@ const ProjectCard = ({project, createTask, deleteTask, updateTask}) => {
         }
         createTask(task)
         setNewTaskShow(false)
+        setDeadline('')
+        setDescription('')
     }
     
     return (
@@ -101,7 +103,7 @@ const ProjectCard = ({project, createTask, deleteTask, updateTask}) => {
                 <Table responsive>
                     {project.contacts.map(contact => {
                         return (
-                        <ProjectContact contact={contact} key={contact.id}/>) 
+                        <ProjectContact contact={contact} deleteContact={deleteContact} updateContact={updateContact} projectId={projectId} key={contact.id}/>) 
                     })}
                 </Table>
                 </Modal.Body>

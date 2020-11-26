@@ -19,10 +19,14 @@ class ProjectsController < ApplicationController
 
     def create
         project = Project.create(name: params[:name], deadline: '', notes: '', user_id: params[:user_id])
-        render json: project, only: [:id, :name, :deadline, :notes, :user_id], :include => [
-            project_tasks: { only: [:id, :name, :importance, :deadline, :description, :status], include: { team_members: { only: [:id, :name, :image]} } },
-            contacts: { only: [:id, :name, :email, :phone, :notes] } 
-        ]
+        if project.valid?
+            render json: project, only: [:id, :name, :deadline, :notes, :user_id], :include => [
+                project_tasks: { only: [:id, :name, :importance, :deadline, :description, :status], include: { team_members: { only: [:id, :name, :image]} } },
+                contacts: { only: [:id, :name, :email, :phone, :notes] } 
+            ]
+        else
+            flash[:errors] = project.errors.full_messages 
+        end
     end
 
 end
