@@ -8,7 +8,7 @@ import 'moment-timezone';
 import New from '../assets/new1.png'
 import New2 from '../assets/new2.png'
 
-const ProjectCard = ({project, createTask, deleteTask, updateTask, deleteContact, updateContact}) => {
+const ProjectCard = ({project, createTask, deleteTask, updateTask, deleteContact, updateContact, createContact}) => {
     const [tasksShow, setTasksShow] = useState(false)
     const [notesShow, setNotesShow] = useState(false)
     const [contactsShow, setContactsShow] = useState(false)
@@ -16,6 +16,13 @@ const ProjectCard = ({project, createTask, deleteTask, updateTask, deleteContact
     const [newTaskShow, setNewTaskShow] = useState(false)
     const [deadline, setDeadline] = useState('')
     const [description, setDescription] = useState('')
+
+    const [newContactShow, setNewContactShow] = useState(false)
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [phone, setPhone] = useState('')
+    const [notes, setNotes] = useState('')
+
     const projectId = project.id
 
     // const tasksShowEvent = (pkey) => {
@@ -30,12 +37,16 @@ const ProjectCard = ({project, createTask, deleteTask, updateTask, deleteContact
         return c-d
     })
 
-    // get all team members for the project
+    //sort contacts alphabetically
+    const sortedContacts = project.contacts.sort((a, b) => a.name.localeCompare(b.name))
+
+    //get all team members for the project
     let allTeamMembers = []
     let teamMembers = []
     project.project_tasks.map(pt => allTeamMembers.push(pt.team_members))
     allTeamMembers.flat().map(tm => teamMembers.includes(tm) ? null : teamMembers.push(tm))
-    // new task submit
+
+    //new task submit
     const taskSubmit = (e) => {
         e.preventDefault()
         const task = {
@@ -47,6 +58,23 @@ const ProjectCard = ({project, createTask, deleteTask, updateTask, deleteContact
         setNewTaskShow(false)
         setDeadline('')
         setDescription('')
+    }
+
+    const contactSubmit = (e) => {
+        e.preventDefault()
+        const contact = {
+            name: name,
+            email: email,
+            phone: phone,
+            notes: notes,
+            projectId: projectId
+        }
+        createContact(contact)
+        setNewContactShow(false)
+        setName('')
+        setEmail('')
+        setPhone('')
+        setNotes('')
     }
     
     return (
@@ -97,11 +125,34 @@ const ProjectCard = ({project, createTask, deleteTask, updateTask, deleteContact
                 >
                 <Modal.Header closeButton>
                     <h1>{project.name} Contacts</h1>
-                    <img width="34" height="34" id="create-contact" alt="back" src={New}/>
+                    <img width="34" height="34" id="create-contact" alt="back" onClick={() => setNewContactShow(!newContactShow)} src={New}/>
                 </Modal.Header>
+                {newContactShow ? 
+                    <Form id="create-ptask-form">
+                    <Row>
+                        <Col xs={2}>
+                        <Form.Control id="task-deadline" onChange={e => setName(e.target.value)} placeholder="Name" />
+                        </Col>
+                        <Col xs={2}>
+                        <Form.Control id="contact-email" onChange={e => setEmail(e.target.value)} placeholder="Email" />
+                        </Col>
+                        <Col xs={2}>
+                        <Form.Control id="contact-phone" onChange={e => setPhone(e.target.value)} placeholder="Phone" />
+                        </Col>
+                        <Col xs={5}>
+                        <Form.Control onChange={e => setNotes(e.target.value)} placeholder="Notes"/>
+                        </Col>
+                        <Col xs={1}>
+                        <Button id="task-submit" onClick={e => contactSubmit(e)} variant="primary float-right" type="submit">
+                            Create
+                        </Button>
+                        </Col>
+                    </Row>
+                </Form>
+                : null }
                 <Modal.Body>
                 <Table responsive>
-                    {project.contacts.map(contact => {
+                    {sortedContacts.map(contact => {
                         return (
                         <ProjectContact contact={contact} deleteContact={deleteContact} updateContact={updateContact} projectId={projectId} key={contact.id}/>) 
                     })}

@@ -64,6 +64,25 @@ class LandingPage extends Component {
         })
     }
 
+    createContact = (contact) => {
+        fetch('http://localhost:3000/contacts' , {
+          method: 'POST',
+          headers: {
+            'Content-Type':'application/json',
+            'Accepts':'application/json'
+          },
+          body: JSON.stringify(contact)
+        })
+        .then(res => res.json())
+        .then(project =>  {
+            if (!project.error) {
+                this.setState({projects: this.state.projects.map(p => p.id === project.id ? project : p)})
+            } else {
+                alert("Contact must have a name.")
+            }
+        })
+    }
+
     deleteTask = (task) => {
         fetch(`http://localhost:3000/project_tasks/${task.id}`, {
           method: 'DELETE',
@@ -166,7 +185,7 @@ class LandingPage extends Component {
                     <CardDeck id="card-deck">
                         {this.state.projects.map(project => {
                             return (
-                            <ProjectCard createTask={this.createTask} deleteTask={this.deleteTask} updateTask={this.updateTask} deleteContact={this.deleteContact} updateContact={this.updateContact} project={project} key={project.id}/>)
+                            <ProjectCard createTask={this.createTask} deleteTask={this.deleteTask} updateTask={this.updateTask} deleteContact={this.deleteContact} createContact={this.createContact} updateContact={this.updateContact} project={project} key={project.id}/>)
                         })}
                         <div>
                             {!this.state.formShow ? 
