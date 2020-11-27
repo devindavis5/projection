@@ -35,43 +35,52 @@ const ProjectContact = ({contact, projectId, deleteContact, updateContact}) => {
         setPhone(contact.phone)
         setNotes(contact.notes)
     }
+
+    const resetEditForm = () => {
+        setName(contact.name)
+        setEmail(contact.email)
+        setPhone(contact.phone)
+        setNotes(contact.notes)
+        setFormShow(!formShow)
+    }
     
     return (
         <>
         <tr >
         {!formShow ?    
-        <td style={{width: "12%"}} onClick={() => setFormShow(true)} class="align-middle"><strong>{contact.name}</strong></td>  
+        <td style={{width: "12%"}} onClick={() => resetEditForm()} className="align-middle"><strong>{contact.name}</strong></td>  
         : 
-        <td style={{width: "12%"}} class="align-middle">
+        <td style={{width: "12%"}} className="align-middle">
         <Form.Control value={name} onChange={e => setName(e.target.value)}/>
         </td>
         } 
         {!formShow ? 
-        <td style={{width: "16%"}} onClick={() => setFormShow(true)} class="align-middle">{contact.email}</td>
+        <td style={{width: "16%"}} onClick={() => resetEditForm()} className="align-middle">{contact.email}</td>
         :
-        <td style={{width: "17%"}} class="align-middle">
+        <td style={{width: "17%"}} className="align-middle">
         <Form.Control value={email} onChange={e => setEmail(e.target.value)}/> 
         </td>
         }
         {!formShow ? 
-        <td style={{width: "10%"}} onClick={() => setFormShow(true)} class="align-middle">{contact.phone}</td>
+        <td style={{width: "10%"}} onClick={() => resetEditForm()} className="align-middle">{contact.phone}</td>
         :
-        <td style={{width: "12%"}} class="align-middle">
+        <td style={{width: "13%"}} className="align-middle">
         <Form.Control value={phone} onChange={e => setPhone(e.target.value)}/> 
         </td>
         }
         {!formShow ? 
-        <td style={{width: "60%"}} onClick={() => setFormShow(true)} class="align-middle">{contact.notes}</td>
+        <td style={{width: "60%"}} onClick={() => resetEditForm()} className="align-middle">{contact.notes}</td>
         :
-        <td style={{width: "60%"}} class="align-middle">
-        <Form.Control value={notes} onChange={e => setNotes(e.target.value)}/> 
+        <td style={{width: "60%"}} className="align-middle">
+        <Form.Control as="textarea" rows={2} value={notes} onChange={e => setNotes(e.target.value)}/> 
         </td>
         }
         {!formShow ?
-        <td class="align-middle"size="sm" style={{ textAlign:"right" }}><img width="15" onClick={() => deleteProjectContact()} height="20" alt="archive" src={X}/></td>
+        <td className="align-middle"size="sm" style={{ textAlign:"right" }}><img width="15" onClick={() => deleteProjectContact()} height="20" alt="archive" src={X}/></td>
         :
-        <td class="align-middle"size="sm" style={{ textAlign:"right" }}>
-         <img width="15" onClick={e => contactSubmit(e)} height="20" alt="archive" src={Check}/>
+        <td className="align-middle"size="sm" style={{ textAlign:"right" }}>
+         <img width="13" onClick={e => contactSubmit(e)} height="18" alt="archive" src={Check}/>
+         <br/><br/>
          <img width="15" onClick={() => resetForm()} height="20" alt="archive" src={X2}/>
         </td>
         }

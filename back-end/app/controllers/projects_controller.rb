@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-    skip_before_action :authorized, only: [:index, :show, :create]
+    skip_before_action :authorized, only: [:index, :show, :create, :update]
 
     def index
         projects = Project.all
@@ -18,7 +18,27 @@ class ProjectsController < ApplicationController
     end
 
     def create
-        project = Project.create(name: params[:name], deadline: '', notes: '', user_id: params[:user_id])
+        project = Project.create(name: params[:name], deadline: '', notes: 'Notes:', user_id: params[:user_id])
+        if project.valid?
+            render json: project, only: [:id, :name, :deadline, :notes, :user_id], :include => [
+                project_tasks: { only: [:id, :name, :importance, :deadline, :description, :status], include: { team_members: { only: [:id, :name, :image]} } },
+                contacts: { only: [:id, :name, :email, :phone, :notes] } 
+            ]
+        else
+            flash[:errors] = project.errors.full_messages 
+        end
+    end
+
+    def update
+        project = Project.find(params[:id])
+
+        if params[:notes] == ""
+            notes = "Notes:"
+        else 
+            notes = params[:notes]
+        end 
+
+        project.update(name: params[:name], notes: notes)
         if project.valid?
             render json: project, only: [:id, :name, :deadline, :notes, :user_id], :include => [
                 project_tasks: { only: [:id, :name, :importance, :deadline, :description, :status], include: { team_members: { only: [:id, :name, :image]} } },

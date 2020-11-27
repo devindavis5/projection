@@ -251,3 +251,24 @@ code {
 #contact-phone {
   margin-left: 2.5%;
 }
+
+#notes-column {
+  margin-left: 3%;
+}
+
+#project-name-input {
+  height: 1.5rem;
+}
+
+#project-name-column {
+  margin-left: 17%;
+  align-self: center;
+}
+
+#project-name-row {
+  margin-left: 25%;
+}
+
+
+
+

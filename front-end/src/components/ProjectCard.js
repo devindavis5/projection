@@ -2,13 +2,15 @@ import React, { useState } from 'react';
 import ProjectTask from './ProjectTask'
 import ProjectContact from './ProjectContact'
 import ProjectTeamMember from './ProjectTeamMember'
-import { Card, ListGroup, ListGroupItem, Col, Row, Modal, Table, Container, Form, Button } from 'react-bootstrap'
+import { Card, ListGroup, ListGroupItem, Col, Row, Modal, Table, Container, Form, Button, Dropdown} from 'react-bootstrap'
 import moment from 'react-moment';
 import 'moment-timezone';
 import New from '../assets/new1.png'
 import New2 from '../assets/new2.png'
+import X2 from '../assets/x2.png'
+import Check from '../assets/check.png'
 
-const ProjectCard = ({project, createTask, deleteTask, updateTask, deleteContact, updateContact, createContact}) => {
+const ProjectCard = ({project, createTask, deleteTask, updateTask, deleteContact, updateContact, createContact, updateProject}) => {
     const [tasksShow, setTasksShow] = useState(false)
     const [notesShow, setNotesShow] = useState(false)
     const [contactsShow, setContactsShow] = useState(false)
@@ -22,6 +24,12 @@ const ProjectCard = ({project, createTask, deleteTask, updateTask, deleteContact
     const [email, setEmail] = useState('')
     const [phone, setPhone] = useState('')
     const [notes, setNotes] = useState('')
+
+    const [editNotesShow, setEditNotesShow] = useState(false)
+    const [projectNotes, setProjectNotes] = useState(project.notes)
+
+    const [editProjectNameShow, setEditProjectNameShow] = useState(false)
+    const [projectName, setProjectName] = useState(project.name)
 
     const projectId = project.id
 
@@ -76,12 +84,67 @@ const ProjectCard = ({project, createTask, deleteTask, updateTask, deleteContact
         setPhone('')
         setNotes('')
     }
+
+    //used for project notes AND project name
+    const notesFormReset = () => {
+        setProjectNotes(project.notes)
+        setEditNotesShow(false)
+        setProjectName(project.name)
+        setEditProjectNameShow(false)
+    }
+
+    //used for project notes AND project name
+    const projectNotesSubmit = (e) => {
+        e.preventDefault()
+        const project = {
+
+            notes: projectNotes,
+            id: projectId, 
+            name: projectName
+        }
+        updateProject(project)
+        notesFormReset()
+
+    }
+
+    const resetNotesModal = () => {
+        setNotesShow(false)
+        setEditNotesShow(false)
+        setProjectNotes(project.notes)
+    }
+
+    const resetEditProjectNameForm = () => {
+        setProjectName(project.name)
+        setEditProjectNameShow(!editProjectNameShow)
+    }
+
+    const resetEditProjectNotesForm = () => {
+        setProjectNotes(project.notes)
+        setEditNotesShow(!editProjectNameShow)
+    }
     
     return (
        
         <div className="project-card">
             <Card style={{ width: '20.3rem' }}className="text-center mb-4" border="primary" text="white">
-                <Card.Header>{project.name}</Card.Header>
+                <Card.Header>
+                    {!editProjectNameShow ?
+                     <span onClick={() => resetEditProjectNameForm()}>{project.name}</span>
+                    :
+                      <Row className="justify-content-md-center">
+                            <Col xl={7} id="project-name-column">
+                                <Form.Control onChange={e => setProjectName(e.target.value)} id="project-name-input" value={projectName}/>
+                            </Col>
+                            <Col xl={1} className="align-self-center">
+                                <img id="project-name-check" width="15" onClick={e => projectNotesSubmit(e)} height="18" alt="archive" src={Check}/>
+                            </Col>
+                            <Col xl={1} className="align-self-center">   
+                                <img id="project-name-x" width="18" onClick={() => notesFormReset()} height="23" alt="archive" src={X2}/>
+                            </Col>
+                        </Row>  
+                    }
+                   
+                </Card.Header>
                 <Card.Body>
                     <Card.Text>
                         <ListGroup >
@@ -97,7 +160,6 @@ const ProjectCard = ({project, createTask, deleteTask, updateTask, deleteContact
                 show={teamShow}
                 onHide={() => setTeamShow(false)}
                 dialogClassName="modal-90w"
-                // aria-labelledby="example-custom-modal-styling-title"
                 size="xl"
                 >
                 <Modal.Header closeButton>
@@ -120,7 +182,6 @@ const ProjectCard = ({project, createTask, deleteTask, updateTask, deleteContact
                 show={contactsShow}
                 onHide={() => setContactsShow(false)}
                 dialogClassName="modal-90w"
-                // aria-labelledby="example-custom-modal-styling-title"
                 size="xl"
                 >
                 <Modal.Header closeButton>
@@ -161,28 +222,38 @@ const ProjectCard = ({project, createTask, deleteTask, updateTask, deleteContact
             </Modal>
             <Modal
                 show={notesShow}
-                onHide={() => setNotesShow(false)}
+                onHide={() => resetNotesModal()}
                 dialogClassName="modal-90w"
-                // aria-labelledby="example-custom-modal-styling-title"
                 size="xl"
                 >
                 <Modal.Header closeButton>
                 <h1>{project.name} Notes</h1>
-                <img width="34" height="34" id="edit-note" alt="back" src={New2}/>
+                {/* <img width="34" height="34" id="edit-note" alt="back" src={New2}/> */}
                 </Modal.Header>
                 <Modal.Body> 
-                    <Row>
-                        <Col xs={11} >{project.notes}</Col>
-                        <Col className="text-right align-self-center"></Col>
-                        {/* <button type="button" class="btn btn-primary">✎</button> */}
-                    </Row>
+                    { !editNotesShow ?
+                        <Row>
+                            <Col xl={12} onClick={() => resetEditProjectNotesForm()}>{project.notes}</Col>
+                        </Row>    
+                    :
+                        <Row>
+                            <Col xl={11} id="notes-column">
+                                <Form.Control as="textarea" rows={3} onChange={e => setProjectNotes(e.target.value)} value={projectNotes}/>
+                            </Col>
+                            <Col className="align-self-center">
+                                <img width="18" onClick={e => projectNotesSubmit(e)} height="22" alt="archive" src={Check}/>
+                                <br/><br/>
+                                <img width="20" onClick={() => notesFormReset()} height="25" alt="archive" src={X2}/>
+                            </Col>
+                        </Row>          
+                    }    
                 </Modal.Body>
             </Modal>
+
             <Modal
                 show={tasksShow}
                 onHide={() => setTasksShow(false)}
                 dialogClassName="modal-90w"
-                // aria-labelledby="example-custom-modal-styling-title"
                 size="xl"
                 >
                 <Modal.Header closeButton>

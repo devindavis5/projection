@@ -146,6 +146,28 @@ class LandingPage extends Component {
         })
     }
 
+    updateProject = (project) => {
+        fetch(`http://localhost:3000/projects/${project.id}` , {
+          method: 'PATCH',
+          headers: {
+            'Content-Type':'application/json',
+            'Accepts':'application/json'
+          },
+          body: JSON.stringify({
+              name: project.name,
+              notes: project.notes
+          })
+        })
+        .then(res => res.json())
+        .then(newProject => {
+            if (!newProject.error) {
+                this.setState({projects: this.state.projects.map(p => p.id === newProject.id ? newProject : p)})
+            } else {
+                alert("That project name has already been used.")
+            }
+        })
+    }
+
     formClick = () => {
         this.setState({formShow: !this.state.formShow})
     }
@@ -185,7 +207,9 @@ class LandingPage extends Component {
                     <CardDeck id="card-deck">
                         {this.state.projects.map(project => {
                             return (
-                            <ProjectCard createTask={this.createTask} deleteTask={this.deleteTask} updateTask={this.updateTask} deleteContact={this.deleteContact} createContact={this.createContact} updateContact={this.updateContact} project={project} key={project.id}/>)
+                            <ProjectCard createTask={this.createTask} deleteTask={this.deleteTask} updateTask={this.updateTask}
+                            deleteContact={this.deleteContact} createContact={this.createContact} updateContact={this.updateContact}
+                            project={project} key={project.id} updateProject={this.updateProject}/>)
                         })}
                         <div>
                             {!this.state.formShow ? 
@@ -209,9 +233,6 @@ class LandingPage extends Component {
                                 </Card.Body>
                             </Card>      
                             }
-
-
-
                         </div>
                     </CardDeck>
                 </div>
