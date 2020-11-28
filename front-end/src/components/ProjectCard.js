@@ -145,16 +145,14 @@ const ProjectCard = ({project, createTask, deleteTask, updateTask, deleteContact
                     }
                    
                 </Card.Header>
-                <Card.Body>
-                    <Card.Text>
-                        <ListGroup >
-                            <ListGroupItem onClick={() => setTasksShow(!tasksShow)} action variant="info">Tasks</ListGroupItem>
-                            <ListGroupItem onClick={() => setContactsShow(!contactsShow)} action variant="info">Contacts</ListGroupItem>
-                            {/* <ListGroupItem onClick={() => setTeamShow(!teamShow)} action variant="info">Team</ListGroupItem> */}
-                            <ListGroupItem onClick={() => setNotesShow(!notesShow)} action variant="info">Notes</ListGroupItem>
+                    <Card.Body id="project-card-body">
+                        <ListGroup className="list-group-hover list-group-flush">
+                            <ListGroupItem onClick={() => setTasksShow(!tasksShow)} action className="list-group-item-margin">Tasks</ListGroupItem>
+                            <ListGroupItem onClick={() => setContactsShow(!contactsShow)} action className="list-group-item-margin">Contacts</ListGroupItem>
+                            {/* <ListGroupItem onClick={() => setTeamShow(!teamShow)} action >Team</ListGroupItem> */}
+                            <ListGroupItem onClick={() => setNotesShow(!notesShow)} action>Notes</ListGroupItem>
                         </ListGroup>
-                    </Card.Text>
-                </Card.Body>
+                    </Card.Body>
             </Card>
             <Modal
                 show={teamShow}
@@ -212,11 +210,13 @@ const ProjectCard = ({project, createTask, deleteTask, updateTask, deleteContact
                 </Form>
                 : null }
                 <Modal.Body>
-                <Table responsive>
+                <Table responsive className="table-hover">
+                    <tbody>
                     {sortedContacts.map(contact => {
                         return (
                         <ProjectContact contact={contact} deleteContact={deleteContact} updateContact={updateContact} projectId={projectId} key={contact.id}/>) 
                     })}
+                    </tbody>
                 </Table>
                 </Modal.Body>
             </Modal>
@@ -278,11 +278,13 @@ const ProjectCard = ({project, createTask, deleteTask, updateTask, deleteContact
                 </Form>
                 : null }
                 <Modal.Body>
-                <Table responsive>
+                <Table responsive className="table-hover">
+                    <tbody>
                     {sortedTasks.map(pt => {
                         return (
                         <ProjectTask task={pt} deleteTask={deleteTask} updateTask={updateTask} projectId={projectId} key={pt.id}/>) 
                     })}
+                    </tbody>
                 </Table>
                 </Modal.Body>
             </Modal>

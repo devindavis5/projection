@@ -8,6 +8,7 @@ import Archive from '../assets/archive.png'
 import Plus from '../assets/plus.png'
 import X from '../assets/x.png'
 import Check from '../assets/check.png'
+import New from '../assets/new1.png'
 
 class LandingPage extends Component {
     state = {
@@ -16,7 +17,9 @@ class LandingPage extends Component {
         teamMembers: [],
         formShow: false,
         newProjectName: '',
-        userId: ''   
+        userId: '',
+        newDailyShow: false,
+        newTaskDescription: ''   
     }
 
     componentDidMount() {
@@ -79,6 +82,31 @@ class LandingPage extends Component {
                 this.setState({projects: this.state.projects.map(p => p.id === project.id ? project : p)})
             } else {
                 alert("Contact must have a name.")
+            }
+        })
+    }
+
+    createDailyTask = (e) => {
+        e.preventDefault()
+        fetch('http://localhost:3000/daily_tasks' , {
+          method: 'POST',
+          headers: {
+            'Content-Type':'application/json',
+            'Accepts':'application/json'
+          },
+          body: JSON.stringify({
+              description: this.state.newTaskDescription,
+              user_id: this.state.userId
+          })
+        })
+        .then(res => res.json())
+        .then(task => {
+            if (!task.error) {
+                this.setState({dailyTasks: [...this.state.dailyTasks, task]})
+                this.setState({newDailyShow: false})
+                this.setState({newTaskDescription: ''})
+            } else {
+                alert("Task must have a description.")
             }
         })
     }
@@ -168,6 +196,28 @@ class LandingPage extends Component {
         })
     }
 
+    updateDailyTask = (task) => {
+        fetch(`http://localhost:3000/daily_tasks/${task.id}` , {
+          method: 'PATCH',
+          headers: {
+            'Content-Type':'application/json',
+            'Accepts':'application/json'
+          },
+          body: JSON.stringify({
+              description: task.description,
+              status: task.status
+          })
+        })
+        .then(res => res.json())
+        .then(newTask => {
+            if (!newTask.error) {
+                this.setState({dailyTasks: this.state.dailyTasks.map(t => t.id === newTask.id ? newTask : t)})
+            } else {
+                alert("Task must have a description.")
+            }
+        })
+    }
+
     formClick = () => {
         this.setState({formShow: !this.state.formShow})
     }
@@ -199,7 +249,17 @@ class LandingPage extends Component {
         })
     }
 
+    handleTaskDescriptionChange = (e) => {
+        this.setState({newTaskDescription: e.target.value})
+    }
+
+    createDailyTaskFormToggle = () => {
+        this.setState({newDailyShow: !this.state.newDailyShow})
+        this.setState({newTaskDescription: ''})
+    }
+
     render() {
+        const incompleteDailies = this.state.dailyTasks.filter(dt => dt.status === "incomplete")
         return (
             <div className='projects-page'>
                 <NavBar /> 
@@ -237,13 +297,31 @@ class LandingPage extends Component {
                     </CardDeck>
                 </div>
                 <div className='daily-tasks-div'>
-                    <Card >
-                        <Card.Header className='text-center'>Today's Tasks</Card.Header>
+                    <Card body={true} id="daily-tasks-card" text="primary">
+                        <Card.Title className='text-center'>Today's Tasks
+                        <img width="25" height="25" id="create-daily" alt="back" onClick={this.createDailyTaskFormToggle} src={New}/>
+                        </Card.Title>
                         <Table>
-                        {this.state.dailyTasks.map(t => {
+                            <tbody>
+                                {this.state.newDailyShow ?
+                                    <tr>
+                                        <td>
+                                        <Form.Control id="daily-task-description" onChange={this.handleTaskDescriptionChange} value={this.state.newTaskDescription} placeholder="Task..." />     
+                                        </td>
+                                        <td>
+                                        <Button id="daily-task-submit" onClick={e => this.createDailyTask(e)} variant="primary float-right" type="submit">
+                                        Create
+                                        </Button>       
+                                        </td>
+                                    </tr>
+                                :
+                                    null
+                                }
+                        {incompleteDailies.map(t => {
                             return (
-                            <DailyTasks task={t} key={t.id}/>) 
+                            <DailyTasks task={t} key={t.id} updateDailyTask={this.updateDailyTask}/>) 
                         })}
+                            </tbody>
                         </Table>
                     </Card>
                    <div className="archive-div">
