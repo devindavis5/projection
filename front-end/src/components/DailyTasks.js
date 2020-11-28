@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
-import { ListGroupItem} from 'react-bootstrap';
+import { ListGroupItem, Form} from 'react-bootstrap';
 import Archive from '../assets/archive.png'
 import X from '../assets/x.png'
 import X2 from '../assets/x2.png'
 import Check from '../assets/check.png'
 
-const DailyTasks = ({task}) => {
+const DailyTasks = ({task, updateDailyTask}) => {
     const [formShow, setFormShow] = useState(false)
-    const [editDeadline, setEditDeadline] = useState(task.deadline)
     const [description, setDescription] = useState(task.description)
+    const [status, setStatus] = useState(task.status)
     const taskId = task.id
 
     const deleteProjectTask = () => {
@@ -18,23 +18,23 @@ const DailyTasks = ({task}) => {
     const taskSubmit = (e) => {
         e.preventDefault()
         const taskData = {
-            deadline: editDeadline,
             description: description,
-            status: 'incomplete'
+            status: status,
+            id: taskId
         }
-        // updateTask(taskId, taskData)
+        updateDailyTask(taskData)
         formReset()  
     }
 
     const formReset = () => {
         setFormShow(false)
-        setEditDeadline(task.deadline)
-        setDescription(task.description) 
+        setDescription(task.description)
+        setStatus(task.status)
     }
 
     const resetEditForm = () => {
-        setEditDeadline(task.deadline)
         setDescription(task.description)
+        setStatus(task.status)
         setFormShow(!formShow)
     }
     
@@ -42,8 +42,22 @@ const DailyTasks = ({task}) => {
         
         <>
         <tr >
-        <td className="align-middle">{task.description}</td>
-        <td className="align-middle"size="sm" style={{ textAlign:"right" }}><img width="25" height="25" alt="archive" src={Archive}/></td>
+        {!formShow ? 
+            <td className="align-middle" onClick={() => resetEditForm()}>{task.description}</td>
+        :
+            <td style={{width: "85%"}} class="align-middle">
+                <Form.Control as="textarea" rows={1} value={description} onChange={e => setDescription(e.target.value)}/> 
+            </td>
+        }
+        {!formShow ?
+            <td className="align-middle"size="sm" style={{ textAlign:"right" }}><img width="25" height="25" alt="archive" src={Archive}/></td>
+        :
+            <td className="align-middle"size="sm" style={{ textAlign:"right" }}>
+                <img width="13" onClick={e => taskSubmit(e)} height="18" alt="archive" src={Check}/>
+                <br/>
+                <img width="15" onClick={() => formReset()} height="20" alt="archive" src={X2}/>
+            </td>
+        }
         </tr>
         </>
     )   

@@ -12,12 +12,13 @@ class DailyTasksController < ApplicationController
     end
 
     def create
-        task = DailyTask.create(description: params[:description], deadline: '', status: 'incomplete', user_id: params[:id])
+        task = DailyTask.create(description: params[:description], deadline: '', status: 'incomplete', user_id: params[:user_id])
         if task.valid?
             render json: task, only: [:id, :description, :deadline, :status]    
         else
             flash[:errors] = task.errors.full_messages 
         end
+        # render json: task, only: [:id, :description, :deadline, :status] 
     end
 
     def update

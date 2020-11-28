@@ -125,10 +125,12 @@ code {
 }
 
 .daily-tasks-div .card {
-  height: 55vh;
-  width: 65%;
+  height: 65vh;
+  width: 85%;
   overflow-y: auto;
   position: relative;
+  border: 2px solid rgba(21, 140, 186, .5);
+  /* border-radius: 5px; */
 }
 
 /* .daily-tasks-div .card-header {
@@ -195,7 +197,7 @@ code {
   /* padding-top: 24px; */
   /* float: right; */
   /* padding-left: 10%; */
-  height: 13vh;
+  height: 15vh;
   /* float:left; */
   /* position: relativ; */
   /* display: block; */
@@ -206,8 +208,8 @@ code {
 
 .archive-div {
   position: absolute;
-  right: 17%;
-  bottom: 14%;
+  right: 7%;
+  bottom: 1.5%;
 }
 
 #task-submit {
@@ -298,5 +300,20 @@ code {
 .list-group-item-margin {
   margin:0 0 6px 0;
   border:0 !important;
+}
 
+/* .borderless td, .borderless th {
+  border: none;
+  border-bottom: none !important;
+  border-top: none !important;
+} */
+
+#create-daily {
+  float: right;
+  margin-bottom: 0rem;
+  margin-right: .8rem;
+}
+
+#daily-task-description {
+  width: 30.8rem;
 }
