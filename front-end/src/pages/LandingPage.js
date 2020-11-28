@@ -200,6 +200,7 @@ class LandingPage extends Component {
     }
 
     render() {
+        const incompleteDailies = this.state.dailyTasks.filter(dt => dt.status === "incomplete")
         return (
             <div className='projects-page'>
                 <NavBar /> 
@@ -237,13 +238,15 @@ class LandingPage extends Component {
                     </CardDeck>
                 </div>
                 <div className='daily-tasks-div'>
-                    <Card >
-                        <Card.Header className='text-center'>Today's Tasks</Card.Header>
-                        <Table>
-                        {this.state.dailyTasks.map(t => {
+                    <Card body={true} border="primary" id="daily-tasks-card" text="primary">
+                        <Card.Title className='text-center'>Today's Tasks</Card.Title>
+                        <Table className="table-hover">
+                            <tbody>
+                        {incompleteDailies.map(t => {
                             return (
                             <DailyTasks task={t} key={t.id}/>) 
                         })}
+                            </tbody>
                         </Table>
                     </Card>
                    <div className="archive-div">

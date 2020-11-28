@@ -79,7 +79,7 @@ code {
 }
 
 .project-card .card-body {
-  background-color: rgb(214, 225, 235); 
+  background-color: white; 
 }
 
 
@@ -131,6 +131,16 @@ code {
   position: relative;
 }
 
+/* .daily-tasks-div .card-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 65%;
+  background: #bbb;
+  z-index: 2;
+  height: 20px; 
+} */
+
 .team-members-div {
   position: fixed;
   bottom: 0;
@@ -140,7 +150,7 @@ code {
   justify-content: center;
   border-top: 3px solid rgba(21, 140, 186, 1);
   /* background-color: rgba(21, 140, 186, 1); */
-  background-color: white;
+  background-color: rgb(223, 234, 245);;
   
 }
 
@@ -213,9 +223,9 @@ code {
 }
 
 #add-project-card {
-  height: 225px;
+  height: 235px;
   width: 322.8px;
-  background-color: rgb(214, 225, 235);
+  background-color: rgb(223, 234, 245);
   align-items:center;
 }
 
@@ -225,7 +235,7 @@ code {
   position: relative;
   top: 50%;
   transform: translateY(-50%);
-  opacity: .4;
+  opacity: .2;
 }
 
 #new-project-x {
@@ -269,6 +279,24 @@ code {
   margin-left: 25%;
 }
 
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+  background-color: rgb(223, 234, 245);
+}
 
+.list-group-hover .list-group-item:hover {
+  background-color: rgb(223, 234, 245);
+}
 
+/* #daily-tasks-card {
+  background-color: rgb(245, 249, 255);
+} */
 
+#project-card-body {
+  background-color: rgb(223, 234, 245);
+}
+
+.list-group-item-margin {
+  margin:0 0 6px 0;
+  border:0 !important;
+
+}
