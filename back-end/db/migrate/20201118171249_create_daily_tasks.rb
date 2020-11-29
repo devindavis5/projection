@@ -3,7 +3,7 @@ class CreateDailyTasks < ActiveRecord::Migration[6.0]
     create_table :daily_tasks do |t|
       t.string :description
       t.date :deadline
-      t.string :status
+      t.boolean :archived
       t.integer :user_id
 
       t.timestamps

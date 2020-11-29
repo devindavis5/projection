@@ -3,18 +3,18 @@ class DailyTasksController < ApplicationController
 
     def index
         list = DailyTask.all
-        render json: list, only: [:id, :description, :deadline, :status, :user_id]
+        render json: list, only: [:id, :description, :deadline, :archived, :user_id]
     end
 
     def show
         list = DailyTask.where(user_id: params[:id])
-        render json: list, only: [:id, :description, :deadline, :status, :user_id]
+        render json: list, only: [:id, :description, :deadline, :archived, :user_id]
     end
 
     def create
-        task = DailyTask.create(description: params[:description], deadline: '', status: 'incomplete', user_id: params[:user_id])
+        task = DailyTask.create(description: params[:description], deadline: '', archived: false, user_id: params[:user_id])
         if task.valid?
-            render json: task, only: [:id, :description, :deadline, :status]    
+            render json: task, only: [:id, :description, :deadline, :archived]    
         else
             flash[:errors] = task.errors.full_messages 
         end
@@ -23,11 +23,16 @@ class DailyTasksController < ApplicationController
 
     def update
         task = DailyTask.find(params[:id])
-        task.update(description: params[:description], status: params[:status])
+        task.update(description: params[:description], archived: params[:archived])
         if task.valid?
-            render json: task, only: [:id, :description, :deadline, :status]    
+            render json: task, only: [:id, :description, :deadline, :archived]    
         else
             flash[:errors] = task.errors.full_messages 
         end
+    end
+
+    def destroy
+        task = DailyTask.find(params[:id])
+        task.destroy
     end
 end

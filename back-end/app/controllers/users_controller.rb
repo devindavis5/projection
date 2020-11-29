@@ -14,7 +14,7 @@ class UsersController < ApplicationController
             project_tasks: { only: [:id, :name, :importance, :deadline, :description, :status], include: { team_members: { only: [:id, :name, :image]} } },
             contacts: { only: [:id, :name, :email, :phone, :notes] } 
           ]},
-          daily_tasks: { only: [:id, :description, :deadline, :status] },
+          daily_tasks: { only: [:id, :description, :deadline, :archived] },
           team_members: { only: [:id, :name, :image] }
         ]
     end

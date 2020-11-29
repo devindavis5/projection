@@ -131,6 +131,13 @@ class LandingPage extends Component {
         .then(project => this.setState({projects: this.state.projects.map(p => p.id === project[0].id ? project[0] : p)}))
     }
 
+    deleteDailyTask = (task) => {
+        fetch(`http://localhost:3000/daily_tasks/${task.id}`, {
+          method: 'DELETE',
+        })
+        .then(this.setState({dailyTasks: this.state.dailyTasks.filter(dt => dt.id != task.id)}))
+    }
+
     updateTask = (id, task) => {
         fetch(`http://localhost:3000/project_tasks/${id}` , {
           method: 'PATCH',
@@ -209,7 +216,7 @@ class LandingPage extends Component {
           },
           body: JSON.stringify({
               description: task.description,
-              status: task.status
+              archived: task.archived
           })
         })
         .then(res => res.json())
@@ -267,8 +274,8 @@ class LandingPage extends Component {
     }
 
     render() {
-        const incompleteDailies = this.state.dailyTasks.filter(dt => dt.status === "incomplete")
-        const completeDailies = this.state.dailyTasks.filter(dt => dt.status === "complete")
+        const incompleteDailies = this.state.dailyTasks.filter(dt => dt.archived === false)
+        const completeDailies = this.state.dailyTasks.filter(dt => dt.archived === true)
         return (
             <div className='projects-page'>
                 <NavBar /> 
@@ -332,7 +339,7 @@ class LandingPage extends Component {
                                 }
                         {incompleteDailies.map(t => {
                             return (
-                            <DailyTasks task={t} key={t.id} updateDailyTask={this.updateDailyTask}/>
+                            <DailyTasks task={t} key={t.id} updateDailyTask={this.updateDailyTask} deleteDailyTask={this.deleteDailyTask}/>
                             ) 
                         })}
                             </tbody>
@@ -357,7 +364,7 @@ class LandingPage extends Component {
                         <tbody>
                         {completeDailies.map(t => {
                             return (
-                                <DailyTasks task={t} key={t.id} updateDailyTask={this.updateDailyTask}/>
+                                <DailyTasks task={t} key={t.id} updateDailyTask={this.updateDailyTask} deleteDailyTask={this.deleteDailyTask}/>
                             )  
                         })}
                         </tbody>
