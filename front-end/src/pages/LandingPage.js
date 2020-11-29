@@ -4,7 +4,10 @@ import NavBar from '../components/NavBar.js'
 import DailyTasks from '../components/DailyTasks.js'
 import TeamMembers from '../components/TeamMembers.js'
 import { Button, Container, Row, Col, ListGroup, ListGroupItem, CardColumns, Card, CardDeck, Table, Modal, Form } from 'react-bootstrap'
-import Archive from '../assets/archive.png'
+import Archive1 from '../assets/archive1.png'
+import Archive2 from '../assets/archive2.png'
+import Archive3 from '../assets/archive3.png'
+import Archive4 from '../assets/archive4.png'
 import Plus from '../assets/plus.png'
 import X from '../assets/x.png'
 import Check from '../assets/check.png'
@@ -297,15 +300,19 @@ class LandingPage extends Component {
                     </CardDeck>
                 </div>
                 <div className='daily-tasks-div'>
-                    <Card body={true} id="daily-tasks-card" text="primary">
-                        <Card.Title className='text-center'>Today's Tasks
+                    <Card id="daily-tasks-card" text="primary" >
+                        {/* <Card.Header id="daily-task-header" > */}
+                        <Card.Title id="daily-task-title" className='text-center'>Today's Tasks
                         <img width="25" height="25" id="create-daily" alt="back" onClick={this.createDailyTaskFormToggle} src={New}/>
                         </Card.Title>
-                        <Table>
+                        {/* </Card.Header> */}
+                        {/* <Card.Body> */}
+                        <Table responsive className="table-hover" id="daily-task-table">
+                            {/* borderless */}
                             <tbody>
                                 {this.state.newDailyShow ?
-                                    <tr>
-                                        <td>
+                                    <tr id="new-daily-task-form">
+                                        <td >
                                         <Form.Control id="daily-task-description" onChange={this.handleTaskDescriptionChange} value={this.state.newTaskDescription} placeholder="Task..." />     
                                         </td>
                                         <td>
@@ -323,10 +330,20 @@ class LandingPage extends Component {
                         })}
                             </tbody>
                         </Table>
+                        {/* </Card.Body> */}
                     </Card>
-                   <div className="archive-div">
-                   <img alt="archive" id="archive" src={Archive}/>  
-                </div>    
+                    <div className="daily-task-archive-div">
+                        <img alt="archive" id="daily-task-archive" src={Archive1}/>  
+                    {/* </div>  
+                    <div className="project-archive-div"> */}
+                        <img alt="archive" id="project-archive" src={Archive2}/>  
+                    {/* </div>  
+                    <div className="daily-task-archive-div"> */}
+                        <img alt="archive" id="project-task-archive" src={Archive3}/>  
+                    {/* </div>  
+                    <div className="daily-task-archive-div"> */}
+                        <img alt="archive" id="contact-archive" src={Archive4}/>  
+                    </div>    
                 </div>
                 <div className='team-members-div'>
                     <Row>
