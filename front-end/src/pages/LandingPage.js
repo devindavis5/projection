@@ -22,7 +22,8 @@ class LandingPage extends Component {
         newProjectName: '',
         userId: '',
         newDailyShow: false,
-        newTaskDescription: ''   
+        newTaskDescription: '',
+        dailyTaskArchiveShow: false   
     }
 
     componentDidMount() {
@@ -261,8 +262,13 @@ class LandingPage extends Component {
         this.setState({newTaskDescription: ''})
     }
 
+    toggleDailyTaskArchive = () => {
+        this.setState({dailyTaskArchiveShow: !this.state.dailyTaskArchiveShow})
+    }
+
     render() {
         const incompleteDailies = this.state.dailyTasks.filter(dt => dt.status === "incomplete")
+        const completeDailies = this.state.dailyTasks.filter(dt => dt.status === "complete")
         return (
             <div className='projects-page'>
                 <NavBar /> 
@@ -300,7 +306,7 @@ class LandingPage extends Component {
                     </CardDeck>
                 </div>
                 <div className='daily-tasks-div'>
-                    <Card id="daily-tasks-card" text="primary" >
+                    <Card id="daily-tasks-card" >
                         {/* <Card.Header id="daily-task-header" > */}
                         <Card.Title id="daily-task-title" className='text-center'>Today's Tasks
                         <img width="25" height="25" id="create-daily" alt="back" onClick={this.createDailyTaskFormToggle} src={New}/>
@@ -326,17 +332,43 @@ class LandingPage extends Component {
                                 }
                         {incompleteDailies.map(t => {
                             return (
-                            <DailyTasks task={t} key={t.id} updateDailyTask={this.updateDailyTask}/>) 
+                            <DailyTasks task={t} key={t.id} updateDailyTask={this.updateDailyTask}/>
+                            ) 
                         })}
                             </tbody>
                         </Table>
                         {/* </Card.Body> */}
                     </Card>
                     <div className="daily-task-archive-div">
-                        <img alt="archive" id="daily-task-archive" src={Archive1}/>  
+                        <img onClick={this.toggleDailyTaskArchive} alt="archive" id="daily-task-archive" src={Archive1}/>
+
+
+                <Modal
+                    show={this.state.dailyTaskArchiveShow}
+                    onHide={this.toggleDailyTaskArchive}
+                    dialogClassName="modal-90w"
+                    size="xl"
+                    >
+                    <Modal.Header closeButton>
+                        <h1>Archived Daily Tasks</h1>
+                    </Modal.Header>
+                    <Modal.Body>
+                    <Table responsive className="table-hover">
+                        <tbody>
+                        {completeDailies.map(t => {
+                            return (
+                                <DailyTasks task={t} key={t.id} updateDailyTask={this.updateDailyTask}/>
+                            )  
+                        })}
+                        </tbody>
+                    </Table>
+                    </Modal.Body>
+                </Modal>       
+
+
                     {/* </div>  
                     <div className="project-archive-div"> */}
-                        <img alt="archive" id="project-archive" src={Archive2}/>  
+                        <img  alt="archive" id="project-archive" src={Archive2}/>  
                     {/* </div>  
                     <div className="daily-task-archive-div"> */}
                         <img alt="archive" id="project-task-archive" src={Archive3}/>  

@@ -125,7 +125,7 @@ code {
 }
 
 .daily-tasks-div .card {
-  height: 65vh;
+  height: 64vh;
   width: 85%;
   overflow-y: auto;
   position: relative;
@@ -166,8 +166,7 @@ code {
   justify-content: center;
   border-top: 3px solid rgba(21, 140, 186, 1);
   /* background-color: rgba(21, 140, 186, 1); */
-  background-color: rgb(223, 234, 245);
-  
+  background-color: rgb(223, 234, 245); 
 }
 
 .avatars {
@@ -312,7 +311,7 @@ code {
 
 .daily-task-archive-div {
   position: absolute;
-  bottom: 1.5%;
+  bottom: 1.9%;
   height: 16vh;
   overflow-x:auto;
   display: inline-block;
@@ -348,3 +347,7 @@ code {
 /* #new-daily-task-form {
   position: fixed;
 } */
+
+#archive-x {
+  padding-left: 0;
+}
