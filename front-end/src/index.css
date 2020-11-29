@@ -125,13 +125,27 @@ code {
 }
 
 .daily-tasks-div .card {
-  height: 65vh;
+  height: 64vh;
   width: 85%;
   overflow-y: auto;
   position: relative;
-  border: 2px solid rgba(21, 140, 186, .5);
+  border: 3px solid rgba(21, 140, 186, .5);
+  /* background-color: rgb(223, 234, 245); */
   /* border-radius: 5px; */
 }
+
+/* .daily-tasks-div .table {
+  background-color: rgb(223, 234, 245);
+} */
+
+/* #daily-task-table {
+  border-collapse: separate;
+  border-spacing: 0 3px;
+} */
+
+/* #daily-task-rows {
+  background-color: white;
+} */
 
 /* .daily-tasks-div .card-header {
   position: fixed;
@@ -152,15 +166,11 @@ code {
   justify-content: center;
   border-top: 3px solid rgba(21, 140, 186, 1);
   /* background-color: rgba(21, 140, 186, 1); */
-  background-color: rgb(223, 234, 245);;
-  
+  background-color: rgb(223, 234, 245); 
 }
 
 .avatars {
   position: relative;
-  /* top: 1%; */
-  /* left: 40%; */
-  /* margin: 0 -150px; */
 }
 
 /* .projects-page {
@@ -191,25 +201,6 @@ code {
   position: absolute;
   right: 4%;
   top: 3vh;
-}
-
-#archive {
-  /* padding-top: 24px; */
-  /* float: right; */
-  /* padding-left: 10%; */
-  height: 15vh;
-  /* float:left; */
-  /* position: relativ; */
-  /* display: block; */
-  /* white-space: pre-wrap; */
-  /* positions: sticky-top */
-  /* justify-content: center; */
-}
-
-.archive-div {
-  position: absolute;
-  right: 7%;
-  bottom: 1.5%;
 }
 
 #task-submit {
@@ -315,5 +306,48 @@ code {
 }
 
 #daily-task-description {
-  width: 30.8rem;
+  width: 33.35rem;
+}
+
+.daily-task-archive-div {
+  position: absolute;
+  bottom: 1.9%;
+  height: 16vh;
+  overflow-x:auto;
+  display: inline-block;
+  justify-content: center;
+}
+
+#daily-task-archive {
+  height: 9rem;
+  margin: .5rem;
+}
+
+#project-archive {
+  height: 9rem;
+  margin: .5rem;
+}
+
+#project-task-archive {
+  height: 9rem;
+  margin: .5rem;
+}
+
+#contact-archive {
+  height: 9rem;
+  margin: .5rem;
+}
+
+#daily-task-title {
+  /* background-color: blue; */
+  margin-top: 1rem;
+  margin-bottom: 1.3rem;
+}
+
+/* #new-daily-task-form {
+  position: fixed;
+} */
+
+#archive-x {
+  padding-left: 0;
 }
