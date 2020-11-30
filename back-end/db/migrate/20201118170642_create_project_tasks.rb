@@ -5,7 +5,7 @@ class CreateProjectTasks < ActiveRecord::Migration[6.0]
       t.string :importance
       t.date :deadline
       t.string :description
-      t.string :status
+      t.boolean :archived
       t.integer :project_id
 
       t.timestamps

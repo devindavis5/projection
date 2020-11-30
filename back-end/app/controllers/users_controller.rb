@@ -9,9 +9,10 @@ class UsersController < ApplicationController
     def show
         # user = User.find(params[:id])
         user = current_user
+
         render json: user, only: [:id, :name, :email, :password, :image], :include => [
-          projects: { only: [:id, :name, :deadline, :notes, :user_id], :include => [
-            project_tasks: { only: [:id, :name, :importance, :deadline, :description, :status], include: { team_members: { only: [:id, :name, :image]} } },
+          projects: { only: [:id, :name, :deadline, :archived, :notes, :user_id], :include => [
+            project_tasks: { only: [:id, :name, :importance, :deadline, :description, :archived, :project_id], include: { team_members: { only: [:id, :name, :image]} } },
             contacts: { only: [:id, :name, :email, :phone, :notes] } 
           ]},
           daily_tasks: { only: [:id, :description, :deadline, :archived] },

@@ -125,11 +125,12 @@ code {
 }
 
 .daily-tasks-div .card {
-  height: 64vh;
+  height: 62.2vh;
   width: 85%;
   overflow-y: auto;
   position: relative;
-  border: 3px solid rgba(21, 140, 186, .5);
+  /* border: 3px solid rgba(21, 140, 186, .5); */
+  border: 2px solid rgba(21, 140, 186, 1);
   /* background-color: rgb(223, 234, 245); */
   /* border-radius: 5px; */
 }
@@ -350,4 +351,22 @@ code {
 
 #archive-x {
   padding-left: 0;
+}
+
+#project-archive-toggle {
+  float: right;
+  position: relative;
+}
+
+#delete-project-x {
+  position: absolute;
+  right: .5vh;
+  top: .3vh;
+  /* float: right; */
+  /* margin-left: 2rem; */
+}
+
+#project-card-title {
+  position: relative;
+  left: 1rem;
 }

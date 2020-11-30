@@ -3,6 +3,7 @@ class CreateProjects < ActiveRecord::Migration[6.0]
     create_table :projects do |t|
       t.string :name
       t.date :deadline
+      t.boolean :archived
       t.string :notes
       t.integer :user_id
 

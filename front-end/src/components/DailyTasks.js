@@ -67,7 +67,7 @@ const DailyTasks = ({task, updateDailyTask, deleteDailyTask}) => {
         <tr >
         {!formShow ? 
 
-            <td className="align-middle" id="daily-task-rows" onClick={() => resetEditForm()}>{task.description}</td>
+            <td className="align-middle" style={{width: "94%"}} id="daily-task-rows" onClick={() => resetEditForm()}>{task.description}</td>
         :
             <td style={{width: "90%"}} class="align-middle">
                 <Form.Control as="textarea" rows={1} value={description} onChange={e => setDescription(e.target.value)}/> 
