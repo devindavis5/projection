@@ -164,15 +164,15 @@ code {
   height: 9vh;
   width: 100%;
   display: flex;
+  align-items: center;
   justify-content: center;
+  overflow: hidden;
   border-top: 3px solid rgba(21, 140, 186, 1);
   /* background-color: rgba(21, 140, 186, 1); */
   background-color: rgb(223, 234, 245); 
 }
 
-.avatars {
-  position: relative;
-}
+
 
 /* .projects-page {
   background-color: blue;
@@ -349,9 +349,7 @@ code {
   position: fixed;
 } */
 
-#archive-x {
-  padding-left: 0;
-}
+
 
 #project-archive-toggle {
   float: right;
@@ -376,3 +374,32 @@ code {
   padding-right: 0;
   position: relative;
 }
+
+#team-member-button {
+  background-color: rgb(223, 234, 245);
+  border: none;
+}
+
+#team-member-pic-row {
+  border-top: none;
+  text-align: center;
+  /* padding-right: 0;
+  border-right: 0; */
+}
+
+/* #archive-toggle {
+  position: absolute;
+  right: 0rem;
+  top: auto;
+} */
+
+#archive-x {
+  padding-left: 0;
+}
+
+/* #project-task-table {
+  overflow: hidden;
+  object-fit: contain;
+  overflow-y: hidden;
+  overflow-x: hidden;
+} */

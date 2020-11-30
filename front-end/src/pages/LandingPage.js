@@ -5,6 +5,7 @@ import DailyTasks from '../components/DailyTasks.js'
 import ProjectTask from '../components/ProjectTask.js'
 import ProjectContact from '../components/ProjectContact.js'
 import TeamMembers from '../components/TeamMembers.js'
+import TeamMemberTaskShow from '../components/TeamMemberTaskShow.js'
 import { Button, Container, Row, Col, ListGroup, ListGroupItem, CardColumns, Card, CardDeck, Table, Modal, Form } from 'react-bootstrap'
 import Archive1 from '../assets/archive1.png'
 import Archive2 from '../assets/archive2.png'
@@ -29,6 +30,7 @@ class LandingPage extends Component {
         projectArchiveShow: false,
         projectTaskArchiveShow: false,
         ContactArchiveShow: false,
+        teamMemberShow: false,
         projectTasks: []      
     }
 
@@ -57,7 +59,6 @@ class LandingPage extends Component {
                     this.setState({userId: user.id})
                 }
             })
-    
         } 
     }
 
@@ -314,6 +315,10 @@ class LandingPage extends Component {
         this.setState({contactArchiveShow: !this.state.contactArchiveShow})
     }
 
+    teamMemberClick = () => {
+        this.setState({teamMemberShow: !this.state.teamMemberShow})
+    }
+
     render() {
         const incompleteDailies = this.state.dailyTasks.filter(dt => dt.archived === false)
         const completeDailies = this.state.dailyTasks.filter(dt => dt.archived === true)
@@ -450,7 +455,7 @@ class LandingPage extends Component {
                         <h1>Archived Project Tasks</h1>
                     </Modal.Header>
                     <Modal.Body>
-                        <Table responsive className="table-hover">
+                        <Table responsive className="table-hover" id="project-task-table">
                         <tbody>
                              {completeProjectTasks.map(task => {
             
@@ -484,13 +489,8 @@ class LandingPage extends Component {
                         <Table responsive className="table-hover">
                         <tbody>
                              {completeContacts.map(contact => {
-            
-                                // console.log(task)
-                                //    let p = this.state.projects.find(p => p.id === task.project_id)
                                     return (
                                         <ProjectContact contact={contact} deleteContact={this.deleteContact}
-                                        // projectName={p.name}
-                                        // project={this.state.projects.find(p => p.id === task.project_id)}
                                         updateContact={this.updateContact}
                                         key={contact.id}/>
                                     )  
@@ -503,13 +503,35 @@ class LandingPage extends Component {
                     </div>    
                 </div>
                 <div className='team-members-div'>
-                    <Row>
+                    {/* <Row> */}
                     {this.state.teamMembers.map(tm => {
                         return (
-                        <TeamMembers teamMember={tm} key={tm.id}/>) 
+                        <TeamMembers teamMemberClick={this.teamMemberClick} teamMember={tm} key={tm.id}/>) 
                     })}
-                    </Row>
+                    {/* </Row> */}
                 </div>
+
+                <Modal
+                    show={this.state.teamMemberShow}
+                    onHide={this.teamMemberClick}
+                    dialogClassName="modal-90w"
+                    size="xl"
+                    >
+                    <Modal.Header closeButton>
+                        <h1>Team</h1>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Table responsive className="table-hover">
+                     
+                        {this.state.teamMembers.map(tm => {
+                        return (
+                        
+                        <TeamMemberTaskShow teamMemberClick={this.teamMemberClick} teamMember={tm} key={tm.id}/>) 
+                        })}
+                      
+                        </Table>
+                    </Modal.Body>
+                </Modal>
             </div>
         )
     }

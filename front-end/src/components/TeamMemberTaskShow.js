@@ -29,21 +29,22 @@ const TeamMembers = ({teamMember, teamMemberClick}) => {
     }
     
     return (
-        <div className="avatars">
-            {['top'].map((placement) => (
-                <OverlayTrigger
-                key={placement}
-                placement={placement}
-                overlay={
-                    <Tooltip id={`tooltip-${placement}`}>
-                    <strong>{teamMember.name}</strong>
-                    </Tooltip>
-                }
-                >
-                <Button id="team-member-button" variant="secondary" onClick={() => teamMemberClick()} ><img width="85" height="85" className="d-inline-block align-center" id="team-member-pic" alt="back" src={findSource()}/> </Button>
-                </OverlayTrigger>
-            ))}
-        </div>
+        <>
+            <tbody>
+            <tr>
+                <th id="team-member-pic-row"><img width="85" height="85" className="d-inline-block align-center" id="team-member-pic" alt="back" src={findSource()}/>{teamMember.name}</th>
+                </tr>
+                    {teamMember.project_tasks.map(t => {
+                        return (
+                            <tr>
+                                <td className="align-middle"><strong>{t.deadline}</strong></td>
+                                <td style={{width: "10%"}} className="align-middle">{t.name}</td>
+                                <td className="align-middle">{t.description}</td>
+                            </tr>
+                        )
+                    })}
+            </tbody>
+        </>
     )
     
 }

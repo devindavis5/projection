@@ -328,8 +328,8 @@ const ProjectCard = ({project, createTask, deleteTask, updateTask, deleteContact
                 </Form>
                 : null }
                 <Modal.Body>
-                <Table responsive className="table-hover">
-                    <tbody>
+                <Table responsive className="table-hover" id="project-task-table">
+                    <tbody >
                     {sortedTasks.map(pt => {
                         return (
                         <ProjectTask task={pt} deleteTask={deleteTask}
