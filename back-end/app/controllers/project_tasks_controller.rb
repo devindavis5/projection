@@ -12,7 +12,7 @@ class ProjectTasksController < ApplicationController
             project = Project.find(params[:projectId])
             render json: project, only: [:id, :name, :deadline, :archived, :notes, :user_id], :include => [
                 project_tasks: { only: [:id, :name, :importance, :deadline, :description, :archived], include: { team_members: { only: [:id, :name, :image]} } },
-                contacts: { only: [:id, :name, :email, :phone, :notes] } 
+                contacts: { only: [:id, :name, :email, :phone, :archived, :notes] } 
             ]
         else
             flash[:errors] = pt.errors.full_messages 
@@ -27,7 +27,7 @@ class ProjectTasksController < ApplicationController
             project = task.find_project
             render json: project, only: [:id, :name, :deadline, :archived, :notes, :user_id], :include => [
                 project_tasks: { only: [:id, :name, :importance, :deadline, :description, :archived], include: { team_members: { only: [:id, :name, :image]} } },
-                contacts: { only: [:id, :name, :email, :phone, :notes] } 
+                contacts: { only: [:id, :name, :email, :phone, :archived, :notes] } 
             ] 
         else
             flash[:errors] = task.errors.full_messages  
@@ -41,7 +41,7 @@ class ProjectTasksController < ApplicationController
         task.destroy
         render json: project, only: [:id, :name, :deadline, :archived, :notes, :user_id], :include => [
             project_tasks: { only: [:id, :name, :importance, :deadline, :description, :archived], include: { team_members: { only: [:id, :name, :image]} } },
-            contacts: { only: [:id, :name, :email, :phone, :notes] } 
+            contacts: { only: [:id, :name, :email, :phone, :archived, :notes] } 
         ]
     end
 

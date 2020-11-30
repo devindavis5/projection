@@ -44,7 +44,8 @@ const ProjectCard = ({project, createTask, deleteTask, updateTask, deleteContact
     const sortedTasks = alphabetizedTasks.filter(t => t.archived != true)
 
     //sort contacts alphabetically
-    const sortedContacts = project.contacts.sort((a, b) => a.name.localeCompare(b.name))
+    const alphabetizedContacts = project.contacts.sort((a, b) => a.name.localeCompare(b.name))
+    const sortedContacts = alphabetizedContacts.filter(c => c.archived != true)
 
     //get all team members for the project
     let allTeamMembers = []
@@ -132,14 +133,14 @@ const ProjectCard = ({project, createTask, deleteTask, updateTask, deleteContact
     }
 
     const toggleProjectArchived = () => {
-        const project = {
+        const projectData = {
 
-            notes: projectNotes,
+            notes: project.notes,
             id: projectId, 
-            name: projectName,
-            archived: !projectArchived
+            name: project.name,
+            archived: !project.archived
         }
-        updateProject(project)
+        updateProject(projectData)
         setProjectArchived(project.archived)
     }
 
@@ -156,7 +157,7 @@ const ProjectCard = ({project, createTask, deleteTask, updateTask, deleteContact
                         <span onClick={() => resetEditProjectNameForm()} id="project-card-title">{project.name}</span>
                     : 
                       <Row className="justify-content-md-center">
-                            <Col xl={7} id="project-name-column">
+                            <Col xl={6} id="project-name-column">
                                 <Form.Control onChange={e => setProjectName(e.target.value)} id="project-name-input" value={projectName}/>
                             </Col>
                             <Col xl={1} className="align-self-center">
@@ -167,12 +168,16 @@ const ProjectCard = ({project, createTask, deleteTask, updateTask, deleteContact
                             </Col>
                         </Row>  
                     }
-                    {projectArchived ? 
+                    {projectArchived && !editProjectNameShow? 
                         <img onClick={() => setProjectDeleteShow(true)} width="15" height="20" alt="archive" id="delete-project-x" src={X}/>
                     :
                         null
                     }  
-                <img onClick={(e) => toggleProjectArchived(e)} width="25" height="25" id="project-archive-toggle" alt="archive" src={findSource()}/>
+                {!editProjectNameShow ?
+                    <img onClick={(e) => toggleProjectArchived(e)} width="25" height="25" id="project-archive-toggle" alt="archive" src={findSource()}/>
+                :
+                null
+                }
                 </Card.Header>
                     <Card.Body id="project-card-body">
                         <ListGroup className="list-group-hover list-group-flush">
@@ -259,7 +264,7 @@ const ProjectCard = ({project, createTask, deleteTask, updateTask, deleteContact
                     <tbody>
                     {sortedContacts.map(contact => {
                         return (
-                        <ProjectContact contact={contact} deleteContact={deleteContact} updateContact={updateContact} projectId={projectId} key={contact.id}/>) 
+                        <ProjectContact contact={contact} deleteContact={deleteContact} updateContact={updateContact} key={contact.id}/>) 
                     })}
                     </tbody>
                 </Table>

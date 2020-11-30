@@ -58,12 +58,13 @@ const ProjectTask = ({task, deleteTask, updateTask}) => {
 
     const toggleProjectTaskArchive = (e) => {
         const taskData = {
-            deadline: editDeadline,
-            description: description,
-            archived: !archived,
+            deadline: task.deadline,
+            description: task.description,
+            archived: !task.archived,
             id: taskId
         }
         updateTask(taskId, taskData)
+        formReset() 
         setArchived(task.archived)
     }
 
@@ -85,7 +86,7 @@ const ProjectTask = ({task, deleteTask, updateTask}) => {
         {!formShow ? 
         <td style={{width: "90%"}} onClick={() => resetEditForm()} class="align-middle">{task.description}</td>
         :
-        <td style={{width: "85%"}} class="align-middle">
+        <td style={{width: "85%"}} class="align-middle" id="description-column">
         <Form.Control as="textarea" rows={2} value={description} onChange={e => setDescription(e.target.value)}/> 
         </td>
         }
@@ -98,7 +99,7 @@ const ProjectTask = ({task, deleteTask, updateTask}) => {
          <img width="15" onClick={() => formReset()} height="20" alt="archive" src={X2}/>
         </td>
         }
-        {archived ?    
+        {archived && !formShow ?    
             <td className="align-middle" id="archive-x" size="sm" style={{ textAlign:"right" }}><img onClick={() => deleteProjectTask()} width="15" height="20" alt="archive" src={X}/></td>
         :
             null

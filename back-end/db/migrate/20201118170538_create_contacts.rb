@@ -4,6 +4,7 @@ class CreateContacts < ActiveRecord::Migration[6.0]
       t.string :name
       t.string :email
       t.string :phone
+      t.boolean :archived
       t.string :notes
       t.integer :project_id
 

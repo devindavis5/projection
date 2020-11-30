@@ -5,7 +5,7 @@ class ProjectsController < ApplicationController
         projects = Project.all
         render json: projects, only: [:id, :name, :deadline, :archived, :notes, :user_id], :include => [
             project_tasks: { only: [:id, :name, :importance, :deadline, :description, :archived], include: { team_members: { only: [:name, :image]} } },
-            contacts: { only: [:id, :name, :email, :phone, :notes] }
+            contacts: { only: [:id, :name, :email, :phone, :archived, :notes] }
         ]
     end
 
@@ -13,7 +13,7 @@ class ProjectsController < ApplicationController
         project = Project.find(params[:id])
         render json: project, only: [:id, :name, :deadline, :archived, :notes, :user_id], :include => [
             project_tasks: { only: [:id, :name, :importance, :deadline, :description, :archived], include: { team_members: { only: [:id, :name, :image]} } },
-            contacts: { only: [:id, :name, :email, :phone, :notes] }
+            contacts: { only: [:id, :name, :email, :phone, :archived, :notes] }
         ]
     end
 
@@ -22,7 +22,7 @@ class ProjectsController < ApplicationController
         if project.valid?
             render json: project, only: [:id, :name, :deadline, :archived, :notes, :user_id], :include => [
                 project_tasks: { only: [:id, :name, :importance, :deadline, :description, :archived], include: { team_members: { only: [:id, :name, :image]} } },
-                contacts: { only: [:id, :name, :email, :phone, :notes] } 
+                contacts: { only: [:id, :name, :email, :phone, :archived, :notes] } 
             ]
         else
             flash[:errors] = project.errors.full_messages 
@@ -42,7 +42,7 @@ class ProjectsController < ApplicationController
         if project.valid?
             render json: project, only: [:id, :name, :deadline, :archived, :notes, :user_id], :include => [
                 project_tasks: { only: [:id, :name, :importance, :deadline, :description, :archived], include: { team_members: { only: [:id, :name, :image]} } },
-                contacts: { only: [:id, :name, :email, :phone, :notes] } 
+                contacts: { only: [:id, :name, :email, :phone, :archived, :notes] } 
             ]
         else
             flash[:errors] = project.errors.full_messages 

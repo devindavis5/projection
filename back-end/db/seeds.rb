@@ -29,11 +29,11 @@ task5p1 = ProjectTask.create(name: 'Create Signup', importance: 'medium', deadli
 task6p1 = ProjectTask.create(name: 'Create Signup', importance: 'medium', deadline: Date.parse("21/11/2020"), description: 'Meet with team and collaborate on MVP.', archived: true, project_id: proj1.id)
 task7p1 = ProjectTask.create(name: 'Create Signup', importance: 'medium', deadline: Date.parse("20/10/2020"), description: 'Project ideation and timeline plans.', archived: false, project_id: proj1.id)
 
-contact1 = Contact.create(name: 'John Morgan', email: 'johnanthonymorgan@gmail.com', phone: '512-592-0293', notes: 'John says you owe him a steak dinner. Treat him when he comes in town. May have some good ideas for new projects at Arcane Central. Ask him about their cyber security system.', project_id: proj1.id)
-contact2 = Contact.create(name: 'Rane Sylvan', email: 'sylvanr88@gmail.com', phone: '512-773-5023', notes: '', project_id: proj1.id)
-contact3 = Contact.create(name: 'Emma Jones', email: 'ejones626@gmail.com', phone: '512-662-4033', notes: 'Emma expressed concern on our timeframe last time we spoke.', project_id: proj1.id)
-contact4 = Contact.create(name: 'Danny Griffin', email: 'dannygriffin5@gmail.com', phone: '512-934-8423', notes: 'Danny may have some ideas for stretch goals. Should check back in January.', project_id: proj1.id)
-contact5 = Contact.create(name: 'Jack Watson', email: 'jackwatson@gmail.com', phone: '512-200-3210', notes: '', project_id: proj1.id)
+contact1 = Contact.create(name: 'John Morgan', email: 'johnanthonymorgan@gmail.com', phone: '512-592-0293', archived: false, notes: 'John says you owe him a steak dinner. Treat him when he comes in town. May have some good ideas for new projects at Arcane Central. Ask him about their cyber security system.', project_id: proj1.id)
+contact2 = Contact.create(name: 'Rane Sylvan', email: 'sylvanr88@gmail.com', phone: '512-773-5023', archived: false, notes: '', project_id: proj1.id)
+contact3 = Contact.create(name: 'Emma Jones', email: 'ejones626@gmail.com', phone: '512-662-4033', archived: false, notes: 'Emma expressed concern on our timeframe last time we spoke.', project_id: proj1.id)
+contact4 = Contact.create(name: 'Danny Griffin', email: 'dannygriffin5@gmail.com', phone: '512-934-8423', archived: false, notes: 'Danny may have some ideas for stretch goals. Should check back in January.', project_id: proj1.id)
+contact5 = Contact.create(name: 'Jack Watson', email: 'jackwatson@gmail.com', phone: '512-200-3210', archived: false, notes: '', project_id: proj1.id)
 
 tm1 = TeamMember.create(name: 'Brendan', image: 'https://scontent-dfw5-2.xx.fbcdn.net/v/t1.0-9/124116460_784088595769085_5257786213152791880_n.jpg?_nc_cat=102&ccb=2&_nc_sid=09cbfe&_nc_ohc=h4Qmo4tlUnoAX_AMOd4&_nc_ht=scontent-dfw5-2.xx&oh=548248441c8d3a723d016d352746ad98&oe=5FDA9A91', user_id: dev.id)
 tm2 = TeamMember.create(name: 'Karley', image: 'https://scontent-dfw5-2.xx.fbcdn.net/v/t1.0-9/124116460_784088595769085_5257786213152791880_n.jpg?_nc_cat=102&ccb=2&_nc_sid=09cbfe&_nc_ohc=h4Qmo4tlUnoAX_AMOd4&_nc_ht=scontent-dfw5-2.xx&oh=548248441c8d3a723d016d352746ad98&oe=5FDA9A91', user_id: dev.id)

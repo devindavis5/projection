@@ -370,3 +370,9 @@ code {
   position: relative;
   left: 1rem;
 }
+
+#description-column {
+  margin-right: 0;
+  padding-right: 0;
+  position: relative;
+}
