@@ -2,15 +2,18 @@ import React, { useState } from 'react';
 import ProjectTask from './ProjectTask'
 import ProjectContact from './ProjectContact'
 import ProjectTeamMember from './ProjectTeamMember'
-import { Card, ListGroup, ListGroupItem, Col, Row, Modal, Table, Container, Form, Button, Dropdown} from 'react-bootstrap'
+import { Card, ListGroup, ListGroupItem, Col, Row, Modal, Table, Container, Form, Button, Dropdown, ModalBody} from 'react-bootstrap'
 import moment from 'react-moment';
 import 'moment-timezone';
 import New from '../assets/new1.png'
 import New2 from '../assets/new2.png'
 import X2 from '../assets/x2.png'
 import Check from '../assets/check.png'
+import Archive from '../assets/archive2.png'
+import Download from '../assets/download.png'
+import X from '../assets/x.png'
 
-const ProjectCard = ({project, createTask, deleteTask, updateTask, deleteContact, updateContact, createContact, updateProject}) => {
+const ProjectCard = ({project, createTask, deleteTask, updateTask, deleteContact, updateContact, createContact, updateProject, deleteProject}) => {
     const [tasksShow, setTasksShow] = useState(false)
     const [notesShow, setNotesShow] = useState(false)
     const [contactsShow, setContactsShow] = useState(false)
@@ -18,32 +21,27 @@ const ProjectCard = ({project, createTask, deleteTask, updateTask, deleteContact
     const [newTaskShow, setNewTaskShow] = useState(false)
     const [deadline, setDeadline] = useState('')
     const [description, setDescription] = useState('')
-
     const [newContactShow, setNewContactShow] = useState(false)
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [phone, setPhone] = useState('')
     const [notes, setNotes] = useState('')
-
     const [editNotesShow, setEditNotesShow] = useState(false)
     const [projectNotes, setProjectNotes] = useState(project.notes)
-
     const [editProjectNameShow, setEditProjectNameShow] = useState(false)
     const [projectName, setProjectName] = useState(project.name)
+    const [projectArchived, setProjectArchived] = useState(project.archived)
+    const [projectDeleteShow, setProjectDeleteShow] = useState(false)
 
     const projectId = project.id
 
-    // const tasksShowEvent = (pkey) => {
-    //     setTasksShow(!tasksShow)
-    //     setProjectId(pkey)
-    // }
-
     //sort project tasks by deadline
-    const sortedTasks = project.project_tasks.sort(function(a,b){
+    const alphabetizedTasks = project.project_tasks.sort(function(a,b){
         let c = new Date(a.deadline)
         let d = new Date(b.deadline)
         return c-d
     })
+    const sortedTasks = alphabetizedTasks.filter(t => t.archived != true)
 
     //sort contacts alphabetically
     const sortedContacts = project.contacts.sort((a, b) => a.name.localeCompare(b.name))
@@ -96,15 +94,15 @@ const ProjectCard = ({project, createTask, deleteTask, updateTask, deleteContact
     //used for project notes AND project name
     const projectNotesSubmit = (e) => {
         e.preventDefault()
-        const project = {
 
+        const project = {
             notes: projectNotes,
             id: projectId, 
-            name: projectName
+            name: projectName,
+            archived: projectArchived
         }
         updateProject(project)
         notesFormReset()
-
     }
 
     const resetNotesModal = () => {
@@ -122,6 +120,32 @@ const ProjectCard = ({project, createTask, deleteTask, updateTask, deleteContact
         setProjectNotes(project.notes)
         setEditNotesShow(!editProjectNameShow)
     }
+
+    const findSource = () => {
+        let source
+        if (!projectArchived) {
+            source = Archive
+        } else {
+            source = Download
+        }
+        return source
+    }
+
+    const toggleProjectArchived = () => {
+        const project = {
+
+            notes: projectNotes,
+            id: projectId, 
+            name: projectName,
+            archived: !projectArchived
+        }
+        updateProject(project)
+        setProjectArchived(project.archived)
+    }
+
+    const deleteProjectCard = () => {
+        deleteProject(project)
+    }
     
     return (
        
@@ -129,8 +153,8 @@ const ProjectCard = ({project, createTask, deleteTask, updateTask, deleteContact
             <Card style={{ width: '20.3rem' }}className="text-center mb-4" border="primary" text="white">
                 <Card.Header>
                     {!editProjectNameShow ?
-                     <span onClick={() => resetEditProjectNameForm()}>{project.name}</span>
-                    :
+                        <span onClick={() => resetEditProjectNameForm()} id="project-card-title">{project.name}</span>
+                    : 
                       <Row className="justify-content-md-center">
                             <Col xl={7} id="project-name-column">
                                 <Form.Control onChange={e => setProjectName(e.target.value)} id="project-name-input" value={projectName}/>
@@ -143,7 +167,12 @@ const ProjectCard = ({project, createTask, deleteTask, updateTask, deleteContact
                             </Col>
                         </Row>  
                     }
-                   
+                    {projectArchived ? 
+                        <img onClick={() => setProjectDeleteShow(true)} width="15" height="20" alt="archive" id="delete-project-x" src={X}/>
+                    :
+                        null
+                    }  
+                <img onClick={(e) => toggleProjectArchived(e)} width="25" height="25" id="project-archive-toggle" alt="archive" src={findSource()}/>
                 </Card.Header>
                     <Card.Body id="project-card-body">
                         <ListGroup className="list-group-hover list-group-flush">
@@ -154,6 +183,22 @@ const ProjectCard = ({project, createTask, deleteTask, updateTask, deleteContact
                         </ListGroup>
                     </Card.Body>
             </Card>
+            <Modal show={projectDeleteShow} onHide={e => setProjectDeleteShow(false)}>
+                <Modal.Header closeButton >
+                <Modal.Title>Permanently Delete Project?</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>Project and all associated information will be deleted. This cannot be undone.</Modal.Body>
+                <Modal.Footer>
+                <Button variant="secondary" onClick={e => setProjectDeleteShow(false)}>
+                    Close
+                </Button>
+                <Button variant="danger" onClick={e => deleteProjectCard()}>
+                    Delete Project
+                </Button>
+                </Modal.Footer>
+            </Modal>
+
+
             <Modal
                 show={teamShow}
                 onHide={() => setTeamShow(false)}
@@ -282,7 +327,9 @@ const ProjectCard = ({project, createTask, deleteTask, updateTask, deleteContact
                     <tbody>
                     {sortedTasks.map(pt => {
                         return (
-                        <ProjectTask task={pt} deleteTask={deleteTask} updateTask={updateTask} projectId={projectId} key={pt.id}/>) 
+                        <ProjectTask task={pt} deleteTask={deleteTask}
+                        // project={project}
+                        updateTask={updateTask} projectId={projectId} key={pt.id}/>) 
                     })}
                     </tbody>
                 </Table>

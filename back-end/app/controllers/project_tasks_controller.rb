@@ -7,11 +7,11 @@ class ProjectTasksController < ApplicationController
     end
     
     def create
-        pt = ProjectTask.create(name: '', importance: '', deadline: params[:deadline], description: params[:description], status: 'incomplete', project_id: params[:projectId])
+        pt = ProjectTask.create(name: '', importance: '', deadline: params[:deadline], description: params[:description], archived: false, project_id: params[:projectId])
         if pt.valid?
             project = Project.find(params[:projectId])
-            render json: project, only: [:id, :name, :deadline, :notes, :user_id], :include => [
-                project_tasks: { only: [:id, :name, :importance, :deadline, :description, :status], include: { team_members: { only: [:id, :name, :image]} } },
+            render json: project, only: [:id, :name, :deadline, :archived, :notes, :user_id], :include => [
+                project_tasks: { only: [:id, :name, :importance, :deadline, :description, :archived], include: { team_members: { only: [:id, :name, :image]} } },
                 contacts: { only: [:id, :name, :email, :phone, :notes] } 
             ]
         else
@@ -22,11 +22,11 @@ class ProjectTasksController < ApplicationController
 
     def update
         task = ProjectTask.find(params[:id])
-        task.update(deadline: params[:deadline], description: params[:description], status: params[:status])
+        task.update(deadline: params[:deadline], description: params[:description], archived: params[:archived])
         if task.valid?
             project = task.find_project
-            render json: project, only: [:id, :name, :deadline, :notes, :user_id], :include => [
-                project_tasks: { only: [:id, :name, :importance, :deadline, :description, :status], include: { team_members: { only: [:id, :name, :image]} } },
+            render json: project, only: [:id, :name, :deadline, :archived, :notes, :user_id], :include => [
+                project_tasks: { only: [:id, :name, :importance, :deadline, :description, :archived], include: { team_members: { only: [:id, :name, :image]} } },
                 contacts: { only: [:id, :name, :email, :phone, :notes] } 
             ] 
         else
@@ -39,8 +39,8 @@ class ProjectTasksController < ApplicationController
         task = ProjectTask.find(params[:id])
         project = task.find_project
         task.destroy
-        render json: project, only: [:id, :name, :deadline, :notes, :user_id], :include => [
-            project_tasks: { only: [:id, :name, :importance, :deadline, :description, :status], include: { team_members: { only: [:id, :name, :image]} } },
+        render json: project, only: [:id, :name, :deadline, :archived, :notes, :user_id], :include => [
+            project_tasks: { only: [:id, :name, :importance, :deadline, :description, :archived], include: { team_members: { only: [:id, :name, :image]} } },
             contacts: { only: [:id, :name, :email, :phone, :notes] } 
         ]
     end

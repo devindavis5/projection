@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ProjectCard from '../components/ProjectCard.js'
 import NavBar from '../components/NavBar.js'
 import DailyTasks from '../components/DailyTasks.js'
+import ProjectTask from '../components/ProjectTask.js'
 import TeamMembers from '../components/TeamMembers.js'
 import { Button, Container, Row, Col, ListGroup, ListGroupItem, CardColumns, Card, CardDeck, Table, Modal, Form } from 'react-bootstrap'
 import Archive1 from '../assets/archive1.png'
@@ -23,7 +24,10 @@ class LandingPage extends Component {
         userId: '',
         newDailyShow: false,
         newTaskDescription: '',
-        dailyTaskArchiveShow: false   
+        dailyTaskArchiveShow: false,
+        projectArchiveShow: false,
+        projectTaskArchiveShow: false,
+        projectTasks: []      
     }
 
     componentDidMount() {
@@ -44,12 +48,15 @@ class LandingPage extends Component {
                     this.props.history.push('/login')
                 } else {
                     this.setState({projects: user.projects})
+                    let tasks = user.projects.map(p => p.project_tasks).flat()
+                    this.setState({projectTasks: tasks})
                     this.setState({dailyTasks: user.daily_tasks})
                     this.setState({teamMembers: user.team_members})
                     this.setState({userId: user.id})
                 }
-            })    
-        }  
+            })
+    
+        } 
     }
 
     createTask = (task) => {
@@ -131,6 +138,20 @@ class LandingPage extends Component {
         .then(project => this.setState({projects: this.state.projects.map(p => p.id === project[0].id ? project[0] : p)}))
     }
 
+    deleteDailyTask = (task) => {
+        fetch(`http://localhost:3000/daily_tasks/${task.id}`, {
+          method: 'DELETE',
+        })
+        .then(this.setState({dailyTasks: this.state.dailyTasks.filter(dt => dt.id != task.id)}))
+    }
+
+    deleteProject = (project) => {
+        fetch(`http://localhost:3000/projects/${project.id}`, {
+          method: 'DELETE',
+        })
+        .then(this.setState({projects: this.state.projects.filter(p => p.id != project.id)}))
+    }
+
     updateTask = (id, task) => {
         fetch(`http://localhost:3000/project_tasks/${id}` , {
           method: 'PATCH',
@@ -141,7 +162,7 @@ class LandingPage extends Component {
           body: JSON.stringify({
               deadline: task.deadline,
               description: task.description,
-              status: task.status
+              archived: task.archived
           })
         })
         .then(res => res.json())
@@ -187,7 +208,8 @@ class LandingPage extends Component {
           },
           body: JSON.stringify({
               name: project.name,
-              notes: project.notes
+              notes: project.notes,
+              archived: project.archived
           })
         })
         .then(res => res.json())
@@ -209,7 +231,7 @@ class LandingPage extends Component {
           },
           body: JSON.stringify({
               description: task.description,
-              status: task.status
+              archived: task.archived
           })
         })
         .then(res => res.json())
@@ -239,7 +261,8 @@ class LandingPage extends Component {
           },
           body: JSON.stringify({
               name: this.state.newProjectName,
-              user_id: this.state.userId
+              user_id: this.state.userId,
+              archived: false
           })
         })
         .then(res => res.json())
@@ -266,19 +289,30 @@ class LandingPage extends Component {
         this.setState({dailyTaskArchiveShow: !this.state.dailyTaskArchiveShow})
     }
 
+    toggleProjectArchive = () => {
+        this.setState({projectArchiveShow: !this.state.projectArchiveShow})
+    }
+
+    toggleProjectTaskArchive = () => {
+        this.setState({projectTaskArchiveShow: !this.state.projectTaskArchiveShow})
+    }
+
     render() {
-        const incompleteDailies = this.state.dailyTasks.filter(dt => dt.status === "incomplete")
-        const completeDailies = this.state.dailyTasks.filter(dt => dt.status === "complete")
+        const incompleteDailies = this.state.dailyTasks.filter(dt => dt.archived === false)
+        const completeDailies = this.state.dailyTasks.filter(dt => dt.archived === true)
+        const incompleteProjects = this.state.projects.filter(p => p.archived === false)
+        const completeProjects = this.state.projects.filter(p => p.archived === true)
+        const completeProjectTasks = this.state.projects.map(p => p.project_tasks.filter(task => task.archived === true)).flat()
         return (
             <div className='projects-page'>
                 <NavBar /> 
                 <div className='projects-div'>
                     <CardDeck id="card-deck">
-                        {this.state.projects.map(project => {
+                        {incompleteProjects.map(project => {
                             return (
                             <ProjectCard createTask={this.createTask} deleteTask={this.deleteTask} updateTask={this.updateTask}
                             deleteContact={this.deleteContact} createContact={this.createContact} updateContact={this.updateContact}
-                            project={project} key={project.id} updateProject={this.updateProject}/>)
+                            project={project} key={project.id} updateProject={this.updateProject} deleteProject={this.deleteProject} />)
                         })}
                         <div>
                             {!this.state.formShow ? 
@@ -332,7 +366,7 @@ class LandingPage extends Component {
                                 }
                         {incompleteDailies.map(t => {
                             return (
-                            <DailyTasks task={t} key={t.id} updateDailyTask={this.updateDailyTask}/>
+                            <DailyTasks task={t} key={t.id} updateDailyTask={this.updateDailyTask} deleteDailyTask={this.deleteDailyTask}/>
                             ) 
                         })}
                             </tbody>
@@ -341,8 +375,6 @@ class LandingPage extends Component {
                     </Card>
                     <div className="daily-task-archive-div">
                         <img onClick={this.toggleDailyTaskArchive} alt="archive" id="daily-task-archive" src={Archive1}/>
-
-
                 <Modal
                     show={this.state.dailyTaskArchiveShow}
                     onHide={this.toggleDailyTaskArchive}
@@ -357,7 +389,7 @@ class LandingPage extends Component {
                         <tbody>
                         {completeDailies.map(t => {
                             return (
-                                <DailyTasks task={t} key={t.id} updateDailyTask={this.updateDailyTask}/>
+                                <DailyTasks task={t} key={t.id} updateDailyTask={this.updateDailyTask} deleteDailyTask={this.deleteDailyTask}/>
                             )  
                         })}
                         </tbody>
@@ -365,15 +397,60 @@ class LandingPage extends Component {
                     </Modal.Body>
                 </Modal>       
 
+                        <img onClick={this.toggleProjectArchive} alt="archive" id="project-archive" src={Archive2}/>  
 
-                    {/* </div>  
-                    <div className="project-archive-div"> */}
-                        <img  alt="archive" id="project-archive" src={Archive2}/>  
-                    {/* </div>  
-                    <div className="daily-task-archive-div"> */}
-                        <img alt="archive" id="project-task-archive" src={Archive3}/>  
-                    {/* </div>  
-                    <div className="daily-task-archive-div"> */}
+                <Modal
+                    show={this.state.projectArchiveShow}
+                    onHide={this.toggleProjectArchive}
+                    dialogClassName="modal-90w"
+                    size="xl"
+                    >
+                    <Modal.Header closeButton>
+                        <h1>Archived Projects</h1>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <CardDeck id="card-deck">
+                            {completeProjects.map(project => {
+                                return (
+                                <ProjectCard createTask={this.createTask} deleteTask={this.deleteTask} updateTask={this.updateTask}
+                                deleteContact={this.deleteContact} createContact={this.createContact} updateContact={this.updateContact}
+                                project={project} key={project.id} updateProject={this.updateProject} deleteProject={this.deleteProject}/>)
+                            })}
+                        </CardDeck>
+                    </Modal.Body>
+                </Modal>      
+
+                        <img onClick={this.toggleProjectTaskArchive} alt="archive" id="project-task-archive" src={Archive3}/>  
+
+                <Modal
+                    show={this.state.projectTaskArchiveShow}
+                    onHide={this.toggleProjectTaskArchive}
+                    dialogClassName="modal-90w"
+                    size="xl"
+                    >
+                    <Modal.Header closeButton>
+                        <h1>Archived Project Tasks</h1>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Table responsive className="table-hover">
+                        <tbody>
+                             {completeProjectTasks.map(task => {
+            
+                                // console.log(task)
+                                //    let p = this.state.projects.find(p => p.id === task.project_id)
+                                    return (
+                                        <ProjectTask task={task} deleteTask={this.deleteTask}
+                                        // projectName={p.name}
+                                        // project={this.state.projects.find(p => p.id === task.project_id)}
+                                        updateTask={this.updateTask}
+                                        key={task.id}/>
+                                    )  
+                            })}
+                        </tbody>
+                        </Table>
+                    </Modal.Body>
+                </Modal>   
+
                         <img alt="archive" id="contact-archive" src={Archive4}/>  
                     </div>    
                 </div>

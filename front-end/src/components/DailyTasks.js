@@ -6,23 +6,22 @@ import X from '../assets/x.png'
 import X2 from '../assets/x2.png'
 import Check from '../assets/check.png'
 
-const DailyTasks = ({task, updateDailyTask}) => {
+const DailyTasks = ({task, updateDailyTask, deleteDailyTask}) => {
     const [formShow, setFormShow] = useState(false)
     const [description, setDescription] = useState(task.description)
-    const [status, setStatus] = useState(task.status)
-    const [archived, setArchived] = useState(task.status === 'incomplete' ? false : true)
+    const [archived, setArchived] = useState(task.archived)
 
     const taskId = task.id
 
-    const deleteProjectTask = () => {
-        // deleteTask(task)
+    const deleteTask = () => {
+        deleteDailyTask(task)
     }
 
     const taskSubmit = (e) => {
         e.preventDefault()
         const taskData = {
             description: description,
-            status: status,
+            archived: archived,
             id: taskId
         }
         updateDailyTask(taskData)
@@ -32,12 +31,12 @@ const DailyTasks = ({task, updateDailyTask}) => {
     const formReset = () => {
         setFormShow(false)
         setDescription(task.description)
-        setStatus(task.status)
+        setArchived(task.archived)
     }
 
     const resetEditForm = () => {
         setDescription(task.description)
-        setStatus(task.status)
+        setArchived(task.archived)
         setFormShow(!formShow)
     }
 
@@ -52,15 +51,14 @@ const DailyTasks = ({task, updateDailyTask}) => {
     }
 
     const toggleDailyTaskArchive = (e) => {
-        // e.preventDefault()
-        // setArchived(!)
-        // const taskData = {
-        //     description: description,
-        //     status: status,
-        //     id: taskId
-        // }
-        // updateDailyTask(taskData)
-        // formReset()  
+        e.preventDefault()
+        const taskData = {
+            description: description,
+            archived: !archived,
+            id: taskId
+        }
+        updateDailyTask(taskData)
+        setArchived(task.archived)
     }
     
     return (
@@ -69,7 +67,7 @@ const DailyTasks = ({task, updateDailyTask}) => {
         <tr >
         {!formShow ? 
 
-            <td className="align-middle" id="daily-task-rows" onClick={() => resetEditForm()}>{task.description}</td>
+            <td className="align-middle" style={{width: "94%"}} id="daily-task-rows" onClick={() => resetEditForm()}>{task.description}</td>
         :
             <td style={{width: "90%"}} class="align-middle">
                 <Form.Control as="textarea" rows={1} value={description} onChange={e => setDescription(e.target.value)}/> 
@@ -77,7 +75,7 @@ const DailyTasks = ({task, updateDailyTask}) => {
         }
         {!formShow ?
             
-            <td className="align-middle" id="daily-task-rows" size="sm" style={{ textAlign:"right" }}><img onClick={() => toggleDailyTaskArchive()} width="25" height="25" alt="archive" src={findSource()}/></td>
+            <td className="align-middle" id="daily-task-rows" size="sm" style={{ textAlign:"right" }}><img onClick={(e) => toggleDailyTaskArchive(e)} width="25" height="25" alt="archive" src={findSource()}/></td>
             
         :
             <td className="align-middle"size="sm" style={{ textAlign:"right" }}>
@@ -90,11 +88,11 @@ const DailyTasks = ({task, updateDailyTask}) => {
 
         {archived ? 
             
-            <td className="align-middle" id="archive-x" size="sm" style={{ textAlign:"right" }}><img width="15" height="20" alt="archive" src={X}/></td>
+            <td className="align-middle" id="archive-x" size="sm" style={{ textAlign:"right" }}><img onClick={() => deleteTask()} width="15" height="20" alt="archive" src={X}/></td>
         :
             null
         }
-        
+
         </tr>
         </>
     )   
