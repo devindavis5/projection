@@ -3,6 +3,7 @@ import ProjectCard from '../components/ProjectCard.js'
 import NavBar from '../components/NavBar.js'
 import DailyTasks from '../components/DailyTasks.js'
 import ProjectTask from '../components/ProjectTask.js'
+import ProjectContact from '../components/ProjectContact.js'
 import TeamMembers from '../components/TeamMembers.js'
 import { Button, Container, Row, Col, ListGroup, ListGroupItem, CardColumns, Card, CardDeck, Table, Modal, Form } from 'react-bootstrap'
 import Archive1 from '../assets/archive1.png'
@@ -27,6 +28,7 @@ class LandingPage extends Component {
         dailyTaskArchiveShow: false,
         projectArchiveShow: false,
         projectTaskArchiveShow: false,
+        ContactArchiveShow: false,
         projectTasks: []      
     }
 
@@ -186,7 +188,8 @@ class LandingPage extends Component {
               name: contact.name,
               email: contact.email,
               phone: contact.phone,
-              notes: contact.notes
+              notes: contact.notes,
+              archived: contact.archived
           })
         })
         .then(res => res.json())
@@ -297,12 +300,17 @@ class LandingPage extends Component {
         this.setState({projectTaskArchiveShow: !this.state.projectTaskArchiveShow})
     }
 
+    toggleContactArchive = () => {
+        this.setState({contactArchiveShow: !this.state.contactArchiveShow})
+    }
+
     render() {
         const incompleteDailies = this.state.dailyTasks.filter(dt => dt.archived === false)
         const completeDailies = this.state.dailyTasks.filter(dt => dt.archived === true)
         const incompleteProjects = this.state.projects.filter(p => p.archived === false)
         const completeProjects = this.state.projects.filter(p => p.archived === true)
         const completeProjectTasks = this.state.projects.map(p => p.project_tasks.filter(task => task.archived === true)).flat()
+        const completeContacts = this.state.projects.map(p => p.contacts.filter(c => c.archived === true)).flat()
         return (
             <div className='projects-page'>
                 <NavBar /> 
@@ -451,7 +459,37 @@ class LandingPage extends Component {
                     </Modal.Body>
                 </Modal>   
 
-                        <img alt="archive" id="contact-archive" src={Archive4}/>  
+                    <img onClick={this.toggleContactArchive} alt="archive" id="contact-archive" src={Archive4}/>  
+
+                <Modal
+                    show={this.state.contactArchiveShow}
+                    onHide={this.toggleContactArchive}
+                    dialogClassName="modal-90w"
+                    size="xl"
+                    >
+                    <Modal.Header closeButton>
+                        <h1>Archived Contacts</h1>
+                    </Modal.Header>
+                    <Modal.Body>
+                        <Table responsive className="table-hover">
+                        <tbody>
+                             {completeContacts.map(contact => {
+            
+                                // console.log(task)
+                                //    let p = this.state.projects.find(p => p.id === task.project_id)
+                                    return (
+                                        <ProjectContact contact={contact} deleteContact={this.deleteContact}
+                                        // projectName={p.name}
+                                        // project={this.state.projects.find(p => p.id === task.project_id)}
+                                        updateContact={this.updateContact}
+                                        key={contact.id}/>
+                                    )  
+                            })}
+                        </tbody>
+                        </Table>
+                    </Modal.Body>
+                </Modal>
+                
                     </div>    
                 </div>
                 <div className='team-members-div'>

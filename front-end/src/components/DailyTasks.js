@@ -53,12 +53,12 @@ const DailyTasks = ({task, updateDailyTask, deleteDailyTask}) => {
     const toggleDailyTaskArchive = (e) => {
         e.preventDefault()
         const taskData = {
-            description: description,
-            archived: !archived,
+            description: task.description,
+            archived: !task.archived,
             id: taskId
         }
         updateDailyTask(taskData)
-        setArchived(task.archived)
+        formReset()
     }
     
     return (
@@ -86,7 +86,7 @@ const DailyTasks = ({task, updateDailyTask, deleteDailyTask}) => {
             </td>
         }
 
-        {archived ? 
+        {archived && !formShow ? 
             
             <td className="align-middle" id="archive-x" size="sm" style={{ textAlign:"right" }}><img onClick={() => deleteTask()} width="15" height="20" alt="archive" src={X}/></td>
         :

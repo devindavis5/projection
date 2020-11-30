@@ -13,7 +13,7 @@ class UsersController < ApplicationController
         render json: user, only: [:id, :name, :email, :password, :image], :include => [
           projects: { only: [:id, :name, :deadline, :archived, :notes, :user_id], :include => [
             project_tasks: { only: [:id, :name, :importance, :deadline, :description, :archived, :project_id], include: { team_members: { only: [:id, :name, :image]} } },
-            contacts: { only: [:id, :name, :email, :phone, :notes] } 
+            contacts: { only: [:id, :name, :email, :phone, :archived, :notes] } 
           ]},
           daily_tasks: { only: [:id, :description, :deadline, :archived] },
           team_members: { only: [:id, :name, :image] }
