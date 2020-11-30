@@ -78,11 +78,6 @@ const ProjectTask = ({task, deleteTask, updateTask}) => {
         <Form.Control type="date" onChange={e => setEditDeadline(e.target.value)} value={editDeadline} />
         </td>
         }
-         {/* {archived ?    
-            <td style={{width: "15%"}} onClick={() => resetEditForm()} class="align-middle">({project.name})</td>
-        :
-            null
-        } */}
         {!formShow ? 
         <td style={{width: "90%"}} onClick={() => resetEditForm()} class="align-middle">{task.description}</td>
         :

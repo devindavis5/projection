@@ -219,6 +219,16 @@ class LandingPage extends Component {
         .then(newProject => {
             if (!newProject.error) {
                 this.setState({projects: this.state.projects.map(p => p.id === newProject.id ? newProject : p)})
+                if(project.archived) {
+                    newProject.project_tasks.map(t => {
+                        t.archived = false
+                        this.updateTask(t.id, t)
+                    })
+                    newProject.contacts.map(c => {
+                        c.archived = false
+                        this.updateContact(c.id, c)
+                    })
+                }
             } else {
                 alert("That project name has already been used.")
             }
