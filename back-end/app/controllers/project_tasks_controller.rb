@@ -7,7 +7,8 @@ class ProjectTasksController < ApplicationController
     end
     
     def create
-        pt = ProjectTask.create(name: '', importance: '', deadline: params[:deadline], description: params[:description], archived: false, project_id: params[:projectId])
+        project = Project.find(params[:projectId])
+        pt = ProjectTask.create(name: project.name, importance: '', deadline: params[:deadline], description: params[:description], archived: false, project_id: params[:projectId])
         if pt.valid?
             project = Project.find(params[:projectId])
             render json: project, only: [:id, :name, :deadline, :archived, :notes, :user_id], :include => [

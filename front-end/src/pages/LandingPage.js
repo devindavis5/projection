@@ -81,6 +81,23 @@ class LandingPage extends Component {
         })
     }
 
+    createTeamMemberProjectTask = (tmId, taskId, projectId) => {
+        fetch('http://localhost:3000/team_member_project_tasks' , {
+          method: 'POST',
+          headers: {
+            'Content-Type':'application/json',
+            'Accepts':'application/json'
+          },
+          body: JSON.stringify({
+              team_member_id: tmId,
+              project_task_id: taskId,
+              project_id: projectId
+          })
+        })
+        .then(res => res.json())
+        .then(project =>  this.setState({projects: this.state.projects.map(p => p.id === project.id ? project : p)}))
+    }
+
     createContact = (contact) => {
         fetch('http://localhost:3000/contacts' , {
           method: 'POST',
@@ -126,6 +143,14 @@ class LandingPage extends Component {
     }
 
     deleteTask = (task) => {
+        fetch(`http://localhost:3000/project_tasks/${task.id}`, {
+          method: 'DELETE',
+        })
+        .then(res => res.json())
+        .then(project => this.setState({projects: this.state.projects.map(p => p.id === project[0].id ? project[0] : p)}))
+    }
+
+    deleteTeamMemberProjectTask = (task) => {
         fetch(`http://localhost:3000/project_tasks/${task.id}`, {
           method: 'DELETE',
         })
@@ -341,7 +366,9 @@ class LandingPage extends Component {
                             <ProjectCard createTask={this.createTask} deleteTask={this.deleteTask} updateTask={this.updateTask}
                             deleteContact={this.deleteContact} createContact={this.createContact} updateContact={this.updateContact}
                             project={project} key={project.id} updateProject={this.updateProject} deleteProject={this.deleteProject}
-                            totalTeamMembers={this.state.teamMembers} />)
+                            totalTeamMembers={this.state.teamMembers} createTeamMemberProjectTask={this.createTeamMemberProjectTask}
+                            deleteTeamMemberProjectTask={this.deleteTeamMemberProjectTask}
+                            />)
                         })}
                         <div>
                             {!this.state.formShow ? 

@@ -14,7 +14,7 @@ import Avatar4 from '../assets/avatar4.png'
 import Avatar5 from '../assets/avatar5.png'
 import Avatar6 from '../assets/avatar6.png'
 
-const ProjectTask = ({task, deleteTask, updateTask, totalTeamMembers}) => {
+const ProjectTask = ({task, deleteTask, updateTask, totalTeamMembers, projectId, createTeamMemberProjectTask, deleteTeamMemberProjectTask}) => {
     const [formShow, setFormShow] = useState(false)
     const [editDeadline, setEditDeadline] = useState(task.deadline)
     const [description, setDescription] = useState(task.description)
@@ -101,11 +101,11 @@ const ProjectTask = ({task, deleteTask, updateTask, totalTeamMembers}) => {
         e.preventDefault()
         let newTeam = []
         totalTeamMembers.map(t => clickedNames.includes(t.name) ? newTeam = [...newTeam, t] : null)
-        newTeam.map()
-        // console.log(newTeam)
-        // setTeamShow(false)
-        // setClickedNames(task.team_members.map(t => t.name))
-      
+        newTeam.map(t => task.team_members.includes(t) ? null : createTeamMemberProjectTask(t.id, taskId, projectId))
+        // task.team_members.map(t => newTeam.includes(t) ? null : deleteTeamMemberProjectTask(t.id, taskId, projectId))
+        setTeamShow(false)
+        setClickedNames(task.team_members.map(t => t.name))
+        alert('Team member assignments have been adjusted.')
     }
 
     const handleTeamMemberClick = (e) => {
@@ -137,7 +137,7 @@ const ProjectTask = ({task, deleteTask, updateTask, totalTeamMembers}) => {
         </td>
         }
 
-        {!formShow ? 
+        {!formShow && !archived ? 
         <td className="align-middle" style={{ width: '5px', textAlign: 'right' }} >
             {/* <img width="32" onClick={(e) => toggleProjectTaskArchive(e)} height="32" alt="archive" id="team-emblem" src={Team}/>      */}
             
