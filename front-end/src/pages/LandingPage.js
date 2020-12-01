@@ -81,7 +81,7 @@ class LandingPage extends Component {
         })
     }
 
-    createTeamMemberProjectTask = (tmId, taskId, projectId) => {
+    createTeamMemberProjectTask = (newTeam, oldTeam, taskId, projectId) => {
         fetch('http://localhost:3000/team_member_project_tasks' , {
           method: 'POST',
           headers: {
@@ -89,7 +89,8 @@ class LandingPage extends Component {
             'Accepts':'application/json'
           },
           body: JSON.stringify({
-              team_member_id: tmId,
+              newTeam: newTeam,
+              oldTeam: oldTeam,
               project_task_id: taskId,
               project_id: projectId
           })
@@ -150,12 +151,36 @@ class LandingPage extends Component {
         .then(project => this.setState({projects: this.state.projects.map(p => p.id === project[0].id ? project[0] : p)}))
     }
 
-    deleteTeamMemberProjectTask = (task) => {
-        fetch(`http://localhost:3000/project_tasks/${task.id}`, {
-          method: 'DELETE',
+    deleteTeamMemberProjectTask = (oldTeam, newTeam, taskId, projectId) => {
+        fetch('http://localhost:3000/team_member_project_tasks/', {
+            method: 'PATCH',
+            headers: {
+                'Content-Type':'application/json',
+                'Accepts':'application/json'
+              },
+            body: JSON.stringify({
+                oldTeam: oldTeam,
+                project_task_id: taskId,
+                project_id: projectId,
+                token: 'token'
+            })
         })
-        .then(res => res.json())
-        .then(project => this.setState({projects: this.state.projects.map(p => p.id === project[0].id ? project[0] : p)}))
+            .then(
+                fetch('http://localhost:3000/team_member_project_tasks' , {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type':'application/json',
+                      'Accepts':'application/json'
+                    },
+                    body: JSON.stringify({
+                        newTeam: newTeam,
+                        project_task_id: taskId,
+                        project_id: projectId
+                    })
+                })
+            )
+                .then(res => res.json())
+                .then(project =>  this.setState({projects: this.state.projects.map(p => p.id === project.id ? project : p)}))
     }
     
     deleteContact = (contact) => {

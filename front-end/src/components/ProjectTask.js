@@ -20,8 +20,7 @@ const ProjectTask = ({task, deleteTask, updateTask, totalTeamMembers, projectId,
     const [description, setDescription] = useState(task.description)
     const [archived, setArchived] = useState(task.archived)
     const [teamShow, setTeamShow] = useState(false)
-    const [clicked, setClicked] = useState(task.team_members)
-    const [clickedNames, setClickedNames] = useState(task.team_members.map(t => t.name))
+    const [clickedNames, setClickedNames] = useState(task.team_members.map(t => t.id))
     const taskId = task.id
     let split = task.deadline.split('-')
     let mm = split[1]
@@ -99,19 +98,19 @@ const ProjectTask = ({task, deleteTask, updateTask, totalTeamMembers, projectId,
 
     const submitTeam = (e) => {
         e.preventDefault()
-        let newTeam = []
-        totalTeamMembers.map(t => clickedNames.includes(t.name) ? newTeam = [...newTeam, t] : null)
-        newTeam.map(t => task.team_members.includes(t) ? null : createTeamMemberProjectTask(t.id, taskId, projectId))
-        // task.team_members.map(t => newTeam.includes(t) ? null : deleteTeamMemberProjectTask(t.id, taskId, projectId))
+        let newTeam = clickedNames
+        let oldTeam = []
+        task.team_members.map(t => oldTeam = [...oldTeam, t.id])
+        createTeamMemberProjectTask(newTeam, oldTeam, taskId, projectId)
         setTeamShow(false)
-        setClickedNames(task.team_members.map(t => t.name))
-        alert('Team member assignments have been adjusted.')
+        setClickedNames(newTeam)
+        // alert('Team member assignments have been adjusted.')
     }
 
     const handleTeamMemberClick = (e) => {
-        let name = e.target.value
-        let t = totalTeamMembers.find(t => t.name === name)
-        clickedNames.includes(t.name) ? setClickedNames(clickedNames.filter(tname => tname !== t.name)) : setClickedNames([...clickedNames, t.name])
+        let id = e.target.value
+        let t = totalTeamMembers.find(t => t.id == id)
+        clickedNames.includes(t.id) ? setClickedNames(clickedNames.filter(tid => tid != t.id)) : setClickedNames([...clickedNames, t.id])
     }
 
     return (
@@ -158,7 +157,7 @@ const ProjectTask = ({task, deleteTask, updateTask, totalTeamMembers, projectId,
                             {totalTeamMembers.map(t => {
                                 return ( 
                                     <label><img width="41" height="41" alt="archive" id="team-emblem" src={findPortraitSource(t)}/><Form.Check
-                                    value={t.name} checked={clickedNames.includes(t.name) ? true : false} onChange={(e) => handleTeamMemberClick(e)} type="checkbox"/></label>             
+                                    value={t.id} checked={clickedNames.includes(t.id) ? true : false} onChange={(e) => handleTeamMemberClick(e)} type="checkbox"/></label>             
                                 )
                             })}
                             
