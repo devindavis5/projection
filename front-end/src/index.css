@@ -217,9 +217,10 @@ code {
 }
 
 #add-project-card {
-  height: 235px;
+  height: 237px;
   width: 322.8px;
   background-color: rgb(223, 234, 245);
+  border-color: rgb(175, 180, 185);
   align-items:center;
 }
 
@@ -369,11 +370,13 @@ code {
   left: 1rem;
 }
 
-#description-column {
-  margin-right: 0;
-  padding-right: 0;
+/* #description-column {
+  margin-right: 0rem;
+  padding-right: 0rem;
   position: relative;
-}
+  right: 0%;
+  left: 0%
+} */
 
 #team-member-button {
   background-color: rgb(223, 234, 245);
@@ -387,11 +390,9 @@ code {
   border-right: 0; */
 }
 
-/* #archive-toggle {
-  position: absolute;
-  right: 0rem;
-  top: auto;
-} */
+#archive-toggle {
+  margin-left: 0;
+}
 
 #archive-x {
   padding-left: 0;
@@ -403,3 +404,18 @@ code {
   overflow-y: hidden;
   overflow-x: hidden;
 } */
+
+#team-emblem {
+  padding-right: 0;
+  /* padding-left: 0; */
+}
+
+/* #confirm-change {
+  right: 0;
+} */
+
+.team-member-checkbox {
+  /* justify-content: center;
+  justify-items: center; */
+  text-align: center;
+}

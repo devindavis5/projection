@@ -173,6 +173,7 @@ class LandingPage extends Component {
             if (!project.error) {
                 this.setState({projects: this.state.projects.map(p => p.id === project[0].id ? project[0] : p)})
             } else {
+                console.log(project)
                 alert("Tasks must have a deadline and description.")
             }
         })
@@ -222,12 +223,16 @@ class LandingPage extends Component {
                 this.setState({projects: this.state.projects.map(p => p.id === newProject.id ? newProject : p)})
                 if(project.archived) {
                     newProject.project_tasks.map(t => {
+                        if (t.archived === true) {
                         t.archived = false
-                        this.updateTask(t.id, t)
+                        setTimeout(this.updateTask(t.id, t), 3000)
+                        }
                     })
                     newProject.contacts.map(c => {
+                        if (c.archived === true) {
                         c.archived = false
-                        this.updateContact(c.id, c)
+                        setTimeout(this.updateContact(c.id, c), 3000)
+                        }
                     })
                 }
             } else {
