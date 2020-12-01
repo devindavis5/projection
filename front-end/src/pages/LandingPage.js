@@ -215,13 +215,38 @@ class LandingPage extends Component {
           body: JSON.stringify({
               deadline: task.deadline,
               description: task.description,
-              archived: task.archived
+              archived: task.archived,
           })
         })
         .then(res => res.json())
         .then(project => {
             if (!project.error) {
                 this.setState({projects: this.state.projects.map(p => p.id === project[0].id ? project[0] : p)})
+            } else {
+                console.log(project)
+                alert("Tasks must have a deadline and description.")
+            }
+        })
+    }
+
+    archiveProject = (tasks, contacts, projectId) => {
+        fetch(`http://localhost:3000/projects/archive` , {
+          method: 'PATCH',
+          headers: {
+            'Content-Type':'application/json',
+            'Accepts':'application/json'
+          },
+          body: JSON.stringify({
+              tasks: tasks,
+              contacts: contacts,
+              project_id: projectId
+          })
+        })
+        .then(res => res.json())
+        .then(project => {
+            // console.log(project)
+            if (!project.error) {
+                this.setState({projects: this.state.projects.map(p => p.id === project.id ? project : p)})
             } else {
                 console.log(project)
                 alert("Tasks must have a deadline and description.")
@@ -272,18 +297,23 @@ class LandingPage extends Component {
             if (!newProject.error) {
                 this.setState({projects: this.state.projects.map(p => p.id === newProject.id ? newProject : p)})
                 if(project.archived) {
-                    newProject.project_tasks.map(t => {
-                        if (t.archived === true) {
-                        t.archived = false
-                        setTimeout(this.updateTask(t.id, t), 3000)
-                        }
-                    })
-                    newProject.contacts.map(c => {
-                        if (c.archived === true) {
-                        c.archived = false
-                        setTimeout(this.updateContact(c.id, c), 3000)
-                        }
-                    })
+                    let tasks = newProject.project_tasks.map(t => t.id)
+                    let contacts = newProject.contacts.map(c => c.id)
+                    this.archiveProject(tasks, contacts, newProject.id)
+
+                    // newProject.project_tasks.map(t => {
+
+                    //     if (t.archived === true) {
+                    //     t.archived = false
+                    //     setTimeout(this.updateTask(t.id, t), 3000)
+                    //     }
+                    // })
+                    // newProject.contacts.map(c => {
+                    //     if (c.archived === true) {
+                    //     c.archived = false
+                    //     setTimeout(this.updateContact(c.id, c), 3000)
+                    //     }
+                    // })
                 }
             } else {
                 alert("That project name has already been used.")
@@ -495,7 +525,10 @@ class LandingPage extends Component {
                                 return (
                                 <ProjectCard createTask={this.createTask} deleteTask={this.deleteTask} updateTask={this.updateTask}
                                 deleteContact={this.deleteContact} createContact={this.createContact} updateContact={this.updateContact}
-                                project={project} key={project.id} updateProject={this.updateProject} deleteProject={this.deleteProject}/>)
+                                project={project} key={project.id} updateProject={this.updateProject} deleteProject={this.deleteProject}
+                                totalTeamMembers={this.state.teamMembers} createTeamMemberProjectTask={this.createTeamMemberProjectTask}
+                                deleteTeamMemberProjectTask={this.deleteTeamMemberProjectTask}
+                                />)
                             })}
                         </CardDeck>
                     </Modal.Body>

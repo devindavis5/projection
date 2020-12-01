@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-    skip_before_action :authorized, only: [:index, :show, :create, :update, :destroy]
+    skip_before_action :authorized, only: [:index, :archive, :show, :create, :update, :destroy]
 
     def index
         projects = Project.all
@@ -27,6 +27,26 @@ class ProjectsController < ApplicationController
         else
             flash[:errors] = project.errors.full_messages 
         end
+    end
+
+    def archive
+        tasks = params[:tasks]
+        tasks.each { |t| 
+            task = ProjectTask.find(t)
+            task.update(archived: false)
+        }
+
+        contacts = params[:contacts]
+        contacts.each { |c| 
+            contact = Contact.find(c)
+            contact.update(archived: false)
+        }
+
+        project = Project.find(params[:project_id])
+        render json: project, only: [:id, :name, :deadline, :archived, :notes, :user_id], :include => [
+            project_tasks: { only: [:id, :name, :importance, :deadline, :description, :archived], include: { team_members: { only: [:id, :name, :image]} } },
+            contacts: { only: [:id, :name, :email, :phone, :archived, :notes] } 
+        ]
     end
 
     def update

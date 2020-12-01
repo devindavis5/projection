@@ -179,11 +179,6 @@ const ProjectTask = ({task, deleteTask, updateTask, totalTeamMembers, projectId,
         null
         }
 
-
-      
-
-        
-
         {!formShow ?
         <td className="align-middle" size="sm" style={{ width: '5px', textAlign: 'right' }} id="archive-toggle">
             {/* <img width="30" onClick={(e) => toggleProjectTaskArchive(e)} height="30" alt="archive" src={Team}/> */}
@@ -196,11 +191,8 @@ const ProjectTask = ({task, deleteTask, updateTask, totalTeamMembers, projectId,
          <img width="15" onClick={() => formReset()} height="20" alt="archive" src={X2}/>
         </td>
         }
-
-
-        
         {archived && !formShow ?    
-            <td className="align-middle" id="archive-x" size="sm" style={{ textAlign:"right" }}><img onClick={() => deleteProjectTask()} width="15" height="20" alt="archive" src={X}/></td>
+            <td className="align-middle" id="archive-x" size="sm" style={{ width: '5px', textAlign: 'right' }}><img onClick={() => deleteProjectTask()} width="15" height="20" alt="archive" src={X}/></td>
         :
             null
         }
