@@ -20,7 +20,8 @@ const ProjectTask = ({task, deleteTask, updateTask, totalTeamMembers}) => {
     const [description, setDescription] = useState(task.description)
     const [archived, setArchived] = useState(task.archived)
     const [teamShow, setTeamShow] = useState(false)
-
+    const [clicked, setClicked] = useState(task.team_members)
+    const [clickedNames, setClickedNames] = useState(task.team_members.map(t => t.name))
     const taskId = task.id
     let split = task.deadline.split('-')
     let mm = split[1]
@@ -97,11 +98,20 @@ const ProjectTask = ({task, deleteTask, updateTask, totalTeamMembers}) => {
     }
 
     const submitTeam = (e) => {
-        console.log(e)
+        e.preventDefault()
+        let newTeam = []
+        totalTeamMembers.map(t => clickedNames.includes(t.name) ? newTeam = [...newTeam, t] : null)
+        newTeam.map()
+        // console.log(newTeam)
+        // setTeamShow(false)
+        // setClickedNames(task.team_members.map(t => t.name))
+      
     }
 
     const handleTeamMemberClick = (e) => {
-        console.log(e)
+        let name = e.target.value
+        let t = totalTeamMembers.find(t => t.name === name)
+        clickedNames.includes(t.name) ? setClickedNames(clickedNames.filter(tname => tname !== t.name)) : setClickedNames([...clickedNames, t.name])
     }
 
     return (
@@ -148,12 +158,12 @@ const ProjectTask = ({task, deleteTask, updateTask, totalTeamMembers}) => {
                             {totalTeamMembers.map(t => {
                                 return ( 
                                     <label><img width="41" height="41" alt="archive" id="team-emblem" src={findPortraitSource(t)}/><Form.Check
-                                    type="checkbox"/></label>           
+                                    value={t.name} checked={clickedNames.includes(t.name) ? true : false} onChange={(e) => handleTeamMemberClick(e)} type="checkbox"/></label>             
                                 )
                             })}
                             
                             <br></br>
-                            <img width="15" height="20" className="float-left" alt="archive" src={Check}/>
+                            <img width="15" height="20" onClick={(e) => submitTeam(e)} className="float-left" alt="archive" src={Check}/>
                             <img width="19" onClick={() => setTeamShow(false)} height="24" className="float-right" alt="archive" src={X2}/>
                         </Form.Group>
 
