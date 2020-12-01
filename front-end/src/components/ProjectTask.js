@@ -14,7 +14,7 @@ import Avatar4 from '../assets/avatar4.png'
 import Avatar5 from '../assets/avatar5.png'
 import Avatar6 from '../assets/avatar6.png'
 
-const ProjectTask = ({task, deleteTask, updateTask}) => {
+const ProjectTask = ({task, deleteTask, updateTask, totalTeamMembers}) => {
     const [formShow, setFormShow] = useState(false)
     const [editDeadline, setEditDeadline] = useState(task.deadline)
     const [description, setDescription] = useState(task.description)
@@ -96,6 +96,14 @@ const ProjectTask = ({task, deleteTask, updateTask}) => {
         return source
     }
 
+    const submitTeam = (e) => {
+        console.log(e)
+    }
+
+    const handleTeamMemberClick = (e) => {
+        console.log(e)
+    }
+
     return (
         <>
         <tr >
@@ -123,7 +131,7 @@ const ProjectTask = ({task, deleteTask, updateTask}) => {
         <td className="align-middle" style={{ width: '5px', textAlign: 'right' }} >
             {/* <img width="32" onClick={(e) => toggleProjectTaskArchive(e)} height="32" alt="archive" id="team-emblem" src={Team}/>      */}
             
-            {['left'].map((placement) => (
+            hi{/* {['left'].map((placement) => (
                     <OverlayTrigger
                     onHide={e => setTeamShow(false)}
                     rootClose
@@ -132,30 +140,29 @@ const ProjectTask = ({task, deleteTask, updateTask}) => {
                     placement={placement}
                     overlay={
                         <Popover id={`popover-positioned-${placement}`}>
-                        <Popover.Title as="h3">Assign</Popover.Title>
+                        <Popover.Title as="h3">Assign Task</Popover.Title>
                         <Popover.Content>
-                
+                        
                         <Form.Group controlId="formBasicCheckbox" className="team-member-checkbox">
 
-                            {task.team_members.map(t => {
+                            {totalTeamMembers.map(t => {
                                 return ( 
-                                    <label><img width="32" height="32" alt="archive" id="team-emblem" src={findPortraitSource(t)}/><Form.Check type="checkbox"/></label>           
+                                    <label><img width="41" height="41" alt="archive" id="team-emblem" src={findPortraitSource(t)}/><Form.Check
+                                    type="checkbox"/></label>           
                                 )
                             })}
                             
                             <br></br>
-                            <img width="13" onClick={e => taskSubmit(e)} height="18" alt="archive" src={Check}/>
-                            <div className="divider"/><div className="divider"/><div className="divider"/>
-                            <img width="15" onClick={() => formReset()} height="20" alt="archive" src={X2}/>
+                            <img width="15" height="20" className="float-left" alt="archive" src={Check}/>
+                            <img width="19" onClick={() => setTeamShow(false)} height="24" className="float-right" alt="archive" src={X2}/>
                         </Form.Group>
 
 
 
                         </Popover.Content>
                         </Popover>}>
-                    <img width="32" height="32" alt="archive" onClick={() => setTeamShow(!teamShow)} id="team-emblem" src={Team}/>
                     </OverlayTrigger>
-                ))}      
+                ))}       */}
 
 
         </td>

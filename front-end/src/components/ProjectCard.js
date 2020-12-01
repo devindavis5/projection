@@ -13,7 +13,7 @@ import Archive from '../assets/archive2.png'
 import Download from '../assets/download.png'
 import X from '../assets/x.png'
 
-const ProjectCard = ({project, createTask, deleteTask, updateTask, deleteContact, updateContact, createContact, updateProject, deleteProject}) => {
+const ProjectCard = ({project, createTask, deleteTask, updateTask, deleteContact, updateContact, createContact, updateProject, deleteProject, totalTeamMembers}) => {
     const [tasksShow, setTasksShow] = useState(false)
     const [notesShow, setNotesShow] = useState(false)
     const [contactsShow, setContactsShow] = useState(false)
@@ -334,6 +334,7 @@ const ProjectCard = ({project, createTask, deleteTask, updateTask, deleteContact
                         return (
                         <ProjectTask task={pt} deleteTask={deleteTask}
                         // project={project}
+                        totalTeamMembers={totalTeamMembers}
                         updateTask={updateTask} projectId={projectId} key={pt.id}/>) 
                     })}
                     </tbody>

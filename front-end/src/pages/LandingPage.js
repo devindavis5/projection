@@ -340,7 +340,8 @@ class LandingPage extends Component {
                             return (
                             <ProjectCard createTask={this.createTask} deleteTask={this.deleteTask} updateTask={this.updateTask}
                             deleteContact={this.deleteContact} createContact={this.createContact} updateContact={this.updateContact}
-                            project={project} key={project.id} updateProject={this.updateProject} deleteProject={this.deleteProject} />)
+                            project={project} key={project.id} updateProject={this.updateProject} deleteProject={this.deleteProject}
+                            totalTeamMembers={this.state.teamMembers} />)
                         })}
                         <div>
                             {!this.state.formShow ? 
@@ -470,6 +471,7 @@ class LandingPage extends Component {
                                         <ProjectTask task={task} deleteTask={this.deleteTask}
                                         // projectName={p.name}
                                         // project={this.state.projects.find(p => p.id === task.project_id)}
+                                        totalTeamMembers={this.state.teamMembers}
                                         updateTask={this.updateTask}
                                         key={task.id}/>
                                     )  
