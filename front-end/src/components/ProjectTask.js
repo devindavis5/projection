@@ -131,7 +131,7 @@ const ProjectTask = ({task, deleteTask, updateTask, totalTeamMembers}) => {
         <td className="align-middle" style={{ width: '5px', textAlign: 'right' }} >
             {/* <img width="32" onClick={(e) => toggleProjectTaskArchive(e)} height="32" alt="archive" id="team-emblem" src={Team}/>      */}
             
-            hi{/* {['left'].map((placement) => (
+            {['left'].map((placement) => (
                     <OverlayTrigger
                     onHide={e => setTeamShow(false)}
                     rootClose
@@ -161,9 +161,9 @@ const ProjectTask = ({task, deleteTask, updateTask, totalTeamMembers}) => {
 
                         </Popover.Content>
                         </Popover>}>
+                        <img width="32" height="32" alt="archive" onClick={() => setTeamShow(!teamShow)} id="team-emblem" src={Team}/>
                     </OverlayTrigger>
-                ))}       */}
-
+                ))}      
 
         </td>
         :
