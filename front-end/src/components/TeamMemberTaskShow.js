@@ -43,14 +43,14 @@ const TeamMembers = ({teamMember, archivedProjects, teamMemberClick}) => {
         <>
             <tbody>
             <tr>
-                <th id="team-member-pic-row"><img width="85" height="85" className="d-inline-block align-center" id="team-member-pic" alt="back" src={findSource()}/>{teamMember.name}</th>
+                <th id="team-member-pic-row"><img width="85" height="85" className="d-inline-block align-middle" id="team-member-pic" alt="back" src={findSource()}/>{teamMember.name}</th>
                 </tr>
                     {findTasks().map(t => {
                         return (
                             <tr>
-                                <td className="align-middle"><strong>{t.deadline}</strong></td>
-                                <td style={{width: "10%"}} className="align-middle">{t.name}</td>
-                                <td className="align-middle">{t.description}</td>
+                                <td style={{ width: '10%' }} className="align-middle"><strong>{t.deadline}</strong></td>
+                                <td style={{ width: '10%', textAlign: 'left' }} className="align-middle">{t.name}</td>
+                                <td className="align-middle"  style={{ textAlign: 'left' }}>{t.description}</td>
                             </tr>
                         )
                     })}
