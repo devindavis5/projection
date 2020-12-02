@@ -419,3 +419,11 @@ code {
   justify-items: center; */
   text-align: center;
 }
+
+.user-name {
+  font-size: 2rem;
+}
+
+.user-email {
+  font-size: 1rem;
+}

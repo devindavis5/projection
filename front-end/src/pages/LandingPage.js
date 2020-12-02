@@ -24,6 +24,9 @@ class LandingPage extends Component {
         formShow: false,
         newProjectName: '',
         userId: '',
+        userName: '',
+        userEmail: '',
+        userImage: '',
         newDailyShow: false,
         newTaskDescription: '',
         dailyTaskArchiveShow: false,
@@ -61,6 +64,9 @@ class LandingPage extends Component {
                     this.setState({dailyTasks: user.daily_tasks})
                     this.setState({teamMembers: user.team_members})
                     this.setState({userId: user.id})
+                    this.setState({userEmail: user.email})
+                    this.setState({userImage: user.image})
+                    this.setState({userName: user.name})
                 }
             })
         } 
@@ -219,7 +225,6 @@ class LandingPage extends Component {
                 alert("Tasks must have a deadline and description.")
             }
         })
-
     }
 
     archiveProject = (tasks, contacts, projectId) => {
@@ -393,9 +398,10 @@ class LandingPage extends Component {
         const completeProjects = this.state.projects.filter(p => p.archived === true)
         const completeProjectTasks = this.state.projects.map(p => p.project_tasks.filter(task => task.archived === true)).flat()
         const completeContacts = this.state.projects.map(p => p.contacts.filter(c => c.archived === true)).flat()
+        const count = this.state.projects.length - this.state.archivedProjects.length
         return (
             <div className='projects-page'>
-                <NavBar /> 
+                <NavBar name={this.state.userName} email={this.state.userEmail} image={this.state.userImage} count={count} /> 
                 <div className='projects-div'>
                     <CardDeck id="card-deck">
                         {incompleteProjects.map(project => {
