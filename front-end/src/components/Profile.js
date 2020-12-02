@@ -24,7 +24,7 @@ const Profile = ({name, email, count, updateUser, id}) => {
     return (
         <>
             {!emailShow ?    
-            <tr onClick={() => toggleEmail()} className="user-email">{email}</tr>
+            <tr onClick={() => toggleEmail()} className="user-email button2">{email}</tr>
             : 
             <tr style={{width: "50%", textAlign: "center"}} id="email-input" className="align-middle">
             <Form.Control style={{width: "60%", textAlign: "center"}} id="email-input" className="align-middle" onChange={e => setUserEmail(e.target.value)} value={userEmail} />
@@ -32,9 +32,9 @@ const Profile = ({name, email, count, updateUser, id}) => {
             }
             {emailShow ?
             <tr id="email-check">
-                <img width="15" height="20" onClick={(e) => submitEmail(e)} className="float-left align-middle"  alt="archive" src={Check}/>
+                <img width="15" height="20" onClick={(e) => submitEmail(e)} className="float-left align-middle button"  alt="archive" src={Check}/>
                 <div className="divider2"/>
-                <img width="19" onClick={() => setEmailShow(false)} height="24" className="float-right align-middle"  alt="archive" src={X2}/>   
+                <img width="19" onClick={() => setEmailShow(false)} height="24" className="float-right align-middle button"  alt="archive" src={X2}/>   
             </tr>
             :
             null

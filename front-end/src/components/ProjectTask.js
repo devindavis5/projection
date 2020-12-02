@@ -160,15 +160,15 @@ const ProjectTask = ({task, deleteTask, updateTask, totalTeamMembers, projectId,
                             })}
                             
                             <br></br>
-                            <img width="15" height="20" onClick={(e) => submitTeam(e)} className="float-left" alt="archive" src={Check}/>
-                            <img width="19" onClick={() => setTeamShow(false)} height="24" className="float-right" alt="archive" src={X2}/>
+                            <img width="15" height="20" onClick={(e) => submitTeam(e)} className="float-left button" alt="archive" src={Check}/>
+                            <img width="19" onClick={() => setTeamShow(false)} height="24" className="float-right button" alt="archive" src={X2}/>
                         </Form.Group>
 
 
 
                         </Popover.Content>
                         </Popover>}>
-                        <img width="32" height="32" alt="archive" onClick={() => setTeamShow(!teamShow)} id="team-emblem" src={Team}/>
+                        <img width="32" height="32" alt="archive" className="button2" onClick={() => setTeamShow(!teamShow)} id="team-emblem" src={Team}/>
                     </OverlayTrigger>
                 ))}      
 
@@ -180,17 +180,17 @@ const ProjectTask = ({task, deleteTask, updateTask, totalTeamMembers, projectId,
         {!formShow ?
         <td className="align-middle" size="sm" style={{ width: '5px', textAlign: 'right' }} id="archive-toggle">
             {/* <img width="30" onClick={(e) => toggleProjectTaskArchive(e)} height="30" alt="archive" src={Team}/> */}
-            <img width="25" onClick={(e) => toggleProjectTaskArchive(e)} height="25" alt="archive" src={findSource()}/>
+            <img width="25" onClick={(e) => toggleProjectTaskArchive(e)} className="button2" height="25" alt="archive" src={findSource()}/>
         </td>
         :
         <td className="align-middle"size="sm" style={{ textAlign:"right" }} id="confirm-change" >
-         <img width="13" onClick={e => taskSubmit(e)} height="18" alt="archive" src={Check}/>
+         <img width="13" onClick={e => taskSubmit(e)} height="18" className="button" alt="archive" src={Check}/>
          <br/><br/>
-         <img width="15" onClick={() => formReset()} height="20" alt="archive" src={X2}/>
+         <img width="15" onClick={() => formReset()} height="20" className="button" alt="archive" src={X2}/>
         </td>
         }
         {archived && !formShow ?    
-            <td className="align-middle" id="archive-x" size="sm" style={{ width: '5px', textAlign: 'right' }}><img onClick={() => deleteProjectTask()} width="15" height="20" alt="archive" src={X}/></td>
+            <td className="align-middle button2" id="archive-x" size="sm" style={{ width: '5px', textAlign: 'right' }}><img onClick={() => deleteProjectTask()} width="15" height="20" alt="archive" src={X}/></td>
         :
             null
         }

@@ -104,16 +104,16 @@ const ProjectContact = ({contact, deleteContact, updateContact}) => {
         </td>
         }
         {!formShow ?
-        <td className="align-middle"size="sm" style={{ textAlign:"right" }}><img width="25" onClick={(e) => toggleContactArchive(e)} height="25" alt="archive" src={findSource()}/></td>
+        <td className="align-middle"size="sm" style={{ textAlign:"right" }}><img  className="button2" width="25" onClick={(e) => toggleContactArchive(e)} height="25" alt="archive" src={findSource()}/></td>
         :
         <td className="align-middle"size="sm" style={{ textAlign:"right" }}>
-         <img width="13" onClick={e => contactSubmit(e)} height="18" alt="archive" src={Check}/>
+         <img width="13" onClick={e => contactSubmit(e)} height="18" alt="archive" className="button" src={Check}/>
          <br/><br/>
-         <img width="15" onClick={() => resetForm()} height="20" alt="archive" src={X2}/>
+         <img width="15" onClick={() => resetForm()} height="20" alt="archive" className="button" src={X2}/>
         </td>
         }
         {archived && !formShow ?    
-            <td className="align-middle" id="archive-x" size="sm" style={{ textAlign:"right" }}><img onClick={() => deleteProjectContact()} width="15" height="20" alt="archive" src={X}/></td>
+            <td className="align-middle button2" id="archive-x" size="sm" style={{ textAlign:"right" }}><img onClick={() => deleteProjectContact()} width="15" height="20" alt="archive" src={X}/></td>
         :
             null
         }

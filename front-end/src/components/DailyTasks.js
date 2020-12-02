@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ListGroupItem, Form} from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import Archive from '../assets/archive1.png'
 import Download from '../assets/download.png'
 import X from '../assets/x.png'
@@ -93,20 +93,20 @@ const DailyTasks = ({task, updateDailyTask, deleteDailyTask}) => {
         }
         {!formShow ?
             
-            <td className="align-middle" id="daily-task-rows" size="sm" style={{ textAlign:"right" }}><img onClick={(e) => toggleDailyTaskArchive(e)} width="25" height="25" alt="archive" src={findSource()}/></td>
+            <td className="align-middle button2" id="daily-task-rows" size="sm" style={{ textAlign:"right" }}><img onClick={(e) => toggleDailyTaskArchive(e)} width="25" height="25" alt="archive" src={findSource()}/></td>
             
         :
             <td className="align-middle"size="sm" style={{ textAlign:"right" }}>
-                <img width="13" onClick={e => taskSubmit(e)} height="18" alt="archive" src={Check}/>
+                <img width="13" onClick={e => taskSubmit(e)} className="button" height="18" alt="archive" src={Check}/>
                 <br/>
                 
-                <img width="15" onClick={() => formReset()} height="20" alt="archive" src={X2}/>
+                <img width="15" onClick={() => formReset()} className="button" height="20" alt="archive" src={X2}/>
             </td>
         }
 
         {archived && !formShow ? 
             
-            <td className="align-middle" id="archive-x" size="sm" style={{ textAlign:"right" }}><img onClick={() => deleteTask()} width="15" height="20" alt="archive" src={X}/></td>
+            <td className="align-middle button2" id="archive-x" size="sm" style={{ textAlign:"right" }}><img onClick={() => deleteTask()} width="15" height="20" alt="archive" src={X}/></td>
         :
             null
         }

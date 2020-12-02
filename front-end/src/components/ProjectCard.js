@@ -161,20 +161,20 @@ const ProjectCard = ({project, createTask, deleteTask, updateTask, deleteContact
                                 <Form.Control onChange={e => setProjectName(e.target.value)} id="project-name-input" value={projectName}/>
                             </Col>
                             <Col xl={1} className="align-self-center">
-                                <img id="project-name-check" width="15" onClick={e => projectNotesSubmit(e)} height="18" alt="archive" src={Check}/>
+                                <img id="project-name-check" width="15" className="button" onClick={e => projectNotesSubmit(e)} height="18" alt="archive" src={Check}/>
                             </Col>
                             <Col xl={1} className="align-self-center">   
-                                <img id="project-name-x" width="18" onClick={() => notesFormReset()} height="23" alt="archive" src={X2}/>
+                                <img id="project-name-x" width="18" className="button" onClick={() => notesFormReset()} height="23" alt="archive" src={X2}/>
                             </Col>
                         </Row>  
                     }
                     {projectArchived && !editProjectNameShow? 
-                        <img onClick={() => setProjectDeleteShow(true)} width="15" height="20" alt="archive" id="delete-project-x" src={X}/>
+                        <img onClick={() => setProjectDeleteShow(true)} width="15" className="button" height="20" alt="archive" id="delete-project-x" src={X}/>
                     :
                         null
                     }  
                 {!editProjectNameShow ?
-                    <img onClick={(e) => toggleProjectArchived(e)} width="25" height="25" id="project-archive-toggle" alt="archive" src={findSource()}/>
+                    <img onClick={(e) => toggleProjectArchived(e)} className="button" width="25" height="25" id="project-archive-toggle" alt="archive" src={findSource()}/>
                 :
                 null
                 }
@@ -234,7 +234,7 @@ const ProjectCard = ({project, createTask, deleteTask, updateTask, deleteContact
                 >
                 <Modal.Header closeButton>
                     <h1>{project.name} Contacts</h1>
-                    <img width="34" height="34" id="create-contact" alt="back" onClick={() => setNewContactShow(!newContactShow)} src={New}/>
+                    <img width="34" height="34" id="create-contact" alt="back" className="button" onClick={() => setNewContactShow(!newContactShow)} src={New}/>
                 </Modal.Header>
                 {newContactShow ? 
                     <Form id="create-ptask-form">
@@ -291,9 +291,9 @@ const ProjectCard = ({project, createTask, deleteTask, updateTask, deleteContact
                                 <Form.Control as="textarea" rows={3} onChange={e => setProjectNotes(e.target.value)} value={projectNotes}/>
                             </Col>
                             <Col className="align-self-center">
-                                <img width="18" onClick={e => projectNotesSubmit(e)} height="22" alt="archive" src={Check}/>
+                                <img width="18" onClick={e => projectNotesSubmit(e)} height="22" alt="archive" className="button" src={Check}/>
                                 <br/><br/>
-                                <img width="20" onClick={() => notesFormReset()} height="25" alt="archive" src={X2}/>
+                                <img width="20" onClick={() => notesFormReset()} height="25" alt="archive" className="button" src={X2}/>
                             </Col>
                         </Row>          
                     }    
@@ -308,7 +308,7 @@ const ProjectCard = ({project, createTask, deleteTask, updateTask, deleteContact
                 >
                 <Modal.Header closeButton>
                 <h1>{project.name} Tasks</h1>
-                <img width="34" height="34" id="create-ptask" alt="new" onClick={() => setNewTaskShow(!newTaskShow)} src={New}/>
+                <img width="34" height="34" id="create-ptask" alt="new" className="button" onClick={() => setNewTaskShow(!newTaskShow)} src={New}/>
                 </Modal.Header>
                     {newTaskShow ? 
                     <Form id="create-ptask-form">

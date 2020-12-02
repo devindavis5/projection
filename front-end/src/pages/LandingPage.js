@@ -153,18 +153,6 @@ class LandingPage extends Component {
         })
     }
 
-    // updateTeam = () => {
-    //     fetch('http://localhost:3000/team_members' , {
-    //         method: 'GET',
-    //         headers: {
-    //             'Content-Type':'application/json',
-    //             'Accepts':'application/json'
-    //         }
-    //     })
-    //     .then(res => res.json())
-    //     .then(teamMembers => this.setState({teamMembers}))
-    // }
-
     createContact = (contact) => {
         fetch('http://localhost:3000/contacts' , {
           method: 'POST',
@@ -470,14 +458,14 @@ class LandingPage extends Component {
                         })}
                         <div>
                             {!this.state.formShow ? 
-                            <Card onClick={this.formClick} id="add-project-card">
+                            <Card onClick={this.formClick} className="button3" id="add-project-card">
                                 <Card.Body>
                                 <img id="add-project-icon" src={Plus}/>
                                 </Card.Body>
                             </Card>
                             :
                             <Card id="add-project-card">
-                                <Card.Title><img width="15" onClick={this.formClick} height="20" alt="archive" id="new-project-x" src={X}/></Card.Title>
+                                <Card.Title><img width="15" onClick={this.formClick} height="20" alt="archive" className="button" id="new-project-x" src={X}/></Card.Title>
                                 <Card.Body>
                                 <Form>
                                     <Form.Group controlId="formBasicUsername">
@@ -485,7 +473,7 @@ class LandingPage extends Component {
                                         <Form.Control type="text" name="name" placeholder="Project Name" onChange={this.onProjectNameChange} />
                                     </Form.Group>
                                     {/* <Button to="/maincontainer" onClick={onProjectSubmit} variant="primary" type="submit">Sign in</Button> */}
-                                     <img width="25" height="25" alt="checkmark" id="new-project-check" onClick={this.addProject} src={Check}/>
+                                     <img width="25" height="25" alt="checkmark" id="new-project-check" className="button" onClick={this.addProject} src={Check}/>
                                 </Form>
                                 </Card.Body>
                             </Card>      
@@ -495,14 +483,10 @@ class LandingPage extends Component {
                 </div>
                 <div className='daily-tasks-div'>
                     <Card id="daily-tasks-card" >
-                        {/* <Card.Header id="daily-task-header" > */}
                         <Card.Title id="daily-task-title" className='text-center'>Personal Tasks
-                        <img width="25" height="25" id="create-daily" alt="back" onClick={this.createDailyTaskFormToggle} src={New}/>
+                        <img width="25" height="25" id="create-daily" alt="back" className="button" onClick={this.createDailyTaskFormToggle} src={New}/>
                         </Card.Title>
-                        {/* </Card.Header> */}
-                        {/* <Card.Body> */}
-                        <Table responsive className="table-hover" id="daily-task-table">
-                            {/* borderless */}
+                        <Table responsive borderless className="table-hover" id="daily-task-table">
                             <tbody>
                                 {this.state.newDailyShow ?
                                     <tr id="new-daily-task-form">
@@ -528,10 +512,9 @@ class LandingPage extends Component {
                         })}
                             </tbody>
                         </Table>
-                        {/* </Card.Body> */}
                     </Card>
                     <div className="daily-task-archive-div">
-                        <img onClick={this.toggleDailyTaskArchive} className="button"  alt="archive" id="daily-task-archive" src={Archive1}/>
+                        <img onClick={this.toggleDailyTaskArchive} className="button1"  alt="archive" id="daily-task-archive" src={Archive1}/>
                 <Modal
                     show={this.state.dailyTaskArchiveShow}
                     onHide={this.toggleDailyTaskArchive}
@@ -553,9 +536,7 @@ class LandingPage extends Component {
                     </Table>
                     </Modal.Body>
                 </Modal>       
-
-                        <img onClick={this.toggleProjectArchive} className="button" alt="archive" id="project-archive" src={Archive2}/>  
-
+                    <img onClick={this.toggleProjectArchive} className="button1" alt="archive" id="project-archive" src={Archive2}/>  
                 <Modal
                     show={this.state.projectArchiveShow}
                     onHide={this.toggleProjectArchive}
@@ -579,9 +560,7 @@ class LandingPage extends Component {
                         </CardDeck>
                     </Modal.Body>
                 </Modal>      
-
-                        <img onClick={this.toggleProjectTaskArchive} className="button" alt="archive" id="project-task-archive" src={Archive3}/>  
-
+                    <img onClick={this.toggleProjectTaskArchive} className="button1" alt="archive" id="project-task-archive" src={Archive3}/>  
                 <Modal
                     show={this.state.projectTaskArchiveShow}
                     onHide={this.toggleProjectTaskArchive}
@@ -595,24 +574,19 @@ class LandingPage extends Component {
                         <Table responsive className="table-hover" id="project-task-table">
                         <tbody>
                              {completeProjectTasks.map(task => {
-            
-                                // console.log(task)
-                                //    let p = this.state.projects.find(p => p.id === task.project_id)
-                                    return (
-                                        <ProjectTask task={task} deleteTask={this.deleteTask}
-                                        // projectName={p.name}
-                                        // project={this.state.projects.find(p => p.id === task.project_id)}
-                                        totalTeamMembers={this.state.teamMembers}
-                                        updateTask={this.updateTask}
-                                        key={task.id}/>
-                                    )  
+                                return (
+                                    <ProjectTask task={task} deleteTask={this.deleteTask}
+                                    totalTeamMembers={this.state.teamMembers}
+                                    updateTask={this.updateTask}
+                                    key={task.id}/>
+                                )  
                             })}
                         </tbody>
                         </Table>
                     </Modal.Body>
                 </Modal>   
 
-                    <img onClick={this.toggleContactArchive} alt="archive" className="button" id="contact-archive" src={Archive4}/>  
+                    <img onClick={this.toggleContactArchive} alt="archive" className="button1" id="contact-archive" src={Archive4}/>  
 
                 <Modal
                     show={this.state.contactArchiveShow}
