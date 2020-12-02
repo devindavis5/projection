@@ -9,7 +9,13 @@ import Check from '../assets/check.png'
 const DailyTasks = ({task, updateDailyTask, deleteDailyTask}) => {
     const [formShow, setFormShow] = useState(false)
     const [description, setDescription] = useState(task.description)
+    const [editDeadline, setEditDeadline] = useState(task.deadline)
     const [archived, setArchived] = useState(task.archived)
+    let split = task.deadline.split('-')
+    let mm = split[1]
+    let dd = split[2]
+    let yyyy = split[0]
+    let deadline = mm + '/' + dd + '/' + yyyy
 
     const taskId = task.id
 
@@ -21,6 +27,7 @@ const DailyTasks = ({task, updateDailyTask, deleteDailyTask}) => {
         e.preventDefault()
         const taskData = {
             description: description,
+            deadline: editDeadline,
             archived: archived,
             id: taskId
         }
@@ -30,11 +37,13 @@ const DailyTasks = ({task, updateDailyTask, deleteDailyTask}) => {
 
     const formReset = () => {
         setFormShow(false)
+        setEditDeadline(task.deadline)
         setDescription(task.description)
         setArchived(task.archived)
     }
 
     const resetEditForm = () => {
+        setEditDeadline(task.deadline)
         setDescription(task.description)
         setArchived(task.archived)
         setFormShow(!formShow)
@@ -53,6 +62,7 @@ const DailyTasks = ({task, updateDailyTask, deleteDailyTask}) => {
     const toggleDailyTaskArchive = (e) => {
         e.preventDefault()
         const taskData = {
+            deadline: editDeadline,
             description: task.description,
             archived: !task.archived,
             id: taskId
@@ -65,6 +75,14 @@ const DailyTasks = ({task, updateDailyTask, deleteDailyTask}) => {
         
         <>
         <tr >
+        {!formShow ?    
+        <td style={{width: "10%"}} onClick={() => resetEditForm()} className="align-middle"><strong>{deadline}</strong></td>  
+        : 
+        <td style={{width: "6%"}} className="align-middle">
+        <Form.Control type="date" onChange={e => setEditDeadline(e.target.value)} value={editDeadline} />
+        </td>
+        }
+
         {!formShow ? 
 
             <td className="align-middle" style={{width: "94%"}} id="daily-task-rows" onClick={() => resetEditForm()}>{task.description}</td>

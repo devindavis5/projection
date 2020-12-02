@@ -103,8 +103,8 @@ const ProjectTask = ({task, deleteTask, updateTask, totalTeamMembers, projectId,
         task.team_members.map(t => oldTeam = [...oldTeam, t.id])
         createTeamMemberProjectTask(newTeam, oldTeam, taskId, projectId)
         setTeamShow(false)
-        setClickedNames(newTeam)
-        // alert('Team member assignments have been adjusted.')
+        // setClickedNames(newTeam)
+        // setClickedNames(task.team_members.map(t => t.id))
     }
 
     const handleTeamMemberClick = (e) => {
@@ -135,7 +135,6 @@ const ProjectTask = ({task, deleteTask, updateTask, totalTeamMembers, projectId,
         <Form.Control as="textarea" rows={2} value={description} onChange={e => setDescription(e.target.value)}/> 
         </td>
         }
-
         {!formShow && !archived ? 
         <td className="align-middle" style={{ width: '5px', textAlign: 'right' }} >
             

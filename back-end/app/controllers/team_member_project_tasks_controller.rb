@@ -35,23 +35,32 @@ class TeamMemberProjectTasksController < ApplicationController
         new_team.each { | tm | TeamMemberProjectTask.create(team_member_id: tm, project_task_id: params[:project_task_id]) }
         project = Project.find(params[:project_id])
         # tmpt = TeamMemberProjectTask.create(team_member_id: params[:team_member_id], project_task_id: params[:project_task_id])
-        render json: project, only: [:id, :name, :deadline, :archived, :notes, :user_id], :include => [
-            project_tasks: { only: [:id, :name, :importance, :deadline, :description, :archived], include: { team_members: { only: [:id, :name, :image]} } },
+        user = current_user
+        render json: user, only: [:id, :name, :email, :image], :include => [
+          projects: { only: [:id, :name, :deadline, :archived, :notes, :user_id], :include => [
+            project_tasks: { only: [:id, :name, :importance, :deadline, :description, :archived, :project_id], include: { team_members: { only: [:id, :name, :image]} } },
             contacts: { only: [:id, :name, :email, :phone, :archived, :notes] } 
-        ]  
+          ]},
+          daily_tasks: { only: [:id, :description, :deadline, :archived] },
+          team_members: { only: [:id, :name, :image], include: { project_tasks: { only: [:id, :name, :importance, :deadline, :description, :archived, :project_id] } } }
+        ]
+        # render json: project, only: [:id, :name, :deadline, :archived, :notes, :user_id], :include => [
+        #     project_tasks: { only: [:id, :name, :importance, :deadline, :description, :archived], include: { team_members: { only: [:id, :name, :image]} } },
+        #     contacts: { only: [:id, :name, :email, :phone, :archived, :notes] } 
+        # ]  
     end
 
-    def destroy
-        # byebug
-        # tmpt = TeamMemberProjectTask.find(team_member_id: params[:team_member_id], project_task_id: params[:project_task_id])
-        team = params[:oldTeam]
+    # def destroy
+    #     # byebug
+    #     # tmpt = TeamMemberProjectTask.find(team_member_id: params[:team_member_id], project_task_id: params[:project_task_id])
+    #     team = params[:oldTeam]
 
-        i = 0
-        while i < team.length
-            tmpt = TeamMemberProjectTask.all.find { | tmpt | tmpt.team_member_id = team[i] && tmpt.project_task_id = params[:project_task_id] }
-            TeamMemberProjectTask.destroy(tmpt.id)
-            i += 1
-        end
+    #     i = 0
+    #     while i < team.length
+    #         tmpt = TeamMemberProjectTask.all.find { | tmpt | tmpt.team_member_id = team[i] && tmpt.project_task_id = params[:project_task_id] }
+    #         TeamMemberProjectTask.destroy(tmpt.id)
+    #         i += 1
+    #     end
         
 
         # team.each { | tm | 
@@ -63,5 +72,5 @@ class TeamMemberProjectTasksController < ApplicationController
         #     project_tasks: { only: [:id, :name, :importance, :deadline, :description, :archived], include: { team_members: { only: [:id, :name, :image]} } },
         #     contacts: { only: [:id, :name, :email, :phone, :archived, :notes] } 
         # ]
-    end
+    # end
 end

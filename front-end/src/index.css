@@ -307,9 +307,10 @@ code {
   margin-right: .8rem;
 }
 
-#daily-task-description {
-  width: 33.35rem;
-}
+/* #daily-task-description {
+  width: 20.35rem;
+  padding-right: 0;
+} */
 
 .daily-task-archive-div {
   position: absolute;
@@ -350,8 +351,6 @@ code {
   position: fixed;
 } */
 
-
-
 #project-archive-toggle {
   float: right;
   position: relative;
@@ -368,16 +367,22 @@ code {
   left: 1rem;
 }
 
-#team-member-button {
+/* #team-member-button {
   background-color: rgb(223, 234, 245);
   border: none;
-}
+  padding: 2rem;
+} */
 
 #team-member-pic-row {
   border-top: none;
   text-align: center;
+  /* margin-right: 5rem; */
   /* padding-right: 0;
   border-right: 0; */
+}
+
+#team-member-pic {
+  margin: .7rem;
 }
 
 #archive-toggle {
@@ -441,3 +446,11 @@ code {
   display:inline-block;
 }
 
+.button {
+  transition: transform 0.4s;
+  transform: scale(1);
+}
+
+.button:hover {
+  transform: scale(1.1);
+}

@@ -40,7 +40,7 @@ const TeamMembers = ({teamMember, teamMemberClick}) => {
                     </Tooltip>
                 }
                 >
-                <Button id="team-member-button" variant="secondary" onClick={() => teamMemberClick()} ><img width="85" height="85" className="d-inline-block align-center" id="team-member-pic" alt="back" src={findSource()}/> </Button>
+                <img onClick={() => teamMemberClick()} width="85" height="85" className="d-inline-block align-center button" id="team-member-pic" alt="back" src={findSource()}/> 
                 </OverlayTrigger>
             ))}
         </div>

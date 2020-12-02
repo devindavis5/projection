@@ -29,6 +29,7 @@ class LandingPage extends Component {
         userImage: '',
         newDailyShow: false,
         newTaskDescription: '',
+        newTaskDeadline: '',
         dailyTaskArchiveShow: false,
         projectArchiveShow: false,
         projectTaskArchiveShow: false,
@@ -129,7 +130,8 @@ class LandingPage extends Component {
           method: 'POST',
           headers: {
             'Content-Type':'application/json',
-            'Accepts':'application/json'
+            'Accepts':'application/json',
+            Authorization: `Bearer ${localStorage.token}`
           },
           body: JSON.stringify({
               newTeam: newTeam,
@@ -139,19 +141,29 @@ class LandingPage extends Component {
           })
         })
         .then(res => res.json())
-        .then(project =>  {
-            this.setState({projects: this.state.projects.map(p => p.id === project.id ? project : p)})
-            fetch('http://localhost:3000/team_members' , {
-                method: 'GET',
-                headers: {
-                    'Content-Type':'application/json',
-                    'Accepts':'application/json'
-                }
-            })
-            .then(res => res.json())
-            .then(teamMembers => this.setState({teamMembers}))
+        .then (user =>  {
+            if (user === null) {
+                alert('Please login to view projects.')  
+                this.props.history.push('/login')
+            } else {
+                this.setState({projects: user.projects})
+                this.setState({teamMembers: user.team_members})  
+            }
+            // this.setState({projects: this.state.projects.map(p => p.id === project.id ? project : p)})
         })
     }
+
+    // updateTeam = () => {
+    //     fetch('http://localhost:3000/team_members' , {
+    //         method: 'GET',
+    //         headers: {
+    //             'Content-Type':'application/json',
+    //             'Accepts':'application/json'
+    //         }
+    //     })
+    //     .then(res => res.json())
+    //     .then(teamMembers => this.setState({teamMembers}))
+    // }
 
     createContact = (contact) => {
         fetch('http://localhost:3000/contacts' , {
@@ -182,6 +194,7 @@ class LandingPage extends Component {
           },
           body: JSON.stringify({
               description: this.state.newTaskDescription,
+              deadline: this.state.newTaskDeadline,
               user_id: this.state.userId
           })
         })
@@ -192,7 +205,7 @@ class LandingPage extends Component {
                 this.setState({newDailyShow: false})
                 this.setState({newTaskDescription: ''})
             } else {
-                alert("Task must have a description.")
+                alert("Task must have a deadline and description.")
             }
         })
     }
@@ -232,30 +245,22 @@ class LandingPage extends Component {
           method: 'PATCH',
           headers: {
             'Content-Type':'application/json',
-            'Accepts':'application/json'
+            'Accepts':'application/json',
+            Authorization: `Bearer ${localStorage.token}`
           },
           body: JSON.stringify({
               deadline: task.deadline,
               description: task.description,
-              archived: task.archived,
+              archived: task.archived
           })
         })
         .then(res => res.json())
-        .then(project => {
-            if (!project.error) {
-                this.setState({projects: this.state.projects.map(p => p.id === project[0].id ? project[0] : p)})
-                fetch('http://localhost:3000/team_members' , {
-                    method: 'GET',
-                    headers: {
-                      'Content-Type':'application/json',
-                      'Accepts':'application/json'
-                    }
-                  })
-                  .then(res => res.json())
-                  .then(teamMembers => this.setState({teamMembers}))
+        .then(user =>  {
+            if (user.error) {
+                alert('Tasks must have a deadline and description.')
             } else {
-                console.log(project)
-                alert("Tasks must have a deadline and description.")
+                this.setState({projects: user.projects})
+                this.setState({teamMembers: user.team_members})  
             }
         })
     }
@@ -265,7 +270,8 @@ class LandingPage extends Component {
           method: 'PATCH',
           headers: {
             'Content-Type':'application/json',
-            'Accepts':'application/json'
+            'Accepts':'application/json',
+            Authorization: `Bearer ${localStorage.token}`
           },
           body: JSON.stringify({
               tasks: tasks,
@@ -274,13 +280,12 @@ class LandingPage extends Component {
           })
         })
         .then(res => res.json())
-        .then(project => {
-            // console.log(project)
-            if (!project.error) {
-                this.setState({projects: this.state.projects.map(p => p.id === project.id ? project : p)})
+        .then (user =>  {
+            if (user === null) {
+                alert('Please login to view projects.')  
             } else {
-                console.log(project)
-                alert("Tasks must have a deadline and description.")
+                this.setState({projects: user.projects})
+                this.setState({teamMembers: user.team_members})  
             }
         })
     }
@@ -350,7 +355,8 @@ class LandingPage extends Component {
           },
           body: JSON.stringify({
               description: task.description,
-              archived: task.archived
+              archived: task.archived,
+              deadline: task.deadline
           })
         })
         .then(res => res.json())
@@ -358,7 +364,7 @@ class LandingPage extends Component {
             if (!newTask.error) {
                 this.setState({dailyTasks: this.state.dailyTasks.map(t => t.id === newTask.id ? newTask : t)})
             } else {
-                alert("Task must have a description.")
+                alert("Task must have a deadline and description.")
             }
         })
     }
@@ -399,9 +405,14 @@ class LandingPage extends Component {
         this.setState({newTaskDescription: e.target.value})
     }
 
+    handleTaskDeadlineChange = (e) => {
+        this.setState({newTaskDeadline: e.target.value})
+    }
+
     createDailyTaskFormToggle = () => {
         this.setState({newDailyShow: !this.state.newDailyShow})
         this.setState({newTaskDescription: ''})
+        this.setState({newTaskDeadline: ''})
     }
 
     toggleDailyTaskArchive = () => {
@@ -425,13 +436,24 @@ class LandingPage extends Component {
     }
 
     render() {
-        const incompleteDailies = this.state.dailyTasks.filter(dt => dt.archived === false)
-        const completeDailies = this.state.dailyTasks.filter(dt => dt.archived === true)
+        const incDailies = this.state.dailyTasks.filter(dt => dt.archived === false)
+        const compDailies = this.state.dailyTasks.filter(dt => dt.archived === true)
         const incompleteProjects = this.state.projects.filter(p => p.archived === false)
         const completeProjects = this.state.projects.filter(p => p.archived === true)
         const completeProjectTasks = this.state.projects.map(p => p.project_tasks.filter(task => task.archived === true)).flat()
         const completeContacts = this.state.projects.map(p => p.contacts.filter(c => c.archived === true)).flat()
         const count = this.state.projects.length - this.state.archivedProjects.length
+        const incompleteDailies = incDailies.sort(function(a,b){
+            let c = new Date(a.deadline)
+            let d = new Date(b.deadline)
+            return c-d
+        })
+        const completeDailies = compDailies.sort(function(a,b){
+            let c = new Date(a.deadline)
+            let d = new Date(b.deadline)
+            return c-d
+        })
+
         return (
             <div className='projects-page'>
                 <NavBar name={this.state.userName} email={this.state.userEmail} image={this.state.userImage} count={count} updateUser={this.updateUser} id={this.state.userId}/> 
@@ -474,7 +496,7 @@ class LandingPage extends Component {
                 <div className='daily-tasks-div'>
                     <Card id="daily-tasks-card" >
                         {/* <Card.Header id="daily-task-header" > */}
-                        <Card.Title id="daily-task-title" className='text-center'>Today's Tasks
+                        <Card.Title id="daily-task-title" className='text-center'>Personal Tasks
                         <img width="25" height="25" id="create-daily" alt="back" onClick={this.createDailyTaskFormToggle} src={New}/>
                         </Card.Title>
                         {/* </Card.Header> */}
@@ -484,11 +506,14 @@ class LandingPage extends Component {
                             <tbody>
                                 {this.state.newDailyShow ?
                                     <tr id="new-daily-task-form">
-                                        <td >
-                                        <Form.Control id="daily-task-description" onChange={this.handleTaskDescriptionChange} value={this.state.newTaskDescription} placeholder="Task..." />     
+                                        <td style={{width: "6%"}} className="align-middle">
+                                        <Form.Control type="date" onChange={this.handleTaskDeadlineChange} value={this.state.newTaskDeadline} />
                                         </td>
-                                        <td>
-                                        <Button id="daily-task-submit" onClick={e => this.createDailyTask(e)} variant="primary float-right" type="submit">
+                                        <td >
+                                        <Form.Control id="daily-task-description" as="textarea" rows={2} onChange={this.handleTaskDescriptionChange} value={this.state.newTaskDescription} placeholder="Task..." />     
+                                        </td>
+                                        <td className="align-middle">
+                                        <Button className="align-middle" onClick={e => this.createDailyTask(e)} variant="primary float-right" type="submit">
                                         Create
                                         </Button>       
                                         </td>
@@ -506,7 +531,7 @@ class LandingPage extends Component {
                         {/* </Card.Body> */}
                     </Card>
                     <div className="daily-task-archive-div">
-                        <img onClick={this.toggleDailyTaskArchive} alt="archive" id="daily-task-archive" src={Archive1}/>
+                        <img onClick={this.toggleDailyTaskArchive} className="button"  alt="archive" id="daily-task-archive" src={Archive1}/>
                 <Modal
                     show={this.state.dailyTaskArchiveShow}
                     onHide={this.toggleDailyTaskArchive}
@@ -529,7 +554,7 @@ class LandingPage extends Component {
                     </Modal.Body>
                 </Modal>       
 
-                        <img onClick={this.toggleProjectArchive} alt="archive" id="project-archive" src={Archive2}/>  
+                        <img onClick={this.toggleProjectArchive} className="button" alt="archive" id="project-archive" src={Archive2}/>  
 
                 <Modal
                     show={this.state.projectArchiveShow}
@@ -555,7 +580,7 @@ class LandingPage extends Component {
                     </Modal.Body>
                 </Modal>      
 
-                        <img onClick={this.toggleProjectTaskArchive} alt="archive" id="project-task-archive" src={Archive3}/>  
+                        <img onClick={this.toggleProjectTaskArchive} className="button" alt="archive" id="project-task-archive" src={Archive3}/>  
 
                 <Modal
                     show={this.state.projectTaskArchiveShow}
@@ -587,7 +612,7 @@ class LandingPage extends Component {
                     </Modal.Body>
                 </Modal>   
 
-                    <img onClick={this.toggleContactArchive} alt="archive" id="contact-archive" src={Archive4}/>  
+                    <img onClick={this.toggleContactArchive} alt="archive" className="button" id="contact-archive" src={Archive4}/>  
 
                 <Modal
                     show={this.state.contactArchiveShow}
