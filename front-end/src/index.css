@@ -361,22 +361,12 @@ code {
   position: absolute;
   right: .5vh;
   top: .3vh;
-  /* float: right; */
-  /* margin-left: 2rem; */
 }
 
 #project-card-title {
   position: relative;
   left: 1rem;
 }
-
-/* #description-column {
-  margin-right: 0rem;
-  padding-right: 0rem;
-  position: relative;
-  right: 0%;
-  left: 0%
-} */
 
 #team-member-button {
   background-color: rgb(223, 234, 245);
@@ -420,10 +410,34 @@ code {
   text-align: center;
 }
 
-.user-name {
+#user-name {
   font-size: 2rem;
 }
 
 .user-email {
   font-size: 1rem;
 }
+
+#email-input {
+  align-content: center;
+  text-align: center;
+  display: inline-block;
+  justify-content: center;
+  padding-right: 0;
+  margin-right: 0;
+}
+
+#email-check {
+  display: inline-block;
+  padding-top: 6px;
+  padding-left: 0;
+  margin-left: 0;
+  position: absolute;
+}
+
+.divider2{
+  width: 3rem;
+  height:auto;
+  display:inline-block;
+}
+

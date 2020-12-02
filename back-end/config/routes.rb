@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   patch '/projects/archive', to: "projects#archive"
   patch '/team_member_project_tasks/', to: "team_member_project_tasks#destroy"
   get '/user', to: 'users#show'
+  patch '/user', to: 'users#update'
   resources :daily_tasks
   resources :team_members
   resources :team_member_project_tasks

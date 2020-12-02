@@ -115,7 +115,7 @@ const ProjectTask = ({task, deleteTask, updateTask, totalTeamMembers, projectId,
 
     return (
         <>
-        <tr >
+        <tr>
         {!formShow ?    
         <td style={{width: "10%"}} onClick={() => resetEditForm()} className="align-middle"><strong>{deadline}</strong></td>  
         : 
@@ -131,14 +131,13 @@ const ProjectTask = ({task, deleteTask, updateTask, totalTeamMembers, projectId,
         {!formShow ? 
         <td onClick={() => resetEditForm()} className="align-middle">{task.description}</td>
         :
-        <td style={{width: "95%"}} className="align-middle" id="description-column">
+        <td style={{width: "95%"}} className="align-middle">
         <Form.Control as="textarea" rows={2} value={description} onChange={e => setDescription(e.target.value)}/> 
         </td>
         }
 
         {!formShow && !archived ? 
         <td className="align-middle" style={{ width: '5px', textAlign: 'right' }} >
-            {/* <img width="32" onClick={(e) => toggleProjectTaskArchive(e)} height="32" alt="archive" id="team-emblem" src={Team}/>      */}
             
             {['left'].map((placement) => (
                     <OverlayTrigger

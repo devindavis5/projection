@@ -72,6 +72,39 @@ class LandingPage extends Component {
         } 
     }
 
+    updateUser = (email) => {
+        fetch("http://localhost:3000/user", {
+            method: 'PATCH',
+            headers: {
+                Authorization: `Bearer ${localStorage.token}`,
+                'Content-Type':'application/json',
+                'Accepts':'application/json'
+            },
+            body: JSON.stringify({
+                email: email
+            })
+        })
+        .then(res => res.json())
+        .then(user => {
+            if (user.error) {
+                alert('Email must be present.')  
+            } else {
+                this.setState({projects: user.projects})
+                let tasks = user.projects.map(p => p.project_tasks).flat()
+                let archivedProjects = []
+                user.projects.map(p => p.archived ? archivedProjects = [...archivedProjects, p] : null)
+                this.setState({archivedProjects: archivedProjects.flat()})
+                this.setState({projectTasks: tasks})
+                this.setState({dailyTasks: user.daily_tasks})
+                this.setState({teamMembers: user.team_members})
+                this.setState({userId: user.id})
+                this.setState({userEmail: user.email})
+                this.setState({userImage: user.image})
+                this.setState({userName: user.name})
+            }
+        })
+    }
+
     createTask = (task) => {
         fetch('http://localhost:3000/project_tasks' , {
           method: 'POST',
@@ -401,7 +434,7 @@ class LandingPage extends Component {
         const count = this.state.projects.length - this.state.archivedProjects.length
         return (
             <div className='projects-page'>
-                <NavBar name={this.state.userName} email={this.state.userEmail} image={this.state.userImage} count={count} /> 
+                <NavBar name={this.state.userName} email={this.state.userEmail} image={this.state.userImage} count={count} updateUser={this.updateUser} id={this.state.userId}/> 
                 <div className='projects-div'>
                     <CardDeck id="card-deck">
                         {incompleteProjects.map(project => {
@@ -567,7 +600,7 @@ class LandingPage extends Component {
                     </Modal.Header>
                     <Modal.Body>
                         <Table responsive className="table-hover">
-                        <tbody>
+                        <tbody >
                              {completeContacts.map(contact => {
                                     return (
                                         <ProjectContact contact={contact} deleteContact={this.deleteContact}
