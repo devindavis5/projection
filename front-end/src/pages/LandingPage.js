@@ -31,7 +31,8 @@ class LandingPage extends Component {
         projectTaskArchiveShow: false,
         ContactArchiveShow: false,
         teamMemberShow: false,
-        projectTasks: []      
+        projectTasks: [],
+        archivedProjects: []      
     }
 
     componentDidMount() {
@@ -53,6 +54,9 @@ class LandingPage extends Component {
                 } else {
                     this.setState({projects: user.projects})
                     let tasks = user.projects.map(p => p.project_tasks).flat()
+                    let archivedProjects = []
+                    user.projects.map(p => p.archived ? archivedProjects = [...archivedProjects, p] : null)
+                    this.setState({archivedProjects: archivedProjects.flat()})
                     this.setState({projectTasks: tasks})
                     this.setState({dailyTasks: user.daily_tasks})
                     this.setState({teamMembers: user.team_members})
@@ -96,7 +100,18 @@ class LandingPage extends Component {
           })
         })
         .then(res => res.json())
-        .then(project =>  this.setState({projects: this.state.projects.map(p => p.id === project.id ? project : p)}))
+        .then(project =>  {
+            this.setState({projects: this.state.projects.map(p => p.id === project.id ? project : p)})
+            fetch('http://localhost:3000/team_members' , {
+                method: 'GET',
+                headers: {
+                    'Content-Type':'application/json',
+                    'Accepts':'application/json'
+                }
+            })
+            .then(res => res.json())
+            .then(teamMembers => this.setState({teamMembers}))
+        })
     }
 
     createContact = (contact) => {
@@ -150,38 +165,6 @@ class LandingPage extends Component {
         .then(res => res.json())
         .then(project => this.setState({projects: this.state.projects.map(p => p.id === project[0].id ? project[0] : p)}))
     }
-
-    deleteTeamMemberProjectTask = (oldTeam, newTeam, taskId, projectId) => {
-        fetch('http://localhost:3000/team_member_project_tasks/', {
-            method: 'PATCH',
-            headers: {
-                'Content-Type':'application/json',
-                'Accepts':'application/json'
-              },
-            body: JSON.stringify({
-                oldTeam: oldTeam,
-                project_task_id: taskId,
-                project_id: projectId,
-                token: 'token'
-            })
-        })
-            .then(
-                fetch('http://localhost:3000/team_member_project_tasks' , {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type':'application/json',
-                      'Accepts':'application/json'
-                    },
-                    body: JSON.stringify({
-                        newTeam: newTeam,
-                        project_task_id: taskId,
-                        project_id: projectId
-                    })
-                })
-            )
-                .then(res => res.json())
-                .then(project =>  this.setState({projects: this.state.projects.map(p => p.id === project.id ? project : p)}))
-    }
     
     deleteContact = (contact) => {
         fetch(`http://localhost:3000/contacts/${contact.id}`, {
@@ -222,11 +205,21 @@ class LandingPage extends Component {
         .then(project => {
             if (!project.error) {
                 this.setState({projects: this.state.projects.map(p => p.id === project[0].id ? project[0] : p)})
+                fetch('http://localhost:3000/team_members' , {
+                    method: 'GET',
+                    headers: {
+                      'Content-Type':'application/json',
+                      'Accepts':'application/json'
+                    }
+                  })
+                  .then(res => res.json())
+                  .then(teamMembers => this.setState({teamMembers}))
             } else {
                 console.log(project)
                 alert("Tasks must have a deadline and description.")
             }
         })
+
     }
 
     archiveProject = (tasks, contacts, projectId) => {
@@ -300,20 +293,9 @@ class LandingPage extends Component {
                     let tasks = newProject.project_tasks.map(t => t.id)
                     let contacts = newProject.contacts.map(c => c.id)
                     this.archiveProject(tasks, contacts, newProject.id)
-
-                    // newProject.project_tasks.map(t => {
-
-                    //     if (t.archived === true) {
-                    //     t.archived = false
-                    //     setTimeout(this.updateTask(t.id, t), 3000)
-                    //     }
-                    // })
-                    // newProject.contacts.map(c => {
-                    //     if (c.archived === true) {
-                    //     c.archived = false
-                    //     setTimeout(this.updateContact(c.id, c), 3000)
-                    //     }
-                    // })
+                    this.setState({archivedProjects: [...this.state.archivedProjects, newProject]})
+                } else {
+                    this.setState({archivedProjects: this.state.archivedProjects.filter(p => p.id != newProject.id)})
                 }
             } else {
                 alert("That project name has already been used.")
@@ -610,7 +592,7 @@ class LandingPage extends Component {
                     size="xl"
                     >
                     <Modal.Header closeButton>
-                        <h1>Team</h1>
+                        <h1>Team Member Assignments</h1>
                     </Modal.Header>
                     <Modal.Body>
                         <Table responsive className="table-hover">
@@ -618,7 +600,7 @@ class LandingPage extends Component {
                         {this.state.teamMembers.map(tm => {
                         return (
                         
-                        <TeamMemberTaskShow teamMemberClick={this.teamMemberClick} teamMember={tm} key={tm.id}/>) 
+                        <TeamMemberTaskShow teamMemberClick={this.teamMemberClick} archivedProjects={this.state.archivedProjects} teamMember={tm} key={tm.id}/>) 
                         })}
                       
                         </Table>

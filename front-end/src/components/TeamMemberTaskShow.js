@@ -7,7 +7,7 @@ import Avatar5 from '../assets/avatar5.png'
 import Avatar6 from '../assets/avatar6.png'
 import { Card, ListGroup, ListGroupItem, Col, Figure, OverlayTrigger, Tooltip, Button } from 'react-bootstrap'
 
-const TeamMembers = ({teamMember, teamMemberClick}) => {
+const TeamMembers = ({teamMember, archivedProjects, teamMemberClick}) => {
 
     const findSource = () => {
         let source
@@ -27,6 +27,17 @@ const TeamMembers = ({teamMember, teamMemberClick}) => {
         }
         return source
     }
+
+    const findTasks = () => {
+        let tasks = teamMember.project_tasks.filter(t => t.archived === false)
+        let ids = []
+        archivedProjects.map(p => ids = [...ids, p.id])
+        ids.map(id => {
+            tasks = tasks.filter(t => t.project_id != id)
+        })
+        return tasks
+    }
+
     
     return (
         <>
@@ -34,7 +45,7 @@ const TeamMembers = ({teamMember, teamMemberClick}) => {
             <tr>
                 <th id="team-member-pic-row"><img width="85" height="85" className="d-inline-block align-center" id="team-member-pic" alt="back" src={findSource()}/>{teamMember.name}</th>
                 </tr>
-                    {teamMember.project_tasks.map(t => {
+                    {findTasks().map(t => {
                         return (
                             <tr>
                                 <td className="align-middle"><strong>{t.deadline}</strong></td>
