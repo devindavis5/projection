@@ -486,7 +486,7 @@ class LandingPage extends Component {
                         <Card.Title id="daily-task-title" className='text-center'>Personal Tasks
                         <img width="25" height="25" id="create-daily" alt="back" className="button" onClick={this.createDailyTaskFormToggle} src={New}/>
                         </Card.Title>
-                        <Table responsive borderless className="table-hover" id="daily-task-table">
+                        <Table responsive className="table-hover" id="daily-task-table">
                             <tbody>
                                 {this.state.newDailyShow ?
                                     <tr id="new-daily-task-form">

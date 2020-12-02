@@ -90,7 +90,7 @@ const ProjectContact = ({contact, deleteContact, updateContact}) => {
         </td>
         }
         {!formShow ? 
-        <td style={{width: "10%"}} onClick={() => resetEditForm()} className="align-middle">{contact.phone}</td>
+        <td style={{width: "13%"}} onClick={() => resetEditForm()} className="align-middle">{contact.phone}</td>
         :
         <td style={{width: "13%"}} className="align-middle">
         <Form.Control value={phone} onChange={e => setPhone(e.target.value)}/> 
