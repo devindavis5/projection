@@ -74,7 +74,7 @@ class ProjectsController < ApplicationController
     end
 
     def destroy
-        project = DailyTask.find(params[:id])
+        project = Project.find(params[:id])
         project.destroy
     end
 

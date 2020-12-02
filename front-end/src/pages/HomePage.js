@@ -10,7 +10,7 @@ class HomePage extends Component {
         const { history } = this.props
         history.push('/login')
     }
-    
+
     signUpClick = (e) => {
         e.preventDefault()
         const { history } = this.props
@@ -19,23 +19,23 @@ class HomePage extends Component {
 
     componentDidMount() {
         if (localStorage.token) {
-        const { history } = this.props
-        history.push('/projects')
+            const { history } = this.props
+            history.push('/projects')
         }
     }
 
     render() {
         return (
-        <div className="background" >
-            <div className="title">
-            <img className="align-center" id='home-logo' src={Logo}/>
+            <div className="background" >
+                <div className="title">
+                    <img className="align-center" id='home-logo' src={Logo} />
+                </div>
+                <div className="login-button">
+                    <Button onClick={this.logInClick} variant="outline-secondary" size="lg" >Log in</Button>
+                    <div className="divider" />
+                    <Button onClick={this.signUpClick} variant="outline-secondary" size="lg" >Sign Up</Button>
+                </div>
             </div>
-            <div className="login-button">
-            <Button onClick={this.logInClick} variant="outline-secondary" size="lg" >Log in</Button>
-            <div className="divider"/>
-            <Button onClick={this.signUpClick} variant="outline-secondary" size="lg" >Sign Up</Button>  
-            </div>
-        </div>
         )
     }
 

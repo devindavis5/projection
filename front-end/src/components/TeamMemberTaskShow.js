@@ -7,7 +7,7 @@ import Avatar5 from '../assets/avatar5.png'
 import Avatar6 from '../assets/avatar6.png'
 import { Card, ListGroup, ListGroupItem, Col, Figure, OverlayTrigger, Tooltip, Button } from 'react-bootstrap'
 
-const TeamMembers = ({teamMember, archivedProjects, teamMemberClick}) => {
+const TeamMembers = ({ teamMember, archivedProjects, teamMemberClick }) => {
 
     const findSource = () => {
         let source
@@ -41,22 +41,22 @@ const TeamMembers = ({teamMember, archivedProjects, teamMemberClick}) => {
     return (
         <>
             <tbody>
-            <tr>
-                <th id="team-member-pic-row" ><img width="85" height="85" className="d-inline-block align-middle" id="team-member-pic" alt="back" src={findSource()}/>{teamMember.name}</th>
+                <tr>
+                    <th id="team-member-pic-row" ><img width="85" height="85" className="d-inline-block align-middle" id="team-member-pic" alt="back" src={findSource()} />{teamMember.name}</th>
                 </tr>
-                    {findTasks().map(t => {
-                        return (
-                            <tr>
-                                <td style={{ width: '10%' }} className="align-middle"><strong>{t.deadline}</strong></td>
-                                <td style={{ width: '10%', textAlign: 'left' }} className="align-middle">{t.name}</td>
-                                <td className="align-middle"  style={{ textAlign: 'left' }}>{t.description}</td>
-                            </tr>
-                        )
-                    })}
+                {findTasks().map(t => {
+                    return (
+                        <tr>
+                            <td style={{ width: '10%' }} className="align-middle"><strong>{t.deadline}</strong></td>
+                            <td style={{ width: '10%', textAlign: 'left' }} className="align-middle">{t.name}</td>
+                            <td className="align-middle" style={{ textAlign: 'left' }}>{t.description}</td>
+                        </tr>
+                    )
+                })}
             </tbody>
         </>
     )
-    
+
 }
 
 export default TeamMembers

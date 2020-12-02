@@ -7,7 +7,7 @@ import Avatar5 from '../assets/avatar5.png'
 import Avatar6 from '../assets/avatar6.png'
 import { Card, ListGroup, ListGroupItem, Col, Figure, OverlayTrigger, Tooltip, Button } from 'react-bootstrap'
 
-const TeamMembers = ({teamMember, teamMemberClick}) => {
+const TeamMembers = ({ teamMember, teamMemberClick }) => {
 
     const findSource = () => {
         let source
@@ -27,25 +27,25 @@ const TeamMembers = ({teamMember, teamMemberClick}) => {
         }
         return source
     }
-    
+
     return (
         <div className="avatars">
             {['top'].map((placement) => (
                 <OverlayTrigger
-                key={placement}
-                placement={placement}
-                overlay={
-                    <Tooltip id={`tooltip-${placement}`}>
-                    <strong>{teamMember.name}</strong>
-                    </Tooltip>
-                }
+                    key={placement}
+                    placement={placement}
+                    overlay={
+                        <Tooltip id={`tooltip-${placement}`}>
+                            <strong>{teamMember.name}</strong>
+                        </Tooltip>
+                    }
                 >
-                <img onClick={() => teamMemberClick()} width="85" height="85" className="d-inline-block align-center button" id="team-member-pic" alt="back" src={findSource()}/> 
+                    <img onClick={() => teamMemberClick()} width="85" height="85" className="d-inline-block align-center button" id="team-member-pic" alt="back" src={findSource()} />
                 </OverlayTrigger>
             ))}
         </div>
     )
-    
+
 }
 
 export default TeamMembers

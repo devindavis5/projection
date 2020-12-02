@@ -14,7 +14,7 @@ import Avatar4 from '../assets/avatar4.png'
 import Avatar5 from '../assets/avatar5.png'
 import Avatar6 from '../assets/avatar6.png'
 
-const ProjectTask = ({task, deleteTask, updateTask, totalTeamMembers, projectId, createTeamMemberProjectTask, deleteTeamMemberProjectTask}) => {
+const ProjectTask = ({ task, deleteTask, updateTask, totalTeamMembers, projectId, createTeamMemberProjectTask, deleteTeamMemberProjectTask }) => {
     const [formShow, setFormShow] = useState(false)
     const [editDeadline, setEditDeadline] = useState(task.deadline)
     const [description, setDescription] = useState(task.description)
@@ -40,13 +40,13 @@ const ProjectTask = ({task, deleteTask, updateTask, totalTeamMembers, projectId,
             archived: archived
         }
         updateTask(taskId, taskData)
-        formReset()  
+        formReset()
     }
 
     const formReset = () => {
         setFormShow(false)
         setEditDeadline(task.deadline)
-        setDescription(task.description) 
+        setDescription(task.description)
     }
 
     const resetEditForm = () => {
@@ -73,7 +73,7 @@ const ProjectTask = ({task, deleteTask, updateTask, totalTeamMembers, projectId,
             id: taskId
         }
         updateTask(taskId, taskData)
-        formReset() 
+        formReset()
         setArchived(task.archived)
     }
 
@@ -115,86 +115,86 @@ const ProjectTask = ({task, deleteTask, updateTask, totalTeamMembers, projectId,
 
     return (
         <>
-        <tr>
-        {!formShow ?    
-        <td style={{width: "10%"}} onClick={() => resetEditForm()} className="align-middle"><strong>{deadline}</strong></td>  
-        : 
-        <td style={{width: "6%"}} className="align-middle">
-        <Form.Control type="date" onChange={e => setEditDeadline(e.target.value)} value={editDeadline} />
-        </td>
-        }
-        {archived ?    
-        <td style={{width: "15%"}} onClick={() => resetEditForm()} className="align-middle"><strong>{task.name}</strong></td>  
-        : 
-        null
-        }
-        {!formShow ? 
-        <td onClick={() => resetEditForm()} className="align-middle">{task.description}</td>
-        :
-        <td style={{width: "95%"}} className="align-middle">
-        <Form.Control as="textarea" rows={2} value={description} onChange={e => setDescription(e.target.value)}/> 
-        </td>
-        }
-        {!formShow && !archived ? 
-        <td className="align-middle" style={{ width: '5px', textAlign: 'right' }} >
-            
-            {['left'].map((placement) => (
-                    <OverlayTrigger
-                    onHide={e => setTeamShow(false)}
-                    rootClose
-                    show={teamShow}
-                    key={placement}
-                    placement={placement}
-                    overlay={
-                        <Popover id={`popover-positioned-${placement}`}>
-                        <Popover.Title as="h3">Assign Task</Popover.Title>
-                        <Popover.Content>
-                        
-                        <Form.Group controlId="formBasicCheckbox" className="team-member-checkbox">
+            <tr>
+                {!formShow ?
+                    <td style={{ width: "10%" }} onClick={() => resetEditForm()} className="align-middle"><strong>{deadline}</strong></td>
+                    :
+                    <td style={{ width: "6%" }} className="align-middle">
+                        <Form.Control type="date" onChange={e => setEditDeadline(e.target.value)} value={editDeadline} />
+                    </td>
+                }
+                {archived ?
+                    <td style={{ width: "15%" }} onClick={() => resetEditForm()} className="align-middle"><strong>{task.name}</strong></td>
+                    :
+                    null
+                }
+                {!formShow ?
+                    <td onClick={() => resetEditForm()} className="align-middle">{task.description}</td>
+                    :
+                    <td style={{ width: "95%" }} className="align-middle">
+                        <Form.Control as="textarea" rows={2} value={description} onChange={e => setDescription(e.target.value)} />
+                    </td>
+                }
+                {!formShow && !archived ?
+                    <td className="align-middle" style={{ width: '5px', textAlign: 'right' }} >
 
-                            {totalTeamMembers.map(t => {
-                                return ( 
-                                    <label><img width="41" height="41" alt="archive" id="team-emblem" src={findPortraitSource(t)}/><Form.Check
-                                    value={t.id} checked={clickedNames.includes(t.id) ? true : false} onChange={(e) => handleTeamMemberClick(e)} type="checkbox"/></label>             
-                                )
-                            })}
-                            
-                            <br></br>
-                            <img width="15" height="20" onClick={(e) => submitTeam(e)} className="float-left button" alt="archive" src={Check}/>
-                            <img width="19" onClick={() => setTeamShow(false)} height="24" className="float-right button" alt="archive" src={X2}/>
-                        </Form.Group>
+                        {['left'].map((placement) => (
+                            <OverlayTrigger
+                                onHide={e => setTeamShow(false)}
+                                rootClose
+                                show={teamShow}
+                                key={placement}
+                                placement={placement}
+                                overlay={
+                                    <Popover id={`popover-positioned-${placement}`}>
+                                        <Popover.Title as="h3">Assign Task</Popover.Title>
+                                        <Popover.Content>
+
+                                            <Form.Group controlId="formBasicCheckbox" className="team-member-checkbox">
+
+                                                {totalTeamMembers.map(t => {
+                                                    return (
+                                                        <label><img width="41" height="41" alt="archive" id="team-emblem" src={findPortraitSource(t)} /><Form.Check
+                                                            value={t.id} checked={clickedNames.includes(t.id) ? true : false} onChange={(e) => handleTeamMemberClick(e)} type="checkbox" /></label>
+                                                    )
+                                                })}
+
+                                                <br></br>
+                                                <img width="15" height="20" onClick={(e) => submitTeam(e)} className="float-left button" alt="archive" src={Check} />
+                                                <img width="19" onClick={() => setTeamShow(false)} height="24" className="float-right button" alt="archive" src={X2} />
+                                            </Form.Group>
 
 
 
-                        </Popover.Content>
-                        </Popover>}>
-                        <img width="32" height="32" alt="archive" className="button2" onClick={() => setTeamShow(!teamShow)} id="team-emblem" src={Team}/>
-                    </OverlayTrigger>
-                ))}      
+                                        </Popover.Content>
+                                    </Popover>}>
+                                <img width="32" height="32" alt="archive" className="button2" onClick={() => setTeamShow(!teamShow)} id="team-emblem" src={Team} />
+                            </OverlayTrigger>
+                        ))}
 
-        </td>
-        :
-        null
-        }
+                    </td>
+                    :
+                    null
+                }
 
-        {!formShow ?
-        <td className="align-middle" size="sm" style={{ width: '5px', textAlign: 'right' }} id="archive-toggle">
-            {/* <img width="30" onClick={(e) => toggleProjectTaskArchive(e)} height="30" alt="archive" src={Team}/> */}
-            <img width="25" onClick={(e) => toggleProjectTaskArchive(e)} className="button2" height="25" alt="archive" src={findSource()}/>
-        </td>
-        :
-        <td className="align-middle"size="sm" style={{ textAlign:"right" }} id="confirm-change" >
-         <img width="13" onClick={e => taskSubmit(e)} height="18" className="button" alt="archive" src={Check}/>
-         <br/><br/>
-         <img width="15" onClick={() => formReset()} height="20" className="button" alt="archive" src={X2}/>
-        </td>
-        }
-        {archived && !formShow ?    
-            <td className="align-middle button2" id="archive-x" size="sm" style={{ width: '5px', textAlign: 'right' }}><img onClick={() => deleteProjectTask()} width="15" height="20" alt="archive" src={X}/></td>
-        :
-            null
-        }
-        </tr> 
+                {!formShow ?
+                    <td className="align-middle" size="sm" style={{ width: '5px', textAlign: 'right' }} id="archive-toggle">
+                        {/* <img width="30" onClick={(e) => toggleProjectTaskArchive(e)} height="30" alt="archive" src={Team}/> */}
+                        <img width="25" onClick={(e) => toggleProjectTaskArchive(e)} className="button2" height="25" alt="archive" src={findSource()} />
+                    </td>
+                    :
+                    <td className="align-middle" size="sm" style={{ textAlign: "right" }} id="confirm-change" >
+                        <img width="13" onClick={e => taskSubmit(e)} height="18" className="button" alt="archive" src={Check} />
+                        <br /><br />
+                        <img width="15" onClick={() => formReset()} height="20" className="button" alt="archive" src={X2} />
+                    </td>
+                }
+                {archived && !formShow ?
+                    <td className="align-middle button2" id="archive-x" size="sm" style={{ width: '5px', textAlign: 'right' }}><img onClick={() => deleteProjectTask()} width="15" height="20" alt="archive" src={X} /></td>
+                    :
+                    null
+                }
+            </tr>
         </>
     )
 }

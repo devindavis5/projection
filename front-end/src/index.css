@@ -123,7 +123,9 @@ body {
   overflow-y: auto;
   position: relative;
   /* border: 3px solid rgba(21, 140, 186, .5); */
-  border: 2px solid rgba(21, 140, 186, 1);
+  /* border: 2px solid rgba(21, 140, 186, 1); */
+  /* box-shadow: 10px 4px 20px 5px rgba(212, 212, 212, 0.5); */
+  box-shadow: 0 4px 5px 0 rgba(0,0,0,0.2);
   /* background-color: rgb(223, 234, 245); */
   /* border-radius: 5px; */
 }
@@ -215,6 +217,7 @@ body {
   background-color: rgb(223, 234, 245);
   border-color: rgb(175, 180, 185);
   align-items:center;
+  box-shadow: 0 3px 3px 0 rgba(0,0,0,0.2);
 }
 
 #add-project-icon {
@@ -500,4 +503,17 @@ body {
   background-color:#000;
   opacity:0.5;
   border-radius:30px;
+}
+
+#project-card {
+  /* filter: drop-shadow(0 0 2px rgba(0,0,0,0.2)); */
+  box-shadow: 0 3px 3px 0 rgba(0,0,0,0.2);
+}
+
+#project-card-item {
+  box-shadow: 0 2px 3px 0 rgba(0,0,0,0.2);
+}
+
+#nav {
+  box-shadow: 0 4px 5px 0 rgba(0,0,0,0.2);
 }
