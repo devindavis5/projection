@@ -1,5 +1,6 @@
 class TeamMembersController < ApplicationController
-    
+    skip_before_action :authorized, only: [:index, :show]
+
     def index
         team = TeamMember.all
         render json: team, only: [:name, :image, :user_id], :include => [

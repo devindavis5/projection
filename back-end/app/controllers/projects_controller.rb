@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-    skip_before_action :authorized, only: [:index, :show, :create, :update, :destroy]
+    skip_before_action :authorized, only: [:index, :archive, :show, :create, :update, :destroy]
 
     def index
         projects = Project.all
@@ -29,6 +29,30 @@ class ProjectsController < ApplicationController
         end
     end
 
+    def archive
+        tasks = params[:tasks]
+        tasks.each { |t| 
+            task = ProjectTask.find(t)
+            task.update(archived: false)
+        }
+
+        contacts = params[:contacts]
+        contacts.each { |c| 
+            contact = Contact.find(c)
+            contact.update(archived: false)
+        }
+
+        user = current_user
+        render json: user, only: [:id, :name, :email, :image], :include => [
+        projects: { only: [:id, :name, :deadline, :archived, :notes, :user_id], :include => [
+            project_tasks: { only: [:id, :name, :importance, :deadline, :description, :archived, :project_id], include: { team_members: { only: [:id, :name, :image]} } },
+            contacts: { only: [:id, :name, :email, :phone, :archived, :notes] } 
+        ]},
+        daily_tasks: { only: [:id, :description, :deadline, :archived] },
+        team_members: { only: [:id, :name, :image], include: { project_tasks: { only: [:id, :name, :importance, :deadline, :description, :archived, :project_id] } } }
+        ]
+    end
+
     def update
         project = Project.find(params[:id])
 
@@ -50,7 +74,7 @@ class ProjectsController < ApplicationController
     end
 
     def destroy
-        project = DailyTask.find(params[:id])
+        project = Project.find(params[:id])
         project.destroy
     end
 

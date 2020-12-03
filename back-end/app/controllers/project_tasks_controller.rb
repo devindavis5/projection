@@ -7,7 +7,8 @@ class ProjectTasksController < ApplicationController
     end
     
     def create
-        pt = ProjectTask.create(name: '', importance: '', deadline: params[:deadline], description: params[:description], archived: false, project_id: params[:projectId])
+        project = Project.find(params[:projectId])
+        pt = ProjectTask.create(name: project.name, importance: '', deadline: params[:deadline], description: params[:description], archived: false, project_id: params[:projectId])
         if pt.valid?
             project = Project.find(params[:projectId])
             render json: project, only: [:id, :name, :deadline, :archived, :notes, :user_id], :include => [
@@ -24,11 +25,15 @@ class ProjectTasksController < ApplicationController
         task = ProjectTask.find(params[:id])
         task.update(deadline: params[:deadline], description: params[:description], archived: params[:archived])
         if task.valid?
-            project = task.find_project
-            render json: project, only: [:id, :name, :deadline, :archived, :notes, :user_id], :include => [
-                project_tasks: { only: [:id, :name, :importance, :deadline, :description, :archived], include: { team_members: { only: [:id, :name, :image]} } },
+            user = current_user
+            render json: user, only: [:id, :name, :email, :image], :include => [
+            projects: { only: [:id, :name, :deadline, :archived, :notes, :user_id], :include => [
+                project_tasks: { only: [:id, :name, :importance, :deadline, :description, :archived, :project_id], include: { team_members: { only: [:id, :name, :image]} } },
                 contacts: { only: [:id, :name, :email, :phone, :archived, :notes] } 
-            ] 
+            ]},
+            daily_tasks: { only: [:id, :description, :deadline, :archived] },
+            team_members: { only: [:id, :name, :image], include: { project_tasks: { only: [:id, :name, :importance, :deadline, :description, :archived, :project_id] } } }
+            ]
         else
             flash[:errors] = task.errors.full_messages  
         end

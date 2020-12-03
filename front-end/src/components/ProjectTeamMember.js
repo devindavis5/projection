@@ -1,14 +1,14 @@
 import React from 'react';
 import { ListGroupItem, Row, Col } from 'react-bootstrap';
 
-const ProjectTeamMember = ({team}) => {
-    
+const ProjectTeamMember = ({ team }) => {
+
     return (
         <Col>
-        {team.name}
+            {team.name}
         </Col>
     )
-    
+
 }
 
 export default ProjectTeamMember

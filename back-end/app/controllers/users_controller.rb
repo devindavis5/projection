@@ -16,7 +16,7 @@ class UsersController < ApplicationController
             contacts: { only: [:id, :name, :email, :phone, :archived, :notes] } 
           ]},
           daily_tasks: { only: [:id, :description, :deadline, :archived] },
-          team_members: { only: [:id, :name, :image] }
+          team_members: { only: [:id, :name, :image], include: { project_tasks: { only: [:id, :name, :importance, :deadline, :description, :archived, :project_id] } } }
         ]
     end
 
@@ -34,11 +34,23 @@ class UsersController < ApplicationController
         end
     end
 
-    # def update
-    #     user = User.find(params[:id])
-    #     user.update(image: params[:image])
-    #     render json: user
-    # end
+    def update
+      user = current_user
+      user.update(email: params[:email])
+      if user.valid?
+        render json: user, only: [:id, :name, :email, :password, :image], :include => [
+          projects: { only: [:id, :name, :deadline, :archived, :notes, :user_id], :include => [
+            project_tasks: { only: [:id, :name, :importance, :deadline, :description, :archived, :project_id], include: { team_members: { only: [:id, :name, :image]} } },
+            contacts: { only: [:id, :name, :email, :phone, :archived, :notes] } 
+          ]},
+          daily_tasks: { only: [:id, :description, :deadline, :archived] },
+          team_members: { only: [:id, :name, :image], include: { project_tasks: { only: [:id, :name, :importance, :deadline, :description, :archived, :project_id] } } }
+        ]
+      else
+        render json: { error: 'failed to create user' }, status: :not_acceptable
+      end
+      
+    end
      
     private
      

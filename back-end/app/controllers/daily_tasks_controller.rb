@@ -12,7 +12,7 @@ class DailyTasksController < ApplicationController
     end
 
     def create
-        task = DailyTask.create(description: params[:description], deadline: '', archived: false, user_id: params[:user_id])
+        task = DailyTask.create(description: params[:description], deadline: params[:deadline], archived: false, user_id: params[:user_id])
         if task.valid?
             render json: task, only: [:id, :description, :deadline, :archived]    
         else
@@ -23,7 +23,7 @@ class DailyTasksController < ApplicationController
 
     def update
         task = DailyTask.find(params[:id])
-        task.update(description: params[:description], archived: params[:archived])
+        task.update(description: params[:description], deadline: params[:deadline], archived: params[:archived])
         if task.valid?
             render json: task, only: [:id, :description, :deadline, :archived]    
         else
