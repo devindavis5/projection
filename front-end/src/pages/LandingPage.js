@@ -522,7 +522,7 @@ class LandingPage extends Component {
                             size="xl"
                         >
                             <Modal.Header closeButton>
-                                <h1>Archived Daily Tasks</h1>
+                                <h1>Archived Personal Tasks</h1>
                             </Modal.Header>
                             <Modal.Body>
                                 <Table responsive className="table-hover">
