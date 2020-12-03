@@ -6,6 +6,3 @@ So you see it coming.
 
 ### App Description:
 Projection is a project organizer and task planner for project managers, also providing a team management tool to delegate tasks.
-
----- 
-
