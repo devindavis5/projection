@@ -1,10 +1,5 @@
 # Projection
 So you see it coming.
-<!-- 
-### Technical Description: 
-A full-stack web application, created with:
-- Server Side: Ruby on Rails
-- Client Side: JavaScript React
 
 ### Video Demo:
  [Projection Demo](https://www.youtube.com/watch?v=AMdfaopW4YY)
