@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, ListGroupItem, Table, Form, Row, Col, Button, Dropdown, FormControl, Popover, OverlayTrigger } from 'react-bootstrap';
+import { Form, Popover, OverlayTrigger } from 'react-bootstrap';
 import 'moment-timezone';
 import X from '../assets/x.png'
 import X2 from '../assets/x2.png'
@@ -14,7 +14,7 @@ import Avatar4 from '../assets/avatar4.png'
 import Avatar5 from '../assets/avatar5.png'
 import Avatar6 from '../assets/avatar6.png'
 
-const ProjectTask = ({ task, deleteTask, updateTask, totalTeamMembers, projectId, createTeamMemberProjectTask, deleteTeamMemberProjectTask }) => {
+const ProjectTask = ({ task, deleteTask, updateTask, totalTeamMembers, projectId, createTeamMemberProjectTask }) => {
     const [formShow, setFormShow] = useState(false)
     const [editDeadline, setEditDeadline] = useState(task.deadline)
     const [description, setDescription] = useState(task.description)
@@ -103,8 +103,6 @@ const ProjectTask = ({ task, deleteTask, updateTask, totalTeamMembers, projectId
         task.team_members.map(t => oldTeam = [...oldTeam, t.id])
         createTeamMemberProjectTask(newTeam, oldTeam, taskId, projectId)
         setTeamShow(false)
-        // setClickedNames(newTeam)
-        // setClickedNames(task.team_members.map(t => t.id))
     }
 
     const handleTeamMemberClick = (e) => {
@@ -137,7 +135,6 @@ const ProjectTask = ({ task, deleteTask, updateTask, totalTeamMembers, projectId
                 }
                 {!formShow && !archived ?
                     <td className="align-middle" style={{ width: '5px', textAlign: 'right' }} >
-
                         {['left'].map((placement) => (
                             <OverlayTrigger
                                 onHide={e => setTeamShow(false)}
@@ -149,34 +146,26 @@ const ProjectTask = ({ task, deleteTask, updateTask, totalTeamMembers, projectId
                                     <Popover id={`popover-positioned-${placement}`}>
                                         <Popover.Title as="h3">Assign Task</Popover.Title>
                                         <Popover.Content>
-
                                             <Form.Group controlId="formBasicCheckbox" className="team-member-checkbox">
-
                                                 {totalTeamMembers.map(t => {
                                                     return (
                                                         <label><img width="41" height="41" alt="archive" id="team-emblem" src={findPortraitSource(t)} /><Form.Check
                                                             value={t.id} checked={clickedNames.includes(t.id) ? true : false} onChange={(e) => handleTeamMemberClick(e)} type="checkbox" /></label>
                                                     )
                                                 })}
-
                                                 <br></br>
                                                 <img width="15" height="20" onClick={(e) => submitTeam(e)} className="float-left button" alt="archive" src={Check} />
                                                 <img width="19" onClick={() => setTeamShow(false)} height="24" className="float-right button" alt="archive" src={X2} />
                                             </Form.Group>
-
-
-
                                         </Popover.Content>
                                     </Popover>}>
                                 <img width="32" height="32" alt="archive" className="button2" onClick={() => setTeamShow(!teamShow)} id="team-emblem" src={Team} />
                             </OverlayTrigger>
                         ))}
-
                     </td>
                     :
                     null
                 }
-
                 {!formShow ?
                     <td className="align-middle" size="sm" style={{ width: '5px', textAlign: 'right' }} id="archive-toggle">
                         {/* <img width="30" onClick={(e) => toggleProjectTaskArchive(e)} height="30" alt="archive" src={Team}/> */}

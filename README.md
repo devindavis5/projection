@@ -1,20 +1,13 @@
 # Projection
 So you see it coming.
-<!-- 
-### Technical Description: 
-A full-stack web application, created with:
-- Server Side: Ruby on Rails
-- Client Side: JavaScript React
+
+### Video Demo:
+ [Projection Demo](https://www.youtube.com/watch?v=AMdfaopW4YY)
 
 ### App Description:
-Created by Devin Davis and Bree Warren, BioInfinite serves as an interactive learning tool that allows a user to gain knowledge in several subjects in the scope of Biology.
+Projection is a project organizer and task planner for project managers, also providing a team management tool to delegate tasks.
 
------
-## Instructions:
-### Click [here](http://localhost:3000/) to begin the application! -->
----- 
-
-## Models & Relationships
+<!-- ## Models & Relationships
 
 ### User | Project | ProjectTask | TeamMemberProjectTask | TeamMember | DailyTask  
 
@@ -169,7 +162,7 @@ Created by Devin Davis and Bree Warren, BioInfinite serves as an interactive lea
 * Wed, Nov 25 - MVP
 * Thur-Tues - Style, Add Features, Style
 * Wed, Dec 2 - DONE!
-
+ -->
 
 <!-- ## Related Information
 <br/>

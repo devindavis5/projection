@@ -6,7 +6,7 @@ import ProjectTask from '../components/ProjectTask.js'
 import ProjectContact from '../components/ProjectContact.js'
 import TeamMembers from '../components/TeamMembers.js'
 import TeamMemberTaskShow from '../components/TeamMemberTaskShow.js'
-import { Button, Container, Row, Col, ListGroup, ListGroupItem, CardColumns, Card, CardDeck, Table, Modal, Form } from 'react-bootstrap'
+import { Button, Card, CardDeck, Table, Modal, Form } from 'react-bootstrap'
 import Archive1 from '../assets/archive1.png'
 import Archive2 from '../assets/archive2.png'
 import Archive3 from '../assets/archive3.png'
@@ -149,7 +149,6 @@ class LandingPage extends Component {
                     this.setState({ projects: user.projects })
                     this.setState({ teamMembers: user.team_members })
                 }
-                // this.setState({projects: this.state.projects.map(p => p.id === project.id ? project : p)})
             })
     }
 
@@ -454,7 +453,8 @@ class LandingPage extends Component {
                                     project={project} key={project.id} updateProject={this.updateProject} deleteProject={this.deleteProject}
                                     totalTeamMembers={this.state.teamMembers} createTeamMemberProjectTask={this.createTeamMemberProjectTask}
                                     deleteTeamMemberProjectTask={this.deleteTeamMemberProjectTask}
-                                />)
+                                />
+                            )
                         })}
                         <div>
                             {!this.state.formShow ?
@@ -469,10 +469,8 @@ class LandingPage extends Component {
                                     <Card.Body>
                                         <Form>
                                             <Form.Group controlId="formBasicUsername">
-                                                {/* <Form.Label>Project Name</Form.Label> */}
                                                 <Form.Control type="text" name="name" placeholder="Project Name" onChange={this.onProjectNameChange} />
                                             </Form.Group>
-                                            {/* <Button to="/maincontainer" onClick={onProjectSubmit} variant="primary" type="submit">Sign in</Button> */}
                                             <img width="25" height="25" alt="checkmark" id="new-project-check" className="button" onClick={this.addProject} src={Check} />
                                         </Form>
                                     </Card.Body>
@@ -555,7 +553,8 @@ class LandingPage extends Component {
                                                 project={project} key={project.id} updateProject={this.updateProject} deleteProject={this.deleteProject}
                                                 totalTeamMembers={this.state.teamMembers} createTeamMemberProjectTask={this.createTeamMemberProjectTask}
                                                 deleteTeamMemberProjectTask={this.deleteTeamMemberProjectTask}
-                                            />)
+                                            />
+                                        )
                                     })}
                                 </CardDeck>
                             </Modal.Body>
@@ -578,16 +577,15 @@ class LandingPage extends Component {
                                                 <ProjectTask task={task} deleteTask={this.deleteTask}
                                                     totalTeamMembers={this.state.teamMembers}
                                                     updateTask={this.updateTask}
-                                                    key={task.id} />
+                                                    key={task.id}
+                                                />
                                             )
                                         })}
                                     </tbody>
                                 </Table>
                             </Modal.Body>
                         </Modal>
-
                         <img onClick={this.toggleContactArchive} alt="archive" className="button1" id="contact-archive" src={Archive4} />
-
                         <Modal
                             show={this.state.contactArchiveShow}
                             onHide={this.toggleContactArchive}
@@ -604,25 +602,23 @@ class LandingPage extends Component {
                                             return (
                                                 <ProjectContact contact={contact} deleteContact={this.deleteContact}
                                                     updateContact={this.updateContact}
-                                                    key={contact.id} />
+                                                    key={contact.id}
+                                                />
                                             )
                                         })}
                                     </tbody>
                                 </Table>
                             </Modal.Body>
                         </Modal>
-
                     </div>
                 </div>
                 <div className='team-members-div'>
-                    {/* <Row> */}
                     {this.state.teamMembers.map(tm => {
                         return (
-                            <TeamMembers teamMemberClick={this.teamMemberClick} teamMember={tm} key={tm.id} />)
+                            <TeamMembers teamMemberClick={this.teamMemberClick} teamMember={tm} key={tm.id} />
+                        )
                     })}
-                    {/* </Row> */}
                 </div>
-
                 <Modal
                     show={this.state.teamMemberShow}
                     onHide={this.teamMemberClick}
@@ -634,13 +630,11 @@ class LandingPage extends Component {
                     </Modal.Header>
                     <Modal.Body>
                         <Table responsive className="table-hover">
-
                             {this.state.teamMembers.map(tm => {
                                 return (
-
-                                    <TeamMemberTaskShow teamMemberClick={this.teamMemberClick} archivedProjects={this.state.archivedProjects} teamMember={tm} key={tm.id} />)
+                                    <TeamMemberTaskShow teamMemberClick={this.teamMemberClick} archivedProjects={this.state.archivedProjects} teamMember={tm} key={tm.id} />
+                                )
                             })}
-
                         </Table>
                     </Modal.Body>
                 </Modal>

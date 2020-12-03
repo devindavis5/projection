@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Button } from 'react-bootstrap'
-// import Footer from '../components/Footer.js'
 import Logo from '../assets/logo.png'
 
 class HomePage extends Component {
@@ -38,7 +37,6 @@ class HomePage extends Component {
             </div>
         )
     }
-
 }
 
 export default HomePage

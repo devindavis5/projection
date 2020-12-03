@@ -2,11 +2,9 @@ import React, { useState } from 'react';
 import ProjectTask from './ProjectTask'
 import ProjectContact from './ProjectContact'
 import ProjectTeamMember from './ProjectTeamMember'
-import { Card, ListGroup, ListGroupItem, Col, Row, Modal, Table, Container, Form, Button, Dropdown, ModalBody } from 'react-bootstrap'
-import moment from 'react-moment';
+import { Card, ListGroup, ListGroupItem, Col, Row, Modal, Table, Container, Form, Button } from 'react-bootstrap'
 import 'moment-timezone';
 import New from '../assets/new1.png'
-import New2 from '../assets/new2.png'
 import X2 from '../assets/x2.png'
 import Check from '../assets/check.png'
 import Archive from '../assets/archive2.png'
@@ -32,28 +30,21 @@ const ProjectCard = ({ project, createTask, deleteTask, updateTask, deleteContac
     const [projectName, setProjectName] = useState(project.name)
     const [projectArchived, setProjectArchived] = useState(project.archived)
     const [projectDeleteShow, setProjectDeleteShow] = useState(false)
-
     const projectId = project.id
 
-    //sort project tasks by deadline
     const alphabetizedTasks = project.project_tasks.sort(function (a, b) {
         let c = new Date(a.deadline)
         let d = new Date(b.deadline)
         return c - d
     })
     const sortedTasks = alphabetizedTasks.filter(t => t.archived != true)
-
-    //sort contacts alphabetically
     const alphabetizedContacts = project.contacts.sort((a, b) => a.name.localeCompare(b.name))
     const sortedContacts = alphabetizedContacts.filter(c => c.archived != true)
-
-    //get all team members for the project
     let allTeamMembers = []
     let teamMembers = []
     project.project_tasks.map(pt => allTeamMembers.push(pt.team_members))
     allTeamMembers.flat().map(tm => teamMembers.includes(tm) ? null : teamMembers.push(tm))
 
-    //new task submit
     const taskSubmit = (e) => {
         e.preventDefault()
         const task = {
@@ -84,7 +75,6 @@ const ProjectCard = ({ project, createTask, deleteTask, updateTask, deleteContac
         setNotes('')
     }
 
-    //used for project notes AND project name
     const notesFormReset = () => {
         setProjectNotes(project.notes)
         setEditNotesShow(false)
@@ -92,7 +82,6 @@ const ProjectCard = ({ project, createTask, deleteTask, updateTask, deleteContac
         setEditProjectNameShow(false)
     }
 
-    //used for project notes AND project name
     const projectNotesSubmit = (e) => {
         e.preventDefault()
 
@@ -134,7 +123,6 @@ const ProjectCard = ({ project, createTask, deleteTask, updateTask, deleteContac
 
     const toggleProjectArchived = () => {
         const projectData = {
-
             notes: project.notes,
             id: projectId,
             name: project.name,
@@ -183,7 +171,6 @@ const ProjectCard = ({ project, createTask, deleteTask, updateTask, deleteContac
                     <ListGroup className="list-group-hover list-group-flush">
                         <ListGroupItem id="project-card-item" onClick={() => setTasksShow(!tasksShow)} action className="list-group-item-margin">Tasks</ListGroupItem>
                         <ListGroupItem id="project-card-item" onClick={() => setContactsShow(!contactsShow)} action className="list-group-item-margin">Contacts</ListGroupItem>
-                        {/* <ListGroupItem onClick={() => setTeamShow(!teamShow)} action >Team</ListGroupItem> */}
                         <ListGroupItem id="project-card-item" onClick={() => setNotesShow(!notesShow)} action>Notes</ListGroupItem>
                     </ListGroup>
                 </Card.Body>
@@ -202,8 +189,6 @@ const ProjectCard = ({ project, createTask, deleteTask, updateTask, deleteContac
                 </Button>
                 </Modal.Footer>
             </Modal>
-
-
             <Modal
                 show={teamShow}
                 onHide={() => setTeamShow(false)}
@@ -278,7 +263,6 @@ const ProjectCard = ({ project, createTask, deleteTask, updateTask, deleteContac
             >
                 <Modal.Header closeButton>
                     <h1>{project.name} Notes</h1>
-                    {/* <img width="34" height="34" id="edit-note" alt="back" src={New2}/> */}
                 </Modal.Header>
                 <Modal.Body>
                     {!editNotesShow ?
@@ -299,7 +283,6 @@ const ProjectCard = ({ project, createTask, deleteTask, updateTask, deleteContac
                     }
                 </Modal.Body>
             </Modal>
-
             <Modal
                 show={tasksShow}
                 onHide={() => setTasksShow(false)}
@@ -322,7 +305,7 @@ const ProjectCard = ({ project, createTask, deleteTask, updateTask, deleteContac
                             <Col xs={1}>
                                 <Button id="task-submit" onClick={e => taskSubmit(e)} variant="primary float-right" type="submit">
                                     Create
-                    </Button>
+                                </Button>
                             </Col>
                         </Row>
                     </Form>
@@ -338,7 +321,8 @@ const ProjectCard = ({ project, createTask, deleteTask, updateTask, deleteContac
                                         createTeamMemberProjectTask={createTeamMemberProjectTask}
                                         deleteTeamMemberProjectTask={deleteTeamMemberProjectTask}
                                         updateTask={updateTask} projectId={projectId} key={pt.id}
-                                    />)
+                                    />
+                                )
                             })}
                         </tbody>
                     </Table>

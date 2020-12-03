@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Avatar1 from '../assets/avatar1.png'
 import Avatar2 from '../assets/avatar2.png'
 import Avatar3 from '../assets/avatar3.png'
 import Avatar4 from '../assets/avatar4.png'
 import Avatar5 from '../assets/avatar5.png'
 import Avatar6 from '../assets/avatar6.png'
-import { Card, ListGroup, ListGroupItem, Col, Figure, OverlayTrigger, Tooltip, Button } from 'react-bootstrap'
+import { OverlayTrigger, Tooltip } from 'react-bootstrap'
 
 const TeamMembers = ({ teamMember, teamMemberClick }) => {
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Card, ListGroupItem, Table, Form, Row, Col, Button } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 import X from '../assets/x.png'
 import X2 from '../assets/x2.png'
 import Check from '../assets/check.png'
