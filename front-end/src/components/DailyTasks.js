@@ -82,7 +82,6 @@ const DailyTasks = ({ task, updateDailyTask, deleteDailyTask }) => {
                         <Form.Control type="date" onChange={e => setEditDeadline(e.target.value)} value={editDeadline} />
                     </td>
                 }
-
                 {!formShow ?
 
                     <td className="align-middle" style={{ width: "94%" }} id="daily-task-rows" onClick={() => resetEditForm()}>{task.description}</td>
@@ -103,14 +102,12 @@ const DailyTasks = ({ task, updateDailyTask, deleteDailyTask }) => {
                         <img width="15" onClick={() => formReset()} className="button" height="20" alt="archive" src={X2} />
                     </td>
                 }
-
                 {archived && !formShow ?
 
                     <td className="align-middle button2" id="archive-x" size="sm" style={{ textAlign: "right" }}><img onClick={() => deleteTask()} width="15" height="20" alt="archive" src={X} /></td>
                     :
                     null
                 }
-
             </tr>
         </>
     )

@@ -215,7 +215,7 @@ body {
   height: 237px;
   width: 322.8px;
   background-color: rgb(223, 234, 245);
-  border-color: rgb(175, 180, 185);
+  /* border-color: rgb(175, 180, 185); */
   align-items:center;
   box-shadow: 0 3px 3px 0 rgba(0,0,0,0.2);
 }

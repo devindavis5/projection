@@ -151,7 +151,7 @@ const ProjectCard = ({ project, createTask, deleteTask, updateTask, deleteContac
     return (
 
         <div className="project-card">
-            <Card style={{ width: '20.3rem' }} className="text-center mb-4" id="project-card" border="primary" text="white">
+            <Card style={{ width: '20.3rem' }} className="text-center mb-4" id="project-card" text="white">
                 <Card.Header>
                     {!editProjectNameShow ?
                         <span onClick={() => resetEditProjectNameForm()} id="project-card-title">{project.name}</span>
