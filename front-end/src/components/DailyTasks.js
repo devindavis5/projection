@@ -81,7 +81,6 @@ const DailyTasks = ({ task, updateDailyTask, deleteDailyTask }) => {
                     </td>
                 }
                 {!formShow ?
-
                     <td className="align-middle" style={{ width: "94%" }} id="daily-task-rows" onClick={() => resetEditForm()}>{task.description}</td>
                     :
                     <td style={{ width: "90%" }} class="align-middle">
@@ -89,7 +88,6 @@ const DailyTasks = ({ task, updateDailyTask, deleteDailyTask }) => {
                     </td>
                 }
                 {!formShow ?
-
                     <td className="align-middle button2" id="daily-task-rows" size="sm" style={{ textAlign: "right" }}><img onClick={(e) => toggleDailyTaskArchive(e)} width="25" height="25" alt="archive" src={findSource()} /></td>
 
                     :
@@ -101,7 +99,6 @@ const DailyTasks = ({ task, updateDailyTask, deleteDailyTask }) => {
                     </td>
                 }
                 {archived && !formShow ?
-
                     <td className="align-middle button2" id="archive-x" size="sm" style={{ textAlign: "right" }}><img onClick={() => deleteTask()} width="15" height="20" alt="archive" src={X} /></td>
                     :
                     null
