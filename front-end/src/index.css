@@ -13,7 +13,6 @@ body {
 }
 
 .title {
-  /* padding-top: 15%; */
   text-align: center;
 }
 
@@ -28,7 +27,6 @@ body {
 }
 
 .login-button {
-  /* margin-top: 3%; */
   text-align: center;
 }
 
@@ -41,40 +39,21 @@ body {
   height: 100vh;
 }
 
-/* .projects {
-  height: 70vh;
-} */
-
 .tasks {
   height: 70vh;
 }
-
-/* .project-card { */
-  /* display: inline-block; */
-  /* width: 22rem;
-  height: 22rem; */
-  
-  /* border: 0 none; */
-  
-  /* -webkit-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.5);
-  -moz-box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.5);
-  box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.5); */
-/* } */
 
 .project-card.card {
   border-color: rgba(21, 140, 186, 1);
 }
 
 .project-card .card-header {
-  background-color: rgba(21, 140, 186, 1); 
-  /* border-color: transparent; */
-
+  background-color: rgba(21, 140, 186, 1);
 }
 
 .project-card .card-body {
   background-color: white; 
 }
-
 
 .project-card .list-group-item {
   background-color: white; 
@@ -92,25 +71,13 @@ body {
   position:relative;
   border-right: .05px solid rgba(21, 140, 186, .4);
 }
-/* 
-.projects-div.card-columns {
-  float: left;
-  padding-left: 3%;
-  width: 60%;
-  height: 100%;
-  overflow-y:auto;
-  float:left;
-  position:relative;
-} */
 
 .daily-tasks-div {
   padding-top: 24px;
   float: right;
-  /* padding-right: 3%; */
   width: 40%;
   height: 85vh;
   overflow-y:auto;
-  /* margin-right: 20%; */
   float:left;
   position: relative;
   display: flex;
@@ -122,36 +89,8 @@ body {
   width: 85%;
   overflow-y: auto;
   position: relative;
-  /* border: 3px solid rgba(21, 140, 186, .5); */
-  /* border: 2px solid rgba(21, 140, 186, 1); */
-  /* box-shadow: 10px 4px 20px 5px rgba(212, 212, 212, 0.5); */
   box-shadow: 0 4px 5px 0 rgba(0,0,0,0.2);
-  /* background-color: rgb(223, 234, 245); */
-  /* border-radius: 5px; */
 }
-
-/* .daily-tasks-div .table {
-  background-color: rgb(223, 234, 245);
-} */
-
-/* #daily-task-table {
-  border-collapse: separate;
-  border-spacing: 0 3px;
-} */
-
-/* #daily-task-rows {
-  background-color: white;
-} */
-
-/* .daily-tasks-div .card-header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 65%;
-  background: #bbb;
-  z-index: 2;
-  height: 20px; 
-} */
 
 .team-members-div {
   position: fixed;
@@ -163,15 +102,8 @@ body {
   justify-content: center;
   overflow: hidden;
   border-top: 3px solid rgba(21, 140, 186, 1);
-  /* background-color: rgba(21, 140, 186, 1); */
   background-color: rgb(223, 234, 245); 
 }
-
-
-
-/* .projects-page {
-  background-color: blue;
-} */
 
 #phone {
   white-space: nowrap;
@@ -215,7 +147,6 @@ body {
   height: 237px;
   width: 322.8px;
   background-color: rgb(223, 234, 245);
-  /* border-color: rgb(175, 180, 185); */
   align-items:center;
   box-shadow: 0 3px 3px 0 rgba(0,0,0,0.2);
 }
@@ -278,10 +209,6 @@ body {
   background-color: rgb(223, 234, 245);
 }
 
-/* #daily-tasks-card {
-  background-color: rgb(245, 249, 255);
-} */
-
 #project-card-body {
   background-color: rgb(223, 234, 245);
 }
@@ -291,22 +218,11 @@ body {
   border:0 !important;
 }
 
-/* .borderless td, .borderless th {
-  border: none;
-  border-bottom: none !important;
-  border-top: none !important;
-} */
-
 #create-daily {
   float: right;
   margin-bottom: 0rem;
   margin-right: .8rem;
 }
-
-/* #daily-task-description {
-  width: 20.35rem;
-  padding-right: 0;
-} */
 
 .daily-task-archive-div {
   position: absolute;
@@ -338,14 +254,9 @@ body {
 }
 
 #daily-task-title {
-  /* background-color: blue; */
   margin-top: 1rem;
   margin-bottom: 1.3rem;
 }
-
-/* #new-daily-task-form {
-  position: fixed;
-} */
 
 #project-archive-toggle {
   float: right;
@@ -363,18 +274,9 @@ body {
   left: 1rem;
 }
 
-/* #team-member-button {
-  background-color: rgb(223, 234, 245);
-  border: none;
-  padding: 2rem;
-} */
-
 #team-member-pic-row {
   border-top: none;
   text-align: center;
-  /* margin-right: 5rem; */
-  /* padding-right: 0;
-  border-right: 0; */
 }
 
 #team-member-pic {
@@ -389,25 +291,11 @@ body {
   padding-left: 0;
 }
 
-/* #project-task-table {
-  overflow: hidden;
-  object-fit: contain;
-  overflow-y: hidden;
-  overflow-x: hidden;
-} */
-
 #team-emblem {
   padding-right: 0;
-  /* padding-left: 0; */
 }
 
-/* #confirm-change {
-  right: 0;
-} */
-
 .team-member-checkbox {
-  /* justify-content: center;
-  justify-items: center; */
   text-align: center;
 }
 
@@ -474,27 +362,8 @@ body {
 
 
 .button2 {
-  /* transition: transform 0.4s;
-  transform: scale(1); */
   cursor: pointer;
 }
-
-/* .button2:hover {
-  transform: scale(1.1);
-} */
-
-/* .button2 {
-  -webkit-filter: brightness(100%);
-}
-
-.button2:hover {
-  -webkit-filter: brightness(70%);
-  -webkit-transition: all 1s ease;
-  -moz-transition: all 1s ease;
-  -o-transition: all 1s ease;
-  -ms-transition: all 1s ease;
-  transition: all 1s ease;
-} */
 
 .button2:hover > .overlay {
   width:100%;
@@ -506,7 +375,6 @@ body {
 }
 
 #project-card {
-  /* filter: drop-shadow(0 0 2px rgba(0,0,0,0.2)); */
   box-shadow: 0 3px 3px 0 rgba(0,0,0,0.2);
 }
 

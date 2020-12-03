@@ -27,7 +27,7 @@ $ rails s
 ```bash
 $ npm i
 ```
-**5.** You're now all set! From the front-end, run the app: 
+**6.** You're now all set! From the front-end, run the app: 
 ```bash
 $ npm start
 ```
