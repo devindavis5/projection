@@ -3,10 +3,8 @@ import { Navbar, Nav, Modal, Table, } from 'react-bootstrap';
 import Profile from './Profile'
 import Avatar8 from '../assets/avatar8.png'
 
-
 const NavBar = ({ name, email, count, updateUser, id }) => {
     const [profile, setProfile] = useState(false)
-
 
     const logout = () => {
         localStorage.clear()
@@ -29,7 +27,6 @@ const NavBar = ({ name, email, count, updateUser, id }) => {
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
-
             <Modal
                 show={profile}
                 onHide={() => toggleProfile()}
@@ -48,7 +45,6 @@ const NavBar = ({ name, email, count, updateUser, id }) => {
             </Modal>
         </div>
     )
-
 }
 
 export default NavBar

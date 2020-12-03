@@ -1,12 +1,9 @@
-import React, { Component, useState } from 'react';
-import { Navbar, ListGroupItem, Nav, Button, Form, FormControl, Modal, Table, Row, Col } from 'react-bootstrap';
-import Logo from '../assets/biologo2.png'
-import Avatar8 from '../assets/avatar8.png'
+import React, { useState } from 'react';
+import { Form } from 'react-bootstrap';
 import X2 from '../assets/x2.png'
 import Check from '../assets/check.png'
 
-
-const Profile = ({ name, email, count, updateUser, id }) => {
+const Profile = ({ email, updateUser }) => {
     const [emailShow, setEmailShow] = useState(false)
     const [userEmail, setUserEmail] = useState(email)
 

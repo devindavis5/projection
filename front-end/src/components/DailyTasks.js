@@ -16,7 +16,6 @@ const DailyTasks = ({ task, updateDailyTask, deleteDailyTask }) => {
     let dd = split[2]
     let yyyy = split[0]
     let deadline = mm + '/' + dd + '/' + yyyy
-
     const taskId = task.id
 
     const deleteTask = () => {
@@ -72,7 +71,6 @@ const DailyTasks = ({ task, updateDailyTask, deleteDailyTask }) => {
     }
 
     return (
-
         <>
             <tr >
                 {!formShow ?
