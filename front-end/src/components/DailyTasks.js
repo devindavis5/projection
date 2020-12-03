@@ -62,7 +62,7 @@ const DailyTasks = ({ task, updateDailyTask, deleteDailyTask }) => {
     const toggleDailyTaskArchive = (e) => {
         e.preventDefault()
         const taskData = {
-            deadline: editDeadline,
+            deadline: task.deadline,
             description: task.description,
             archived: !task.archived,
             id: taskId
