@@ -8,7 +8,6 @@ const ProjectTeamMember = ({ team }) => {
             {team.name}
         </Col>
     )
-
 }
 
 export default ProjectTeamMember
