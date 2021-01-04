@@ -3,7 +3,6 @@ import ProjectTask from './ProjectTask'
 import ProjectContact from './ProjectContact'
 import ProjectTeamMember from './ProjectTeamMember'
 import { Card, ListGroup, ListGroupItem, Col, Row, Modal, Table, Container, Form, Button } from 'react-bootstrap'
-import 'moment-timezone';
 import New from '../assets/new1.png'
 import X2 from '../assets/x2.png'
 import Check from '../assets/check.png'
