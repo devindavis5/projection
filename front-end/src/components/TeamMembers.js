@@ -45,7 +45,6 @@ const TeamMembers = ({ teamMember, teamMemberClick }) => {
             ))}
         </div>
     )
-
 }
 
 export default TeamMembers
